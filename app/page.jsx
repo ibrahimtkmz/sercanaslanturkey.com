@@ -58,45 +58,19 @@ export default function Page() {
   const highlights = useMemo(
     () => [
       {
-        title: "Tıbbi danışmanlık",
-        desc: "Doktor kontrolünde kişiye özel eksozom planı",
-        icon: <ShieldCheck className="h-5 w-5" />,
-      },
-      {
-        title: "Hızlı dönüş",
-        desc: "WhatsApp üzerinden aynı gün randevu",
-        icon: <MessageCircle className="h-5 w-5" />,
-      },
-      {
-        title: "Şeffaf fiyat",
-        desc: "Seans sayısı ve ücretler net paylaşılır",
-        icon: <BadgeCheck className="h-5 w-5" />,
-      },
-    ],
-    []
-  );
-
-  const benefits = useMemo(
-    () => [
-      {
-        title: "Onarım ve destek",
-        desc: "Saçlı derinin ihtiyaç duyduğu büyüme faktörlerini hedefler.",
+        title: "Saç dökülmesi", 
+        desc: "Saç tellerinin güçlendirilmesi ve dökülme döneminde destek.",
         icon: <HeartPulse className="h-5 w-5" />,
       },
       {
-        title: "Uygulama sonrası bakım",
-        desc: "Saç ekimi sonrasında iyileşme dönemini destekleyici yaklaşım.",
+        title: "Saç ekimi sonrası", 
+        desc: "Operasyon sonrası iyileşmeyi hızlandıran onarıcı yaklaşım.",
         icon: <Stethoscope className="h-5 w-5" />,
       },
       {
-        title: "Kısa seans",
-        desc: "Planlanan protokole göre 20-30 dakikalık uygulamalar.",
-        icon: <CalendarClock className="h-5 w-5" />,
-      },
-      {
-        title: "Kişiye özel",
-        desc: "Mevcut durumunuz ve beklentinize göre seans aralıkları belirlenir.",
-        icon: <Sparkles className="h-5 w-5" />,
+        title: "Güçlü deri bakımı",
+        desc: "Nem dengesi, canlılık ve sağlık için mikro ortam desteği.",
+        icon: <ShieldCheck className="h-5 w-5" />,
       },
     ],
     []
@@ -105,20 +79,20 @@ export default function Page() {
   const steps = useMemo(
     () => [
       {
-        title: "Ön görüşme",
-        desc: "Durumunu WhatsApp ile paylaş, medikal danışman seni arasın.",
+        title: "Hızlı ön görüşme",
+        desc: "WhatsApp ile saç durumunu paylaş, aynı gün medikal danışman geri dönüş yapsın.",
       },
       {
-        title: "Değerlendirme",
-        desc: "Doktor kontrolünde saçlı deri ihtiyacın belirlenir.",
+        title: "Doktor değerlendirmesi",
+        desc: "Saçlı deri ihtiyacı ve hedeflere göre eksozom protokolü planlanır.",
       },
       {
-        title: "Protokol",
-        desc: "Eksozom seans sayısı, destekleyici bakım ve fiyat bilgisi netleşir.",
+        title: "Kişiye özel seans",
+        desc: "20-30 dakikalık uygulamalar, gerekli seans sayısı ve aralıkları netleştirilir.",
       },
       {
-        title: "Takip",
-        desc: "Her seans sonrası kontrol ve bakım önerileri sunulur.",
+        title: "Takip ve bakım",
+        desc: "Her seans sonrası kontrol, destekleyici bakım ve sonuç takibi sağlanır.",
       },
     ],
     []
@@ -129,17 +103,39 @@ export default function Page() {
       {
         name: "Destekleyici Plan",
         price: "3 seans • 12.000 – 18.000 TL",
-        desc: "Saç ekimi sonrası toparlanma ve bakım amaçlı",
+        desc: "Saç ekimi sonrası iyileşme sürecini desteklemek için planlı uygulamalar.",
       },
       {
         name: "Yoğun Bakım",
         price: "5-6 seans • 20.000 – 28.000 TL",
-        desc: "Dökülme döneminde saçlı deriyi güçlendirme odaklı",
+        desc: "Dökülme döneminde saçlı derinin güçlendirilmesi ve kök desteği.",
       },
       {
         name: "Kombine Protokol",
         price: "Eksozom + Mezoterapi",
-        desc: "Kişiye özel plan ve fiyatlandırma, doktor değerlendirmesi ile",
+        desc: "Doktor eşliğinde belirlenen eksozom ve mezoterapi kombine planı.",
+      },
+    ],
+    []
+  );
+
+  const faqItems = useMemo(
+    () => [
+      {
+        q: "Eksozom uygulaması acıtır mı?",
+        a: "Uygulama lokal anestezi destekli, kısa süren ve tolere edilebilir düzeyde konforlu gerçekleştirilir.",
+      },
+      {
+        q: "Seanslar ne kadar sürüyor?",
+        a: "Planlanan protokole bağlı olarak 20-30 dakika arasında değişir ve aynı gün gündelik yaşama dönüş mümkündür.",
+      },
+      {
+        q: "Kaç seans gerekir?",
+        a: "Doktor değerlendirmesi sonrası saç dökülme seviyesi ve hedefe göre 3-6 seans arası kişiye özel plan oluşturulur.",
+      },
+      {
+        q: "Fiyat bilgisi nasıl paylaşılır?",
+        a: "Hızlı WhatsApp mesajı sonrası uzman ekip ihtiyacına göre şeffaf seans ve ücret detayını paylaşır.",
       },
     ],
     []
@@ -168,7 +164,7 @@ export default function Page() {
             <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-500" />
             <div className="leading-tight">
               <p className="text-xs uppercase tracking-[0.15em] text-emerald-200">Doku Clinic</p>
-              <p className="text-sm font-semibold text-white">Eksozom ve Saç Uygulamaları</p>
+              <p className="text-sm font-semibold text-white">Eksozom Saç Uygulaması</p>
             </div>
           </div>
 
@@ -176,10 +172,10 @@ export default function Page() {
             <Button
               variant="outline"
               className="rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
-              onClick={() => quickContact("Bilgi")}
+              onClick={() => quickContact("Telefon")}
             >
               <Phone className="h-4 w-4" />
-              <span className="ml-2">Hemen Ara</span>
+              <span className="ml-2">0546 737 22 84</span>
             </Button>
             <Button
               className="rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
@@ -193,29 +189,29 @@ export default function Page() {
       </header>
 
       <main>
-        <section className="relative overflow-hidden">
+        <section className="relative overflow-hidden border-b border-white/5">
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0b0d1c] via-[#0d1230] to-slate-950" />
           <div className="absolute -left-40 top-10 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
           <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl" />
 
-          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2">
-            <motion.div {...fade}>
+          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
+            <motion.div {...fade} className="space-y-5">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-emerald-100">
                 <BadgeCheck className="h-3.5 w-3.5" />
-                Doktor kontrolünde eksozom planı
+                Doktor kontrolünde eksozom protokolü
               </div>
 
-              <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
                 Eksozom terapi ile saçlı deride
-                <span className="block text-emerald-200">destek, onarım ve hızlı takip.</span>
+                <span className="block text-emerald-200">onarıcı bakım ve hızlı takip.</span>
               </h1>
 
-              <p className="mt-4 text-base leading-relaxed text-slate-200 sm:text-lg">
-                Doku Clinic ekibiyle ihtiyacına göre eksozom protokolü, seans sayısı ve fiyat bilgisi. WhatsApp üzerinden
-                aynı gün içinde sana özel planı paylaşalım.
+              <p className="max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
+                Saç dökülmesi, saç ekimi sonrası bakım veya saç derisi güçlendirme için kişiye özel eksozom planı. WhatsApp üzerinden
+                aynı gün seni arayıp seans sayısı ve fiyat bilgisini paylaşalım.
               </p>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 {highlights.map((item) => (
                   <div key={item.title} className="flex items-start gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3">
                     <span className="mt-0.5 rounded-xl bg-white/10 p-2 text-emerald-200">{item.icon}</span>
@@ -227,7 +223,7 @@ export default function Page() {
                 ))}
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3">
                 <Button
                   className="rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
                   size="lg"
@@ -250,7 +246,7 @@ export default function Page() {
                 </Button>
               </div>
 
-              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 {["Aynı gün dönüş", "Kişiye özel plan", "Şeffaf fiyat"].map((t) => (
                   <div key={t} className="flex items-center gap-2 rounded-2xl border border-white/5 bg-white/5 px-4 py-3">
                     <CheckCircle2 className="h-4 w-4 text-emerald-300" />
@@ -348,7 +344,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
           <motion.div {...fade} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[{ title: "Doktor kontrolünde", icon: ShieldCheck }, { title: "Modern klinik", icon: Star }, { title: "Planlı takip", icon: CalendarClock }, { title: "Hızlı iletişim", icon: MessageCircle }].map((item) => (
               <Card key={item.title} className="rounded-3xl border-white/10 bg-white/5">
@@ -367,7 +363,7 @@ export default function Page() {
           <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Eksozom uygulaması kimler için?</h2>
-              <p className="mt-2 max-w-2xl text-slate-200">Dökülme döneminde saçlı deride bakım, saç ekimi sonrası destek veya genel güçlendirme ihtiyacı olanlar için planlı protokoller.</p>
+              <p className="mt-2 max-w-2xl text-slate-200">Saç dökülme döneminde, saç ekimi sonrası iyileşme sürecinde veya saçlı deri bakımını güçlendirmek isteyenler için planlı protokoller.</p>
             </div>
             <Button
               variant="outline"
@@ -380,7 +376,7 @@ export default function Page() {
           </motion.div>
 
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            {benefits.map((item, idx) => (
+            {highlights.map((item, idx) => (
               <motion.div key={item.title} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
                 <Card className="rounded-3xl border-white/10 bg-white/5 shadow-sm">
                   <CardContent className="flex gap-4 p-6">
@@ -469,6 +465,41 @@ export default function Page() {
                   </CardContent>
                 </Card>
               </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6" id="faq">
+          <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Sık sorulanlar</h2>
+              <p className="mt-2 text-slate-200">Kısa bilgiler; merak ettiğin detaylar için WhatsApp’tan yazabilirsin.</p>
+            </div>
+            <Button
+              className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90 lg:w-auto"
+              onClick={() => quickContact("Soru")}
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span className="ml-2">Soru Sor</span>
+            </Button>
+          </motion.div>
+
+          <div className="mt-6 grid gap-3">
+            {faqItems.map((item, idx) => (
+              <motion.details
+                key={item.q}
+                {...fade}
+                transition={{ ...fade.transition, delay: idx * 0.05 }}
+                className="group rounded-3xl border border-white/10 bg-white/5 p-5"
+              >
+                <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-white">
+                  {item.q}
+                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-emerald-100 group-open:bg-emerald-500/20">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm text-slate-200">{item.a}</p>
+              </motion.details>
             ))}
           </div>
         </section>

@@ -1,8 +1,9 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Dr. İbrahim | Saç Ekimi ve Estetik Uygulamalar",
-  description: "Saç ekimi, eksozom, mezoterapi, ozon terapi ve botox için kişiye özel planlama ve hızlı iletişim.",
+  title: "Doku Clinic | Eksozom Saç Uygulaması",
+  description:
+    "Eksozom, saç ekimi ve saç dökülmesi için doktor kontrolünde kişiye özel planlama, hızlı WhatsApp iletişimi ve şeffaf fiyat bilgisi.",
 };
 
 export default function RootLayout({ children }) {
