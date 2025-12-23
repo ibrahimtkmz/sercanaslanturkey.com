@@ -83,8 +83,8 @@ export default function Page() {
         desc: "WhatsApp ile saç durumunu paylaş, aynı gün medikal danışman geri dönüş yapsın.",
       },
       {
-        title: "Doktor değerlendirmesi",
-        desc: "Saçlı deri ihtiyacı ve hedeflere göre eksozom protokolü planlanır.",
+        title: "Dr. İbrahim değerlendirmesi",
+        desc: "Saçlı deri ihtiyacı ve hedeflere göre Dr. İbrahim tarafından eksozom protokolü planlanır.",
       },
       {
         title: "Kişiye özel seans",
@@ -113,7 +113,7 @@ export default function Page() {
       {
         name: "Kombine Protokol",
         price: "Eksozom + Mezoterapi",
-        desc: "Doktor eşliğinde belirlenen eksozom ve mezoterapi kombine planı.",
+        desc: "Dr. İbrahim eşliğinde belirlenen eksozom ve mezoterapi kombine planı.",
       },
     ],
     []
@@ -131,7 +131,7 @@ export default function Page() {
       },
       {
         q: "Kaç seans gerekir?",
-        a: "Doktor değerlendirmesi sonrası saç dökülme seviyesi ve hedefe göre 3-6 seans arası kişiye özel plan oluşturulur.",
+        a: "Dr. İbrahim değerlendirmesi sonrası saç dökülme seviyesi ve hedefe göre 3-6 seans arası kişiye özel plan oluşturulur.",
       },
       {
         q: "Fiyat bilgisi nasıl paylaşılır?",
@@ -163,8 +163,8 @@ export default function Page() {
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl gradient-accent" />
             <div className="leading-tight">
-              <p className="text-xs uppercase tracking-[0.15em] text-emerald-200">Doku Clinic</p>
-              <p className="text-sm font-semibold text-white">Eksozom Saç Uygulaması</p>
+              <p className="text-xs uppercase tracking-[0.15em] text-emerald-200">Sercan Aslan Clinic</p>
+              <p className="text-sm font-semibold text-white">Eksozom Saç Bakım Uygulaması</p>
             </div>
           </div>
 
@@ -198,7 +198,7 @@ export default function Page() {
             <motion.div {...fade} className="space-y-5">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-emerald-100">
                 <BadgeCheck className="h-3.5 w-3.5" />
-                Doktor kontrolünde eksozom protokolü
+                Dr. İbrahim kontrolünde eksozom protokolü
               </div>
 
               <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
@@ -207,8 +207,8 @@ export default function Page() {
               </h1>
 
               <p className="max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
-                Saç dökülmesi, saç ekimi sonrası bakım veya saç derisi güçlendirme için kişiye özel eksozom planı. WhatsApp üzerinden
-                aynı gün seni arayıp seans sayısı ve fiyat bilgisini paylaşalım.
+                Saç dökülmesi, saç ekimi sonrası bakım veya saç derisi güçlendirme için Sercan Aslan Clinic’te Dr. İbrahim tarafından
+                kişiye özel eksozom planı. WhatsApp üzerinden aynı gün seni arayıp seans sayısı ve fiyat bilgisini paylaşalım.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-2">
@@ -267,9 +267,11 @@ export default function Page() {
                 <CardContent className="p-6 sm:p-8">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-sm font-medium text-emerald-100">Hızlı bilgi formu</p>
+                      <p className="text-sm font-medium text-emerald-100">Sercan Aslan Clinic</p>
                       <p className="mt-1 text-xl font-semibold tracking-tight text-white">2 dakikada WhatsApp’a yönlendirelim</p>
-                      <p className="mt-2 text-sm text-slate-200">İlgilendiğin uygulamayı seç, bilgilerini bırak, hazır mesaj açılsın.</p>
+                      <p className="mt-2 text-sm text-slate-200">
+                        Dr. İbrahim’e ulaşmak için ilgilendiğin uygulamayı seç, bilgilerini bırak, hazır mesaj açılsın.
+                      </p>
                     </div>
                     <Badge className="rounded-2xl bg-white/10 text-white">Güvenli</Badge>
                   </div>
@@ -342,7 +344,12 @@ export default function Page() {
 
         <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
           <motion.div {...fade} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[{ title: "Doktor kontrolünde", icon: ShieldCheck }, { title: "Modern klinik", icon: Star }, { title: "Planlı takip", icon: CalendarClock }, { title: "Hızlı iletişim", icon: MessageCircle }].map((item) => (
+            {[
+              { title: "Dr. İbrahim kontrolünde", icon: ShieldCheck },
+              { title: "Sercan Aslan Clinic", icon: Star },
+              { title: "Planlı takip", icon: CalendarClock },
+              { title: "Hızlı iletişim", icon: MessageCircle },
+            ].map((item) => (
               <Card key={item.title} className="rounded-3xl border-white/10 bg-white/5">
                 <CardContent className="flex items-center gap-3 p-5">
                   <span className="rounded-xl bg-white/10 p-2 text-emerald-200">
@@ -359,7 +366,10 @@ export default function Page() {
           <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Eksozom uygulaması kimler için?</h2>
-              <p className="mt-2 max-w-2xl text-slate-200">Saç dökülme döneminde, saç ekimi sonrası iyileşme sürecinde veya saçlı deri bakımını güçlendirmek isteyenler için planlı protokoller.</p>
+              <p className="mt-2 max-w-2xl text-slate-200">
+                Saç dökülme döneminde, saç ekimi sonrası iyileşme sürecinde veya saçlı deri bakımını güçlendirmek isteyenler için
+                Dr. İbrahim’in planladığı protokoller.
+              </p>
             </div>
             <Button
               variant="outline"
@@ -392,7 +402,7 @@ export default function Page() {
           <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Plan nasıl ilerliyor?</h2>
-              <p className="mt-2 text-slate-200">İlk mesajdan seans sonuna kadar şeffaf süreç yönetimi.</p>
+              <p className="mt-2 text-slate-200">İlk mesajdan Dr. İbrahim’in seans sonu kontrolüne kadar şeffaf süreç yönetimi.</p>
             </div>
             <Button
               className="w-full rounded-2xl gradient-primary hover:opacity-90 lg:w-auto"
@@ -505,7 +515,7 @@ export default function Page() {
             <div className="space-y-3">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-emerald-100">
                 <ShieldCheck className="h-3.5 w-3.5" />
-                Doktor eşliğinde
+                Dr. İbrahim eşliğinde
               </div>
               <h3 className="text-2xl font-semibold text-white">Sorunu yaz, planı aynı gün öğren</h3>
               <p className="text-sm text-slate-200">
@@ -522,7 +532,7 @@ export default function Page() {
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-emerald-200" />
-                  <span>İstanbul • Doku Clinic</span>
+                  <span>İstanbul • Sercan Aslan Clinic</span>
                 </div>
               </div>
             </div>
@@ -563,7 +573,7 @@ export default function Page() {
 
       <footer className="border-t border-white/10 py-6">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 text-xs text-slate-300 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <span>© {new Date().getFullYear()} Doku Clinic • Eksozom ve saç uygulamaları.</span>
+          <span>© {new Date().getFullYear()} Sercan Aslan Clinic • Eksozom ve saç uygulamaları.</span>
           <span>Bilgilendirme amaçlıdır; tanı/tedavi yerine geçmez.</span>
         </div>
       </footer>
