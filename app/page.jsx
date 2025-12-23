@@ -581,81 +581,132 @@ export default function Page() {
         </section>
 
         <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
-          <div className="grid gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 sm:grid-cols-[1fr,1.05fr] sm:p-8">
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-emerald-100">
-                <MapPin className="h-3.5 w-3.5" />
-                Konum ve sosyal bağlantılar
-              </div>
-              <h3 className="text-2xl font-semibold text-white">Kliniğimize ulaşın</h3>
-              <p className="text-sm text-slate-200">
-                Şişli&rsquo;deki kliniğimizde saç ekimi ve destekleyici tedavi süreçleri için yüz yüze görüşme yapabilirsiniz.
-                Konumu haritadan açın, WhatsApp veya telefonla hızlıca iletişime geçin.
-              </p>
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0b0d1c] via-[#0f172a] to-slate-950" />
+            <div className="absolute -left-10 top-4 h-40 w-40 rounded-full bg-emerald-500/10 blur-3xl" />
+            <div className="absolute right-0 bottom-0 h-52 w-52 rounded-full bg-cyan-500/10 blur-3xl" />
 
-              <div className="space-y-2 text-sm text-slate-200">
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-emerald-200" />
-                  <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="underline decoration-emerald-300/70 decoration-dotted underline-offset-4">
-                    Merkez Mah. İstiklal Cad. No: 36, Şişli / İstanbul
-                  </a>
+            <div className="relative grid gap-0 lg:grid-cols-[1.05fr_1fr]">
+              <div className="space-y-5 border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-emerald-100">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  Klinik iletişim ve yönlendirme
                 </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-emerald-200" />
-                  <a href={`tel:${PHONE_TEL}`} className="hover:underline">
-                    {PHONE_DISPLAY}
-                  </a>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-semibold text-white">Kliniğimize ulaşın</h3>
+                  <p className="text-sm text-slate-200">
+                    Şişli&rsquo;deki kliniğimizde saç ekimi ve destekleyici tedavi süreçleri için yüz yüze görüşme yapabilirsiniz.
+                    Konumu açın, uygun saatleri konuşalım ve sizi bekleyen ekibimizle tanışın.
+                  </p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Instagram className="h-4 w-4 text-emerald-200" />
-                  <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="hover:underline">
-                    Instagram / sercanaslanhairturkey
-                  </a>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                      <MapPin className="h-4 w-4 text-emerald-200" />
+                      Klinik adresi
+                    </div>
+                    <p className="mt-2 text-sm text-slate-200">
+                      <a
+                        href={GOOGLE_MAPS_URL}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline decoration-emerald-300/70 decoration-dotted underline-offset-4"
+                      >
+                        Merkez Mah. İstiklal Cad. No: 36, Şişli / İstanbul
+                      </a>
+                    </p>
+                    <Button
+                      variant="outline"
+                      className="mt-3 w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
+                      onClick={() => window.open(GOOGLE_MAPS_URL, "_blank", "noopener,noreferrer")}
+                    >
+                      <MapPin className="h-4 w-4" />
+                      <span className="ml-2">Haritada Aç</span>
+                    </Button>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                      <Phone className="h-4 w-4 text-emerald-200" />
+                      Hızlı bağlantılar
+                    </div>
+                    <div className="mt-2 space-y-2 text-sm text-slate-200">
+                      <button
+                        type="button"
+                        onClick={() => window.open(`tel:${PHONE_TEL}`, "_self")}
+                        className="flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-left transition hover:border-white/20"
+                      >
+                        <span>Telefon: {PHONE_DISPLAY}</span>
+                        <ArrowRight className="h-4 w-4 text-emerald-200" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => window.open(INSTAGRAM_URL, "_blank", "noopener,noreferrer")}
+                        className="flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-left transition hover:border-white/20"
+                      >
+                        <span>Instagram / sercanaslanhairturkey</span>
+                        <ArrowRight className="h-4 w-4 text-emerald-200" />
+                      </button>
+                    </div>
+                    <Button
+                      className="mt-3 w-full rounded-2xl gradient-primary hover:opacity-90"
+                      onClick={() => quickContact("Konum için WhatsApp")}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      <span className="ml-2">WhatsApp ile Randevu</span>
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Card className="rounded-2xl border-white/10 bg-white/5">
+                    <CardContent className="space-y-2 p-4">
+                      <p className="text-sm font-semibold text-white">Danışman desteği</p>
+                      <p className="text-sm text-slate-200">Seans ve fiyat planlamasını WhatsApp üzerinden hızlıca öğrenin.</p>
+                      <Button
+                        className="w-full rounded-2xl gradient-primary hover:opacity-90"
+                        onClick={() => quickContact("WhatsApp hızlı")}
+                      >
+                        <MessageCircle className="h-4 w-4" />
+                        <span className="ml-2">Mesaj Gönder</span>
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="rounded-2xl border-white/10 bg-white/5">
+                    <CardContent className="space-y-2 p-4">
+                      <p className="text-sm font-semibold text-white">Randevu oluştur</p>
+                      <p className="text-sm text-slate-200">Uygun saatleri öğren, planı netleştir ve kliniğe gel.</p>
+                      <Button
+                        variant="outline"
+                        className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
+                        onClick={() => quickContact("Randevu isteği")}
+                      >
+                        <CalendarClock className="h-4 w-4" />
+                        <span className="ml-2">Randevu Talep Et</span>
+                      </Button>
+                    </CardContent>
+                  </Card>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  className="rounded-2xl gradient-primary hover:opacity-90"
-                  onClick={() => quickContact("Konum için WhatsApp")}
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  <span className="ml-1">WhatsApp</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  className="rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
-                  onClick={() => window.open(`tel:${PHONE_TEL}`, "_self")}
-                >
-                  <Phone className="h-4 w-4" />
-                  <span className="ml-1">Ara</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  className="rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
-                  onClick={() => window.open(GOOGLE_MAPS_URL, "_blank", "noopener,noreferrer")}
-                >
-                  <MapPin className="h-4 w-4" />
-                  <span className="ml-1">Haritada Aç</span>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-slate-900">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-cyan-500/10" />
-              <iframe
-                src={MAP_EMBED_URL}
-                title="Sercan Aslan Clinic Harita"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="relative h-full min-h-[260px] w-full"
-              />
-              <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-slate-950/70 px-3 py-1 text-xs font-semibold text-emerald-100 ring-1 ring-white/10">
-                <MapPin className="h-3.5 w-3.5" />
-                <span>Sercan Aslan Clinic</span>
-              </div>
-              <div className="absolute bottom-4 right-4 rounded-full bg-slate-950/70 px-3 py-1 text-[11px] font-semibold text-emerald-100 ring-1 ring-white/10">
-                Konumu büyütmek için haritaya tıklayın
+              <div className="relative h-full overflow-hidden rounded-b-3xl lg:rounded-bl-none lg:rounded-r-3xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-cyan-500/15" />
+                <iframe
+                  src={MAP_EMBED_URL}
+                  title="Sercan Aslan Clinic Harita"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="relative h-full min-h-[320px] w-full"
+                />
+                <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-slate-950/70 px-3 py-1 text-xs font-semibold text-emerald-100 ring-1 ring-white/10">
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span>Sercan Aslan Clinic</span>
+                </div>
+                <div className="absolute bottom-4 right-4 rounded-full bg-slate-950/70 px-3 py-1 text-[11px] font-semibold text-emerald-100 ring-1 ring-white/10">
+                  Konumu büyütmek için haritaya tıklayın
+                </div>
               </div>
             </div>
           </div>
