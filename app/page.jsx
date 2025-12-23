@@ -1,443 +1,722 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  BadgeCheck,
+  CalendarClock,
+  CheckCircle2,
+  HeartPulse,
+  Info,
+  Instagram,
+  MapPin,
+  MessageCircle,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Stethoscope,
+} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 
-const BRAND = {
-  name: "YENİ KLİNİK ADI", // <-- SADECE BURAYI DEĞİŞTİR
-  doctor: "Dr. İbrahim",
-  whatsappPhoneDisplay: "+90 555 140 04 04",
-  whatsappPhoneE164: "905551400404", // + ve boşluk olmadan
-  heroTitleTop: "Eksozom Tedavisi:",
-  heroTitleMid: "Cilt Gençleştirme ve Saç Onarımında",
-  heroTitleBottom: "Hücresel Yenilenmenin Gücünü Keşfedin",
+const WHATSAPP_PHONE_E164 = "905467372284"; // 0546 737 22 84
+const PHONE_DISPLAY = "0546 737 22 84";
+const PHONE_TEL = "+905467372284";
+const INSTAGRAM_URL =
+  "https://www.instagram.com/sercanaslanhairturkey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D";
+const GOOGLE_MAPS_URL =
+  "https://www.google.com/maps/place/Sercan+Aslan+-+Hair+Transplant+Turkey/@41.065804,28.997298,11z/data=!4m6!3m5!1s0x14cab7f4bdbae7ab:0x643f2261dec39eaa!8m2!3d41.065804!4d28.9972984!16s%2Fg%2F11rb3wk1_9?hl=tr-TR&entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2OUgBUAM%3D";
+const MAP_EMBED_URL = "https://www.google.com/maps?q=41.065804,28.997298&z=14&output=embed";
+
+const fade = {
+  initial: { opacity: 0, y: 18 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-120px" },
+  transition: { duration: 0.65, ease: "easeOut" },
 };
 
-function waLink(message) {
-  const text = encodeURIComponent(message || "Merhaba, bilgi almak istiyorum.");
-  return `https://api.whatsapp.com/send?phone=${BRAND.whatsappPhoneE164}&text=${text}`;
+function formatPhoneTR(input) {
+  const digits = (input || "").replace(/\D/g, "");
+  return digits.slice(0, 11);
 }
 
-const Icon = {
-  Check: (p) => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...p}>
-      <path d="M20 6L9 17l-5-5" />
-    </svg>
-  ),
-  Star: (p) => (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-      <path d="M12 17.27l5.18 3.04-1.4-5.97L20.5 9.5l-6.1-.52L12 3.5 9.6 8.98l-6.1.52 4.72 4.84-1.4 5.97L12 17.27z" />
-    </svg>
-  ),
-};
+function buildWhatsAppUrl({ name, phone, interest }) {
+  const lines = [
+    "Merhaba, eksozom sayfanızdan bilgi almak istiyorum.",
+    name ? `\nİsim Soyisim: ${name}` : null,
+    phone ? `Telefon: ${phone}` : null,
+    interest ? `İlgilendiğim uygulama: ${interest}` : null,
+    "\nMüsait olduğunuzda dönüş yapabilir misiniz?",
+  ].filter(Boolean);
+
+  const encoded = encodeURIComponent(lines.join("\n"));
+  return `https://wa.me/${WHATSAPP_PHONE_E164}?text=${encoded}`;
+}
 
 export default function Page() {
-  const [form, setForm] = useState({ name: "", phone: "", note: "" });
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [interest, setInterest] = useState("Eksozom");
 
-  const heroBullets = useMemo(
-    () => [
-      "Ciltte hücresel yenilenmeyi destekler",
-      "Saç köklerini güçlendirir, dökülmeyi azaltmaya yardımcı olur",
-      "Yüz, boyun, dekolte ve elde gençleştirme etkisi sağlar",
-      "Cilt tonunu eşitleyip parlaklık kazandırır",
-      "İnce çizgi ve mat görünümü iyileştirir",
-      "Cilt dokusunu onararak canlılık kazandırır",
-      "Saç ekimi sonrası iyileşmeyi destekler",
-      "Doğal ve konforlu bir uygulamadır",
-      "Kişiye özel protokollerle uygulanır",
-      `${BRAND.name} dermatoloji uzmanlığıyla güvenlidir`,
-    ],
-    []
-  );
-
-  const testimonials = useMemo(
+  const highlights = useMemo(
     () => [
       {
-        name: "Luigi Rosato",
-        when: "1 ay önce",
-        text:
-          "Kendimi gerçekten güvende hissettim. Ekibin yaklaşımı çok profesyoneldi ve her adım açık şekilde anlatıldı.",
+        title: "Saç dökülmesi", 
+        desc: "Saç tellerinin güçlendirilmesi ve dökülme döneminde destek.",
+        icon: <HeartPulse className="h-5 w-5" />,
       },
       {
-        name: "Gloria Sanchez",
-        when: "5 gün önce",
-        text:
-          "Tüm personel çok yardımsever ve güler yüzlü. Tekrar gelirim ve memnuniyetle tavsiye ederim.",
+        title: "Saç ekimi sonrası", 
+        desc: "Operasyon sonrası iyileşmeyi hızlandıran onarıcı yaklaşım.",
+        icon: <Stethoscope className="h-5 w-5" />,
       },
       {
-        name: "Renáta Szakos-Pétervári",
-        when: "2 hafta önce",
-        text:
-          "Organizasyon mükemmeldi. Klinik ortamı modern ve konforlu; süreç profesyonelce yönetildi.",
-      },
-      {
-        name: "Alessio Minichiello",
-        when: "2 hafta önce",
-        text:
-          "Her şey tertemiz ve düzenliydi. Personel her adımda rahat hissettirdi. Şiddetle tavsiye ederim.",
+        title: "Güçlü deri bakımı",
+        desc: "Nem dengesi, canlılık ve sağlık için mikro ortam desteği.",
+        icon: <ShieldCheck className="h-5 w-5" />,
       },
     ],
     []
   );
 
-  const faqs = useMemo(
+  const steps = useMemo(
     () => [
       {
-        q: "Eksozom tedavisi nedir? Nasıl çalışır?",
-        a:
-          "Eksozom tedavisi; hücrelerin yenilenme ve onarım sinyallerini destekleyen biyolojik içeriklerle yapılan gelişmiş bir uygulamadır. Saç köklerinde folikül aktivitesini destekler; ciltte kolajen/elastin üretimine yardımcı olur.",
+        title: "Hızlı ön görüşme",
+        desc: "WhatsApp ile saç durumunu paylaş, aynı gün medikal danışman geri dönüş yapsın.",
       },
       {
-        q: "Eksozom tedavisi saç dökülmesine gerçekten iyi gelir mi?",
-        a:
-          "Kişiden kişiye değişmekle birlikte; eksozomlar saç köklerinin hücresel iletişimini destekleyerek zayıflamış foliküllerin yeniden aktive olmasına ve dökülmenin yavaşlamasına yardımcı olabilir.",
+        title: "Dr. İbrahim değerlendirmesi",
+        desc: "Saçlı deri ihtiyacı ve hedeflere göre Dr. İbrahim tarafından eksozom protokolü planlanır.",
       },
       {
-        q: "Eksozom tedavisi cilde hangi faydaları sağlar?",
-        a:
-          "Parlaklık, sıkılık, elastikiyet artışı, gözenek görünümünde iyileşme, ince çizgilerde azalma ve doku yenilenmesini destekleme gibi etkiler hedeflenir.",
+        title: "Kişiye özel seans",
+        desc: "20-30 dakikalık uygulamalar, gerekli seans sayısı ve aralıkları netleştirilir.",
       },
       {
-        q: "Uygulama süreci ne kadar sürer?",
-        a:
-          "Genelde 30–40 dakika sürer. İşlem sonrası çoğu kişi günlük hayatına aynı gün devam edebilir. Önerilen seans sayısı ihtiyaca göre planlanır.",
+        title: "Takip ve bakım",
+        desc: "Her seans sonrası kontrol, destekleyici bakım ve sonuç takibi sağlanır.",
       },
     ],
     []
   );
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const msg =
-      `Merhaba, ücretsiz danışmanlık için form doldurdum.\n\n` +
-      `Ad Soyad: ${form.name}\n` +
-      `Telefon: ${form.phone}\n` +
-      `Not: ${form.note || "-"}\n\n` +
-      `Eksozom hakkında bilgi almak istiyorum.`;
-    window.open(waLink(msg), "_blank", "noopener,noreferrer");
+  const packages = useMemo(
+    () => [
+      {
+        name: "Destekleyici Plan",
+        price: "3 seans • 12.000 – 18.000 TL",
+        desc: "Saç ekimi sonrası iyileşme sürecini desteklemek için planlı uygulamalar.",
+      },
+      {
+        name: "Yoğun Bakım",
+        price: "5-6 seans • 20.000 – 28.000 TL",
+        desc: "Dökülme döneminde saçlı derinin güçlendirilmesi ve kök desteği.",
+      },
+      {
+        name: "Kombine Protokol",
+        price: "Eksozom + Mezoterapi",
+        desc: "Dr. İbrahim eşliğinde belirlenen eksozom ve mezoterapi kombine planı.",
+      },
+    ],
+    []
+  );
+
+  const faqItems = useMemo(
+    () => [
+      {
+        q: "Eksozom uygulaması acıtır mı?",
+        a: "Uygulama lokal anestezi destekli, kısa süren ve tolere edilebilir düzeyde konforlu gerçekleştirilir.",
+      },
+      {
+        q: "Seanslar ne kadar sürüyor?",
+        a: "Planlanan protokole bağlı olarak 20-30 dakika arasında değişir ve aynı gün gündelik yaşama dönüş mümkündür.",
+      },
+      {
+        q: "Kaç seans gerekir?",
+        a: "Dr. İbrahim değerlendirmesi sonrası saç dökülme seviyesi ve hedefe göre 3-6 seans arası kişiye özel plan oluşturulur.",
+      },
+      {
+        q: "Fiyat bilgisi nasıl paylaşılır?",
+        a: "Hızlı WhatsApp mesajı sonrası uzman ekip ihtiyacına göre şeffaf seans ve ücret detayını paylaşır.",
+      },
+    ],
+    []
+  );
+
+  const submitLead = (event) => {
+    event?.preventDefault();
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length < 10) return;
+
+    const url = buildWhatsAppUrl({ name: name.trim(), phone: digits, interest });
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const quickContact = (selected) => {
+    setInterest(selected);
+    const url = buildWhatsAppUrl({ name: name.trim(), phone: phone.trim(), interest: selected });
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <div className="min-h-screen bg-[#0b1220] text-white">
-      {/* Sticky WhatsApp */}
-      <a
-        href={waLink("Merhaba, bilgi almak istiyorum.")}
-        className="fixed bottom-5 right-5 z-50 rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-black shadow-lg hover:opacity-90"
-      >
-        WhatsApp • {BRAND.whatsappPhoneDisplay}
-      </a>
-
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0b1220]/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    <div className="min-h-screen bg-slate-950 text-white">
+      <header className="sticky top-0 z-40 border-b border-white/5 bg-slate-950/80 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl bg-white/10" />
+            <div className="h-10 w-10 rounded-2xl gradient-accent" />
             <div className="leading-tight">
-              <div className="text-sm font-semibold">{BRAND.name}</div>
-              <div className="text-xs text-white/60">{BRAND.doctor}</div>
+              <p className="text-xs uppercase tracking-[0.15em] text-emerald-200">Sercan Aslan Clinic</p>
+              <p className="text-sm font-semibold text-white">Eksozom Saç Bakım Uygulaması</p>
             </div>
           </div>
-          <a
-            href={waLink("Merhaba, hemen bilgi almak istiyorum.")}
-            className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-[#0b1220] hover:opacity-90"
-          >
-            Hemen Bilgi Al
-          </a>
+
+          <div className="hidden items-center gap-2 sm:flex">
+            <Button
+              variant="outline"
+              className="rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
+              onClick={() => quickContact("Telefon")}
+            >
+              <Phone className="h-4 w-4" />
+              <span className="ml-2">{PHONE_DISPLAY}</span>
+            </Button>
+            <Button
+              className="rounded-2xl gradient-primary hover:opacity-90"
+              onClick={() => quickContact("WhatsApp")}
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span className="ml-2">WhatsApp</span>
+            </Button>
+          </div>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="relative">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-2 lg:py-16">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">
-              Eksozom • Saç & Cilt
-            </div>
+      <main>
+        <section className="relative overflow-hidden border-b border-white/5">
+          <div className="absolute inset-0 -z-10 gradient-hero" />
+          <div className="absolute -left-40 top-10 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
+          <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl" />
 
-            <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              {BRAND.heroTitleTop}
-              <br />
-              <span className="text-white/90">{BRAND.heroTitleMid}</span>
-              <br />
-              <span className="text-white">{BRAND.heroTitleBottom}</span>
-            </h1>
+          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2">
+            <motion.div {...fade} className="space-y-5">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-emerald-100">
+                <BadgeCheck className="h-3.5 w-3.5" />
+                Dr. İbrahim kontrolünde eksozom protokolü
+              </div>
 
-            <ul className="mt-6 grid gap-2 text-sm text-white/85">
-              {heroBullets.map((b, i) => (
-                <li key={i} className="flex gap-2">
-                  <Icon.Check className="mt-0.5 h-5 w-5 text-[#7dd3fc]" />
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
+                Eksozom terapi ile saçlı deride
+                <span className="block text-emerald-200">onarıcı bakım ve hızlı takip.</span>
+              </h1>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href={waLink("Merhaba, eksozom için ücretsiz danışmanlık istiyorum.")}
-                className="rounded-2xl bg-[#7dd3fc] px-5 py-3 text-sm font-bold text-[#0b1220] hover:opacity-90"
-              >
-                Hemen Bilgi Al
-              </a>
-              <a
-                href="#form"
-                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
-              >
-                Ücretsiz Danışmanlık Formu
-              </a>
-            </div>
+              <p className="max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
+                Saç dökülmesi, saç ekimi sonrası bakım veya saç derisi güçlendirme için Sercan Aslan Clinic’te Dr. İbrahim tarafından
+                kişiye özel eksozom planı. WhatsApp üzerinden aynı gün seni arayıp seans sayısı ve fiyat bilgisini paylaşalım.
+              </p>
 
-            <p className="mt-4 text-xs text-white/55">
-              * Bilgilendirme amaçlıdır. Kesin plan, muayene ve değerlendirme sonrası belirlenir.
-            </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {highlights.map((item) => (
+                  <div key={item.title} className="flex items-start gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3">
+                    <span className="mt-0.5 rounded-xl bg-white/10 p-2 text-emerald-200">{item.icon}</span>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{item.title}</p>
+                      <p className="text-xs text-slate-200">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  className="rounded-2xl gradient-primary hover:opacity-90"
+                  size="lg"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    submitLead();
+                  }}
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span className="ml-2">WhatsApp’ta Bilgi Al</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
+                  onClick={() => quickContact("Randevu")}
+                >
+                  <CalendarClock className="h-4 w-4" />
+                  <span className="ml-2">Randevu Talep Et</span>
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                {["Aynı gün dönüş", "Kişiye özel plan", "Şeffaf fiyat"].map((t) => (
+                  <div key={t} className="flex items-center gap-2 rounded-2xl border border-white/5 bg-white/5 px-4 py-3">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                    <span className="text-sm text-slate-200">{t}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="relative"
+            >
+              <Card className="rounded-3xl border-white/10 bg-white/5 shadow-2xl backdrop-blur">
+                <CardContent className="p-6 sm:p-8">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-medium text-emerald-100">Sercan Aslan Clinic</p>
+                      <p className="mt-1 text-xl font-semibold tracking-tight text-white">2 dakikada WhatsApp’a yönlendirelim</p>
+                      <p className="mt-2 text-sm text-slate-200">
+                        Dr. İbrahim’e ulaşmak için ilgilendiğin uygulamayı seç, bilgilerini bırak, hazır mesaj açılsın.
+                      </p>
+                    </div>
+                    <Badge className="rounded-2xl bg-white/10 text-white">Güvenli</Badge>
+                  </div>
+
+                  <form className="mt-6 grid gap-4" onSubmit={submitLead}>
+                    <div className="grid gap-2">
+                      <Label htmlFor="interest" className="text-slate-200">
+                        Uygulama
+                      </Label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {["Eksozom", "Saç Ekimi", "Mezoterapi", "Botox"].map((item) => (
+                          <button
+                            key={item}
+                            type="button"
+                            onClick={() => setInterest(item)}
+                            className={`rounded-2xl border px-3 py-2 text-sm transition ${
+                              interest === item
+                                ? "border-emerald-300 bg-emerald-500/20 text-white"
+                                : "border-white/10 bg-white/5 text-slate-200 hover:border-white/30"
+                            }`}
+                          >
+                            {item}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="grid gap-2">
+                      <Label htmlFor="name" className="text-slate-200">
+                        İsim Soyisim
+                      </Label>
+                      <Input
+                        id="name"
+                        placeholder="Örn. Ahmet Yılmaz"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="rounded-2xl border-white/10 bg-white/10 text-white placeholder:text-slate-300"
+                        required
+                      />
+                    </div>
+
+                    <div className="grid gap-2">
+                      <Label htmlFor="phone" className="text-slate-200">
+                        Telefon
+                      </Label>
+                      <Input
+                        id="phone"
+                        placeholder="05xx xxx xx xx"
+                        value={phone}
+                        onChange={(e) => setPhone(formatPhoneTR(e.target.value))}
+                        className="rounded-2xl border-white/10 bg-white/10 text-white placeholder:text-slate-300"
+                        required
+                      />
+                    </div>
+
+                    <Button type="submit" size="lg" className="rounded-2xl gradient-primary hover:opacity-90">
+                      <MessageCircle className="h-4 w-4" />
+                      <span className="ml-2">WhatsApp’ta Mesaj Oluştur</span>
+                    </Button>
+
+                    <p className="text-xs text-slate-300">*Formu gönderdiğinde WhatsApp’ta hazır mesaj açılır. Bilgilerin üçüncü kişilerle paylaşılmaz.</p>
+                  </form>
+                </CardContent>
+              </Card>
+
+              <div className="pointer-events-none absolute -bottom-6 -left-6 h-24 w-24 rounded-3xl bg-emerald-500/10 blur-2xl" />
+            </motion.div>
           </div>
+        </section>
 
-          {/* Form Card */}
-          <div id="form" className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl">
-            <div className="text-sm font-semibold text-white/80">Ücretsiz Danışmanlık İçin</div>
-            <div className="mt-1 text-2xl font-extrabold">Hemen Başvurun!</div>
+        <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+          <motion.div {...fade} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Dr. İbrahim kontrolünde", icon: ShieldCheck },
+              { title: "Sercan Aslan Clinic", icon: Star },
+              { title: "Planlı takip", icon: CalendarClock },
+              { title: "Hızlı iletişim", icon: MessageCircle },
+            ].map((item) => (
+              <Card key={item.title} className="rounded-3xl border-white/10 bg-white/5">
+                <CardContent className="flex items-center gap-3 p-5">
+                  <span className="rounded-xl bg-white/10 p-2 text-emerald-200">
+                    <item.icon className="h-5 w-5" />
+                  </span>
+                  <span className="text-sm font-semibold text-white">{item.title}</span>
+                </CardContent>
+              </Card>
+            ))}
+          </motion.div>
+        </section>
 
-            <form onSubmit={onSubmit} className="mt-6 grid gap-3">
-              <input
-                value={form.name}
-                onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
-                placeholder="Ad Soyad"
-                className="rounded-2xl border border-white/10 bg-[#0b1220]/60 px-4 py-3 text-sm outline-none focus:border-white/25"
-                required
-              />
-              <input
-                value={form.phone}
-                onChange={(e) => setForm((s) => ({ ...s, phone: e.target.value }))}
-                placeholder="Telefon"
-                className="rounded-2xl border border-white/10 bg-[#0b1220]/60 px-4 py-3 text-sm outline-none focus:border-white/25"
-                required
-              />
-              <textarea
-                value={form.note}
-                onChange={(e) => setForm((s) => ({ ...s, note: e.target.value }))}
-                placeholder="Not (opsiyonel)"
-                rows={3}
-                className="rounded-2xl border border-white/10 bg-[#0b1220]/60 px-4 py-3 text-sm outline-none focus:border-white/25"
-              />
-              <button
-                type="submit"
-                className="mt-2 rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#0b1220] hover:opacity-90"
-              >
-                WhatsApp’tan Gönder
-              </button>
-            </form>
-
-            <div className="mt-4 text-xs text-white/60">
-              Formu gönderince WhatsApp açılır ve mesaj otomatik hazırlanır.
+        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6" id="benefits">
+          <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Eksozom uygulaması kimler için?</h2>
+              <p className="mt-2 max-w-2xl text-slate-200">
+                Saç dökülme döneminde, saç ekimi sonrası iyileşme sürecinde veya saçlı deri bakımını güçlendirmek isteyenler için
+                Dr. İbrahim’in planladığı protokoller.
+              </p>
             </div>
-          </div>
-        </div>
-      </section>
+            <Button
+              variant="outline"
+              className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5 lg:w-auto"
+              onClick={() => quickContact("Plan")}
+            >
+              <Info className="h-4 w-4" />
+              <span className="ml-2">Durumunu Paylaş</span>
+            </Button>
+          </motion.div>
 
-      {/* Intro */}
-      <section className="border-t border-white/10 bg-black/10">
-        <div className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="text-2xl font-extrabold">Hücresel Yenilenme: Saçta ve Ciltte Doğal Güç</h2>
-          <p className="mt-3 max-w-3xl text-sm text-white/75">
-            Eksozomlar, vücudun doğal iyileşme sürecini yöneten güçlü hücresel sinyaller taşır. Cilt ve saçlı deriye
-            uygulandığında, hasarlı hücrelerin onarımını destekler; yenilenme kapasitesini artırmaya yardımcı olur.
-          </p>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            {highlights.map((item, idx) => (
+              <motion.div key={item.title} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
+                <Card className="rounded-3xl border-white/10 bg-white/5 shadow-sm">
+                  <CardContent className="flex gap-4 p-6">
+                    <div className="h-10 w-10 rounded-2xl bg-white/10 p-2 text-emerald-200">{item.icon}</div>
+                    <div>
+                      <p className="text-base font-semibold text-white">{item.title}</p>
+                      <p className="mt-2 text-sm text-slate-200">{item.desc}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6" id="steps">
+          <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Plan nasıl ilerliyor?</h2>
+              <p className="mt-2 text-slate-200">İlk mesajdan Dr. İbrahim’in seans sonu kontrolüne kadar şeffaf süreç yönetimi.</p>
+            </div>
+            <Button
+              className="w-full rounded-2xl gradient-primary hover:opacity-90 lg:w-auto"
+              onClick={() => quickContact("Süreç")}
+            >
+              <ArrowRight className="h-4 w-4" />
+              <span className="ml-2">Süreç Hakkında Sor</span>
+            </Button>
+          </motion.div>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { t: "Daha güçlü saç", d: "Folikül aktivitesini desteklemeye yardımcı" },
-              { t: "Daha yenilenmiş cilt", d: "Doku onarımını ve canlı görünümü destekler" },
-              { t: "Kısa süreç", d: "Çoğu kişi aynı gün rutinine döner" },
-              { t: "Kişiye özel plan", d: "Bölge ve ihtiyaca göre protokol" },
-            ].map((c, i) => (
-              <div key={i} className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                <div className="text-base font-bold">{c.t}</div>
-                <div className="mt-1 text-sm text-white/70">{c.d}</div>
-              </div>
+            {steps.map((step, idx) => (
+              <motion.div key={step.title} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
+                <Card className="relative h-full rounded-3xl border-white/10 bg-white/5">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-emerald-200">Adım {idx + 1}</span>
+                      <Sparkles className="h-4 w-4 text-emerald-200" />
+                    </div>
+                    <h3 className="mt-4 text-lg font-semibold text-white">{step.title}</h3>
+                    <p className="mt-2 text-sm text-slate-200">{step.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
+        </section>
 
-          <div className="mt-8">
-            <a
-              href={waLink("Merhaba, eksozom için değerlendirme ve seans bilgisi almak istiyorum.")}
-              className="inline-flex rounded-2xl bg-[#7dd3fc] px-5 py-3 text-sm font-bold text-[#0b1220] hover:opacity-90"
+        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6" id="packages">
+          <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Paket ve fiyat bilgisi</h2>
+              <p className="mt-2 text-slate-200">Kişisel ihtiyaca göre net seans sayısı ve ücretleri paylaşılır.</p>
+            </div>
+            <Button
+              variant="outline"
+              className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5 lg:w-auto"
+              onClick={() => quickContact("Fiyat")}
             >
-              EKSOZOM’U KEŞFET!
-            </a>
-          </div>
-        </div>
-      </section>
+              <Info className="h-4 w-4" />
+              <span className="ml-2">Kendi Planını Sor</span>
+            </Button>
+          </motion.div>
 
-      {/* Areas */}
-      <section className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="text-2xl font-extrabold">
-            Eksozom Uygulama Alanları: <span className="text-white/85">Saç ve Ciltte Hücresel Yenilenme</span>
-          </h2>
-
-          <div className="mt-8 grid gap-5 lg:grid-cols-2">
-            {[
-              {
-                h: "1) Saçlı Deri – Saç Dökülmesi ve Seyrelme",
-                p: "Eksozomlar, saç köklerindeki hücresel iletişimi destekleyerek folikül aktivitesini artırmaya yardımcı olur.",
-                bullets: [
-                  "Zayıflamış saç köklerinin yeniden aktive olmasına destek",
-                  "Saç yoğunluğu ve gücünde artışı destekleme",
-                  "Dökülme hızını yavaşlatmaya yardımcı",
-                  "Saçlı deride canlılık ve iyileşme desteği",
-                  "Saç ekimi sonrası süreci destekleme",
-                ],
-              },
-              {
-                h: "2) Yüz – Işıltı, Doku, Leke ve İnce Çizgiler",
-                p: "Cilde uygulandığında kolajen ve elastin üretimini destekleyerek daha parlak ve dengeli bir görünüm hedeflenir.",
-                bullets: [
-                  "Cilt tonunun eşitlenmesine yardımcı",
-                  "İnce çizgi görünümünde azalmayı destekler",
-                  "Gözenek görünümünü iyileştirmeye yardımcı",
-                  "Cilt bariyerini güçlendirmeyi hedefler",
-                ],
-              },
-              {
-                h: "3) Boyun & Dekolte – Sıkılaşma ve Doku Onarımı",
-                p: "Hassas bölgelerde dokusal onarımı destekleyerek daha pürüzsüz bir görünüm hedeflenir.",
-                bullets: [
-                  "Sıkılık ve elastikiyet desteği",
-                  "İnce çizgi görünümünü azaltmaya yardımcı",
-                  "Güneş kaynaklı doku hasarının görünümünü iyileştirmeye destek",
-                ],
-              },
-              {
-                h: "4) Problemli Cilt Alanları – İz, Leke, Güneş Hasarı",
-                p: "Hasarlı cilt hücrelerini hedefleyen onarıma destekleyici bir yaklaşım olarak değerlendirilir.",
-                bullets: [
-                  "Akne izi görünümünü azaltmaya yardımcı",
-                  "Leke/güneş hasarı görünümünde iyileşmeye destek",
-                  "Daha homojen bir cilt dokusu hedefler",
-                ],
-              },
-            ].map((card, idx) => (
-              <div key={idx} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <div className="text-lg font-bold">{card.h}</div>
-                <p className="mt-2 text-sm text-white/75">{card.p}</p>
-                <ul className="mt-4 grid gap-2 text-sm text-white/80">
-                  {card.bullets.map((b, i) => (
-                    <li key={i} className="flex gap-2">
-                      <Icon.Check className="mt-0.5 h-5 w-5 text-[#7dd3fc]" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {packages.map((pack, idx) => (
+              <motion.div key={pack.name} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
+                <Card className="h-full rounded-3xl border-white/10 bg-white/5">
+                  <CardContent className="flex h-full flex-col gap-4 p-6">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-sm text-emerald-200">Paket</p>
+                        <h3 className="text-lg font-semibold text-white">{pack.name}</h3>
+                      </div>
+                      <Badge className="rounded-full bg-white/10 text-white">Önerilen</Badge>
+                    </div>
+                    <p className="text-sm text-slate-200">{pack.desc}</p>
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white">{pack.price}</div>
+                    <Button
+                      className="mt-auto rounded-2xl gradient-primary hover:opacity-90"
+                      onClick={() => quickContact(`${pack.name} fiyat`)}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      <span className="ml-2">WhatsApp ile Öğren</span>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Testimonials */}
-      <section className="border-t border-white/10 bg-black/10">
-        <div className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="text-2xl font-extrabold">Neden {BRAND.name}?</h2>
-          <p className="mt-3 max-w-3xl text-sm text-white/75">
-            Modern klinik altyapısı, uzman ekip yaklaşımı ve düzenli takip ile kişiye özel bir deneyim hedeflenir.
-          </p>
+        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6" id="faq">
+          <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Sık sorulanlar</h2>
+              <p className="mt-2 text-slate-200">Kısa bilgiler; merak ettiğin detaylar için WhatsApp’tan yazabilirsin.</p>
+            </div>
+            <Button
+              className="w-full rounded-2xl gradient-primary hover:opacity-90 lg:w-auto"
+              onClick={() => quickContact("Soru")}
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span className="ml-2">Soru Sor</span>
+            </Button>
+          </motion.div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {testimonials.map((t, i) => (
-              <div key={i} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="font-bold">{t.name}</div>
-                    <div className="text-xs text-white/55">{t.when}</div>
-                  </div>
-                  <div className="flex gap-1 text-[#fbbf24]">
-                    {Array.from({ length: 5 }).map((_, k) => (
-                      <Icon.Star key={k} className="h-4 w-4" />
-                    ))}
-                  </div>
+          <div className="mt-6 grid gap-3">
+            {faqItems.map((item, idx) => (
+              <motion.details
+                key={item.q}
+                {...fade}
+                transition={{ ...fade.transition, delay: idx * 0.05 }}
+                className="group rounded-3xl border border-white/10 bg-white/5 p-5"
+              >
+                <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold text-white">
+                  {item.q}
+                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-emerald-100 group-open:bg-emerald-500/20">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm text-slate-200">{item.a}</p>
+              </motion.details>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6" id="contact">
+          <div className="grid gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 sm:grid-cols-2 sm:p-8">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-emerald-100">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                Dr. İbrahim eşliğinde
+              </div>
+              <h3 className="text-2xl font-semibold text-white">Sorunu yaz, planı aynı gün öğren</h3>
+              <p className="text-sm text-slate-200">
+                Hızlı randevu, değerlendirme ve fiyat paylaşımı için WhatsApp’tan yazabilirsin. Ekip, seans sıklığı ve uygulama detaylarını aktarsın.
+              </p>
+              <div className="space-y-2 text-sm text-slate-200">
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-emerald-200" />
+                  <a href={`tel:${PHONE_TEL}`} className="hover:underline">
+                    {PHONE_DISPLAY}
+                  </a>
                 </div>
-                <p className="mt-3 text-sm text-white/80">{t.text}</p>
+                <div className="flex items-center gap-2">
+                  <MessageCircle className="h-4 w-4 text-emerald-200" />
+                  <button className="underline" onClick={() => quickContact("WhatsApp")}>WhatsApp ile yaz</button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-emerald-200" />
+                  <span>İstanbul • Sercan Aslan Clinic</span>
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
 
-          <div className="mt-8">
-            <a
-              href={waLink("Merhaba, randevu oluşturmak istiyorum.")}
-              className="inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-[#0b1220] hover:opacity-90"
-            >
-              Hemen Randevunuzu Oluşturun
-            </a>
-          </div>
-        </div>
-      </section>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Card className="rounded-3xl border-white/10 bg-white/5">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-sm font-semibold text-white">Hızlı WhatsApp</p>
+                  <p className="text-sm text-slate-200">Mesaj gönder, aynı gün geri dönüş al.</p>
+                  <Button
+                    className="w-full rounded-2xl gradient-primary hover:opacity-90"
+                    onClick={() => quickContact("WhatsApp hızlı")}
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span className="ml-2">Mesaj Gönder</span>
+                  </Button>
+                </CardContent>
+              </Card>
 
-      {/* Process */}
-      <section className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="text-2xl font-extrabold">Uygulama Süreci</h2>
-          <p className="mt-3 max-w-4xl text-sm text-white/75">
-            Eksozom uygulaması genellikle kısa süren, konforlu ve minimal girişimli bir süreç olarak değerlendirilir.
-            Seans planı kişiye, bölgeye ve ihtiyaca göre belirlenir.
-          </p>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { t: "Uygulama Süresi", v: "30–40 dk" },
-              { t: "Önerilen Seans", v: "3–4 (kişiye göre)" },
-              { t: "İşe Dönüş", v: "Hemen" },
-              { t: "Anestezi", v: "Genelde gerekmez" },
-              { t: "Hassasiyet", v: "Çoğu kişide minimal" },
-              { t: "Kalıcılık", v: "Kişiye göre değişir" },
-            ].map((m, i) => (
-              <div key={i} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <div className="text-sm text-white/70">{m.t}</div>
-                <div className="mt-1 text-xl font-extrabold">{m.v}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="border-t border-white/10 bg-black/10">
-        <div className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="text-2xl font-extrabold">Sıkça Sorulan Sorular</h2>
-
-          <div className="mt-6 grid gap-4">
-            {faqs.map((f, i) => (
-              <details key={i} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <summary className="cursor-pointer select-none text-base font-bold">{f.q}</summary>
-                <p className="mt-3 text-sm text-white/75">{f.a}</p>
-              </details>
-            ))}
-          </div>
-
-          <div className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div className="text-lg font-extrabold">Eksozom Seans & Fiyat Bilgisi İçin Başvurun</div>
-            <p className="mt-2 text-sm text-white/75">
-              Seans sayısı, uygulanacak bölgeler ve fiyat aralığıyla ilgili size özel bilgiyi ücretsiz paylaşalım.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <a
-                href={waLink("Merhaba, eksozom seans ve fiyat bilgisi almak istiyorum.")}
-                className="rounded-2xl bg-[#7dd3fc] px-5 py-3 text-sm font-bold text-[#0b1220] hover:opacity-90"
-              >
-                WhatsApp’tan Yaz
-              </a>
-              <a
-                href="#form"
-                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
-              >
-                Formu Doldur
-              </a>
+              <Card className="rounded-3xl border-white/10 bg-white/5">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-sm font-semibold text-white">Randevu oluştur</p>
+                  <p className="text-sm text-slate-200">Uygun saatleri öğren, planı netleştir.</p>
+                  <Button
+                    variant="outline"
+                    className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
+                    onClick={() => quickContact("Randevu isteği")}
+                  >
+                    <CalendarClock className="h-4 w-4" />
+                    <span className="ml-2">Randevu Talep Et</span>
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-4 py-8 text-xs text-white/55">
-          © {new Date().getFullYear()} {BRAND.name} • Tüm hakları saklıdır.
+        <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0b0d1c] via-[#0f172a] to-slate-950" />
+            <div className="absolute -left-10 top-4 h-40 w-40 rounded-full bg-emerald-500/10 blur-3xl" />
+            <div className="absolute right-0 bottom-0 h-52 w-52 rounded-full bg-cyan-500/10 blur-3xl" />
+
+            <div className="relative grid gap-0 lg:grid-cols-[1.05fr_1fr]">
+              <div className="space-y-5 border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-emerald-100">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  Klinik iletişim ve yönlendirme
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-semibold text-white">Kliniğimize ulaşın</h3>
+                  <p className="text-sm text-slate-200">
+                    Şişli&rsquo;deki kliniğimizde saç ekimi ve destekleyici tedavi süreçleri için yüz yüze görüşme yapabilirsiniz.
+                    Konumu açın, uygun saatleri konuşalım ve sizi bekleyen ekibimizle tanışın.
+                  </p>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                      <MapPin className="h-4 w-4 text-emerald-200" />
+                      Klinik adresi
+                    </div>
+                    <p className="mt-2 text-sm text-slate-200">
+                      <a
+                        href={GOOGLE_MAPS_URL}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline decoration-emerald-300/70 decoration-dotted underline-offset-4"
+                      >
+                        Merkez Mah. İstiklal Cad. No: 36, Şişli / İstanbul
+                      </a>
+                    </p>
+                    <Button
+                      variant="outline"
+                      className="mt-3 w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
+                      onClick={() => window.open(GOOGLE_MAPS_URL, "_blank", "noopener,noreferrer")}
+                    >
+                      <MapPin className="h-4 w-4" />
+                      <span className="ml-2">Haritada Aç</span>
+                    </Button>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-sm">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                      <Phone className="h-4 w-4 text-emerald-200" />
+                      Hızlı bağlantılar
+                    </div>
+                    <div className="mt-2 space-y-2 text-sm text-slate-200">
+                      <button
+                        type="button"
+                        onClick={() => window.open(`tel:${PHONE_TEL}`, "_self")}
+                        className="flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-left transition hover:border-white/20"
+                      >
+                        <span>Telefon: {PHONE_DISPLAY}</span>
+                        <ArrowRight className="h-4 w-4 text-emerald-200" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => window.open(INSTAGRAM_URL, "_blank", "noopener,noreferrer")}
+                        className="flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-left transition hover:border-white/20"
+                      >
+                        <span>Instagram / sercanaslanhairturkey</span>
+                        <ArrowRight className="h-4 w-4 text-emerald-200" />
+                      </button>
+                    </div>
+                    <Button
+                      className="mt-3 w-full rounded-2xl gradient-primary hover:opacity-90"
+                      onClick={() => quickContact("Konum için WhatsApp")}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      <span className="ml-2">WhatsApp ile Randevu</span>
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Card className="rounded-2xl border-white/10 bg-white/5">
+                    <CardContent className="space-y-2 p-4">
+                      <p className="text-sm font-semibold text-white">Danışman desteği</p>
+                      <p className="text-sm text-slate-200">Seans ve fiyat planlamasını WhatsApp üzerinden hızlıca öğrenin.</p>
+                      <Button
+                        className="w-full rounded-2xl gradient-primary hover:opacity-90"
+                        onClick={() => quickContact("WhatsApp hızlı")}
+                      >
+                        <MessageCircle className="h-4 w-4" />
+                        <span className="ml-2">Mesaj Gönder</span>
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="rounded-2xl border-white/10 bg-white/5">
+                    <CardContent className="space-y-2 p-4">
+                      <p className="text-sm font-semibold text-white">Randevu oluştur</p>
+                      <p className="text-sm text-slate-200">Uygun saatleri öğren, planı netleştir ve kliniğe gel.</p>
+                      <Button
+                        variant="outline"
+                        className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
+                        onClick={() => quickContact("Randevu isteği")}
+                      >
+                        <CalendarClock className="h-4 w-4" />
+                        <span className="ml-2">Randevu Talep Et</span>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              <div className="relative h-full overflow-hidden rounded-b-3xl lg:rounded-bl-none lg:rounded-r-3xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-cyan-500/15" />
+                <iframe
+                  src={MAP_EMBED_URL}
+                  title="Sercan Aslan Clinic Harita"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="relative h-full min-h-[320px] w-full"
+                />
+                <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-slate-950/70 px-3 py-1 text-xs font-semibold text-emerald-100 ring-1 ring-white/10">
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span>Sercan Aslan Clinic</span>
+                </div>
+                <div className="absolute bottom-4 right-4 rounded-full bg-slate-950/70 px-3 py-1 text-[11px] font-semibold text-emerald-100 ring-1 ring-white/10">
+                  Konumu büyütmek için haritaya tıklayın
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-white/10 py-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 text-xs text-slate-300 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <span>© {new Date().getFullYear()} Sercan Aslan Clinic • Eksozom ve saç uygulamaları.</span>
+          <span>Bilgilendirme amaçlıdır; tanı/tedavi yerine geçmez.</span>
         </div>
       </footer>
     </div>
