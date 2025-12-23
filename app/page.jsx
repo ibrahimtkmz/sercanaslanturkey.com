@@ -35,7 +35,7 @@ const ASSETS = {
   logo: "/assets/eksozom/logo.svg", // (istersen değiştir)
   hero: "/assets/eksozom/hero.jpg",
   doctor: "/assets/eksozom/doctor.jpg",
-  cover: "/hero_image-eksozom.webp",
+  cover: "/public1/hero_image-eksozom.webp",
   ctaBg: "/assets/eksozom/cta-bg.jpg",
   // Galeri/mosaic
   g1: "/assets/eksozom/gallery-1.jpg",
