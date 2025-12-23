@@ -3,7 +3,7 @@ import React from "react";
 export function Card({ className = "", children, ...props }) {
   return (
     <div
-      className={`rounded-xl border border-slate-200 bg-white shadow-sm ${className}`.trim()}
+      className={`rounded-2xl border border-white/10 bg-white/5 shadow-lg backdrop-blur ${className}`.trim()}
       {...props}
     >
       {children}
@@ -13,7 +13,7 @@ export function Card({ className = "", children, ...props }) {
 
 export function CardContent({ className = "", children, ...props }) {
   return (
-    <div className={`p-4 sm:p-6 ${className}`.trim()} {...props}>
+    <div className={`p-5 sm:p-6 ${className}`.trim()} {...props}>
       {children}
     </div>
   );
