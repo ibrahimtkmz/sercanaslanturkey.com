@@ -283,11 +283,21 @@ export default function Page() {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="relative w-full max-w-xl"
             >
-              <div className="absolute -inset-x-6 -top-10 -z-10 h-[420px] rounded-[32px] bg-slate-900/50 blur-3xl lg:-inset-x-10 lg:h-[460px]" />
-              <Card className="relative rounded-3xl border-white/20 bg-white/15 shadow-2xl backdrop-blur-xl">
-                <div className="absolute left-6 -top-6 rounded-full border border-white/20 bg-slate-950/70 px-3 py-1 text-[11px] font-semibold text-emerald-100 backdrop-blur">
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl">
+                <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-slate-950/70 px-3 py-1 text-[11px] font-semibold text-emerald-100 backdrop-blur">
                   Google yorumları 4.8/5
                 </div>
+                <Image
+                  src={heroImage}
+                  alt="Sercan Aslan Clinic eksozom uygulaması için danışmanlık formu"
+                  priority
+                  className="h-full w-full object-cover"
+                  sizes="(min-width: 1024px) 600px, 100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent" />
+              </div>
+
+              <Card className="relative -mt-16 rounded-3xl border-white/10 bg-white/5 shadow-2xl backdrop-blur lg:-mt-24 lg:max-w-xl lg:translate-x-8">
                 <CardContent className="p-6 sm:p-8">
                   <div className="flex items-start justify-between gap-4">
                     <div>
