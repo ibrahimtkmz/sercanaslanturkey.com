@@ -334,6 +334,14 @@ export default function Page() {
                         required
                       />
                     </div>
+                    <p className="mt-3 text-lg font-semibold text-white">{item.title}</p>
+                    <p className="mt-2 text-sm text-slate-200">{item.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
                     <Button type="submit" size="lg" className="rounded-2xl gradient-primary hover:opacity-90">
                       <MessageCircle className="h-4 w-4" />
