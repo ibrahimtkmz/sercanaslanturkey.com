@@ -200,12 +200,22 @@ export default function Page() {
 
       <main>
         <section className="relative overflow-hidden border-b border-white/5">
-          <div className="absolute inset-0 -z-10 gradient-hero" />
+          <div className="absolute inset-0 -z-20">
+            <Image
+              src={heroImage}
+              alt="Sercan Aslan Clinic eksozom uygulaması için danışmanlık formu"
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-950/85 via-slate-950/70 to-slate-950/40" />
+          </div>
           <div className="absolute -left-40 top-10 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
           <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl" />
 
-          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2">
-            <motion.div {...fade} className="space-y-5">
+          <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-12 px-4 py-16 text-center sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:py-20 lg:text-left">
+            <motion.div {...fade} className="space-y-5 lg:max-w-xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-emerald-100">
                 <BadgeCheck className="h-3.5 w-3.5" />
                 Dr. İbrahim kontrolünde eksozom protokolü
@@ -233,7 +243,7 @@ export default function Page() {
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
                 <Button
                   className="rounded-2xl gradient-primary hover:opacity-90"
                   size="lg"
@@ -271,7 +281,7 @@ export default function Page() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-120px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative"
+              className="relative w-full max-w-xl"
             >
               <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl">
                 <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-slate-950/70 px-3 py-1 text-[11px] font-semibold text-emerald-100 backdrop-blur">
