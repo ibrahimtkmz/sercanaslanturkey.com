@@ -28,8 +28,8 @@ const WHATSAPP_PHONE_E164 = "905467372284"; // 0546 737 22 84
 const fade = {
   initial: { opacity: 0, y: 18 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-100px" },
-  transition: { duration: 0.55, ease: "easeOut" },
+  viewport: { once: true, margin: "-120px" },
+  transition: { duration: 0.65, ease: "easeOut" },
 };
 
 function formatPhoneTR(input) {
@@ -58,8 +58,8 @@ export default function Page() {
   const highlights = useMemo(
     () => [
       {
-        title: "Doktor kontrolünde",
-        desc: "Kişiye özel eksozom protokolü ve düzenli takip",
+        title: "Tıbbi danışmanlık",
+        desc: "Doktor kontrolünde kişiye özel eksozom planı",
         icon: <ShieldCheck className="h-5 w-5" />,
       },
       {
@@ -71,11 +71,6 @@ export default function Page() {
         title: "Şeffaf fiyat",
         desc: "Seans sayısı ve ücretler net paylaşılır",
         icon: <BadgeCheck className="h-5 w-5" />,
-      },
-      {
-        title: "Modern klinik",
-        desc: "Hijyenik ortam ve konforlu uygulama alanı",
-        icon: <Star className="h-5 w-5" />,
       },
     ],
     []
@@ -100,7 +95,7 @@ export default function Page() {
       },
       {
         title: "Kişiye özel",
-        desc: "Durumunuza ve beklentinize göre seans aralıkları belirlenir.",
+        desc: "Mevcut durumunuz ve beklentinize göre seans aralıkları belirlenir.",
         icon: <Sparkles className="h-5 w-5" />,
       },
     ],
@@ -167,11 +162,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#050915] via-[#0b132a] to-slate-950" />
-      <div className="fixed -left-40 top-20 -z-10 h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl" />
-      <div className="fixed right-0 top-60 -z-10 h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-3xl" />
-
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-white/5 bg-slate-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-500" />
@@ -185,7 +176,7 @@ export default function Page() {
             <Button
               variant="outline"
               className="rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
-              onClick={() => quickContact("Hemen Ara")}
+              onClick={() => quickContact("Bilgi")}
             >
               <Phone className="h-4 w-4" />
               <span className="ml-2">Hemen Ara</span>
@@ -202,8 +193,12 @@ export default function Page() {
       </header>
 
       <main>
-        <section className="border-b border-white/5">
-          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:py-16">
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0b0d1c] via-[#0d1230] to-slate-950" />
+          <div className="absolute -left-40 top-10 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
+          <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl" />
+
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2">
             <motion.div {...fade}>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-emerald-100">
                 <BadgeCheck className="h-3.5 w-3.5" />
@@ -216,8 +211,21 @@ export default function Page() {
               </h1>
 
               <p className="mt-4 text-base leading-relaxed text-slate-200 sm:text-lg">
-                Doku Clinic ekibiyle ihtiyacına göre eksozom protokolü, seans sayısı ve fiyat bilgisi. WhatsApp üzerinden aynı gün içinde sana özel planı paylaşalım.
+                Doku Clinic ekibiyle ihtiyacına göre eksozom protokolü, seans sayısı ve fiyat bilgisi. WhatsApp üzerinden
+                aynı gün içinde sana özel planı paylaşalım.
               </p>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {highlights.map((item) => (
+                  <div key={item.title} className="flex items-start gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3">
+                    <span className="mt-0.5 rounded-xl bg-white/10 p-2 text-emerald-200">{item.icon}</span>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{item.title}</p>
+                      <p className="text-xs text-slate-200">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button
@@ -320,6 +328,14 @@ export default function Page() {
                         required
                       />
                     </div>
+                    <p className="mt-3 text-lg font-semibold text-white">{item.title}</p>
+                    <p className="mt-2 text-sm text-slate-200">{item.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
                     <Button
                       type="submit"
@@ -355,67 +371,32 @@ export default function Page() {
           </motion.div>
         </section>
 
-        <section className="border-y border-white/5 bg-white/5">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-            <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Eksozom uygulaması kimler için?</h2>
-                <p className="mt-2 max-w-2xl text-slate-200">Dökülme döneminde saçlı deride bakım, saç ekimi sonrası destek veya genel güçlendirme ihtiyacı olanlar için planlı protokoller.</p>
-              </div>
-              <Button
-                variant="outline"
-                className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/10 lg:w-auto"
-                onClick={() => quickContact("Plan")}
-              >
-                <Info className="h-4 w-4" />
-                <span className="ml-2">Durumunu Paylaş</span>
-              </Button>
-            </motion.div>
-
-            <div className="mt-6 grid gap-4 lg:grid-cols-2">
-              {benefits.map((item, idx) => (
-                <motion.div key={item.title} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
-                  <Card className="rounded-3xl border-white/10 bg-slate-900/70 shadow-sm">
-                    <CardContent className="flex gap-4 p-6">
-                      <div className="h-10 w-10 rounded-2xl bg-white/10 p-2 text-emerald-200">{item.icon}</div>
-                      <div>
-                        <p className="text-base font-semibold text-white">{item.title}</p>
-                        <p className="mt-2 text-sm text-slate-200">{item.desc}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6" id="benefits">
           <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Klinikte seni nasıl ilerletiyoruz?</h2>
-              <p className="mt-2 max-w-2xl text-slate-200">Kısa görüşme sonrası durumunu değerlendirip kişiselleştirilmiş eksozom protokolünü, seans sayısını ve fiyatını netleştiriyoruz.</p>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Eksozom uygulaması kimler için?</h2>
+              <p className="mt-2 max-w-2xl text-slate-200">Dökülme döneminde saçlı deride bakım, saç ekimi sonrası destek veya genel güçlendirme ihtiyacı olanlar için planlı protokoller.</p>
             </div>
             <Button
-              className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90 lg:w-auto"
-              onClick={() => quickContact("WhatsApp")}
+              variant="outline"
+              className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5 lg:w-auto"
+              onClick={() => quickContact("Plan")}
             >
-              <MessageCircle className="h-4 w-4" />
-              <span className="ml-2">WhatsApp’tan Yaz</span>
+              <Info className="h-4 w-4" />
+              <span className="ml-2">Durumunu Paylaş</span>
             </Button>
           </motion.div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((item, idx) => (
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            {benefits.map((item, idx) => (
               <motion.div key={item.title} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
-                <Card className="h-full rounded-3xl border-white/10 bg-white/5">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-emerald-100">Adım {idx + 1}</p>
-                      <ArrowRight className="h-4 w-4 text-emerald-200" />
+                <Card className="rounded-3xl border-white/10 bg-white/5 shadow-sm">
+                  <CardContent className="flex gap-4 p-6">
+                    <div className="h-10 w-10 rounded-2xl bg-white/10 p-2 text-emerald-200">{item.icon}</div>
+                    <div>
+                      <p className="text-base font-semibold text-white">{item.title}</p>
+                      <p className="mt-2 text-sm text-slate-200">{item.desc}</p>
                     </div>
-                    <p className="mt-3 text-lg font-semibold text-white">{item.title}</p>
-                    <p className="mt-2 text-sm text-slate-200">{item.desc}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -423,158 +404,148 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="border-y border-white/5 bg-white/5">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-            <motion.div {...fade} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Paket ve seans bilgisi</h2>
-                <p className="text-slate-200">Eksozom protokolü, doktor değerlendirmesiyle kişiye göre şekillenir.</p>
-              </div>
-              <Button
-                variant="outline"
-                className="mt-3 w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/10 sm:mt-0 sm:w-auto"
-                onClick={() => quickContact("Fiyat")}
-              >
-                <Info className="h-4 w-4" />
-                <span className="ml-2">Fiyat Bilgisi Al</span>
-              </Button>
-            </motion.div>
-
-            <div className="mt-8 grid gap-4 lg:grid-cols-3">
-              {packages.map((item, idx) => (
-                <motion.div key={item.name} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
-                  <Card className="h-full rounded-3xl border-white/10 bg-slate-900/70">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm font-semibold text-emerald-100">{item.name}</p>
-                        <Badge className="rounded-xl bg-white/10 text-white">Eksozom</Badge>
-                      </div>
-                      <p className="mt-3 text-xl font-semibold text-white">{item.price}</p>
-                      <p className="mt-2 text-sm text-slate-200">{item.desc}</p>
-                      <Button
-                        variant="outline"
-                        className="mt-6 w-full rounded-2xl border-white/20 text-white hover:bg-white/10"
-                        onClick={() => quickContact(item.name)}
-                      >
-                        Planı öğren
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6" id="steps">
+          <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Plan nasıl ilerliyor?</h2>
+              <p className="mt-2 text-slate-200">İlk mesajdan seans sonuna kadar şeffaf süreç yönetimi.</p>
             </div>
+            <Button
+              className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90 lg:w-auto"
+              onClick={() => quickContact("Süreç")}
+            >
+              <ArrowRight className="h-4 w-4" />
+              <span className="ml-2">Süreç Hakkında Sor</span>
+            </Button>
+          </motion.div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, idx) => (
+              <motion.div key={step.title} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
+                <Card className="relative h-full rounded-3xl border-white/10 bg-white/5">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-emerald-200">Adım {idx + 1}</span>
+                      <Sparkles className="h-4 w-4 text-emerald-200" />
+                    </div>
+                    <h3 className="mt-4 text-lg font-semibold text-white">{step.title}</h3>
+                    <p className="mt-2 text-sm text-slate-200">{step.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <motion.div {...fade}>
-              <p className="text-sm font-semibold uppercase tracking-[0.15em] text-emerald-200">Doku Clinic</p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">Modern klinik ve ulaşım kolaylığı</h2>
-              <p className="mt-3 max-w-2xl text-slate-200">
-                Kliniğimizde hijyenik ortam, uzman ekip ve konforlu bakım alanlarıyla eksozom ve saç uygulamalarını gerçekleştiriyoruz. İstanbul içinde kolay ulaşım ve park imkanı ile kısa sürede randevu alabilirsin.
-              </p>
+        <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6" id="packages">
+          <motion.div {...fade} className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Paket ve fiyat bilgisi</h2>
+              <p className="mt-2 text-slate-200">Kişisel ihtiyaca göre net seans sayısı ve ücretleri paylaşılır.</p>
+            </div>
+            <Button
+              variant="outline"
+              className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5 lg:w-auto"
+              onClick={() => quickContact("Fiyat")}
+            >
+              <Info className="h-4 w-4" />
+              <span className="ml-2">Kendi Planını Sor</span>
+            </Button>
+          </motion.div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {highlights.map((item) => (
-                  <div key={item.title} className="flex items-start gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3">
-                    <span className="mt-0.5 rounded-xl bg-white/10 p-2 text-emerald-200">{item.icon}</span>
-                    <div>
-                      <p className="text-sm font-semibold text-white">{item.title}</p>
-                      <p className="text-xs text-slate-200">{item.desc}</p>
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {packages.map((pack, idx) => (
+              <motion.div key={pack.name} {...fade} transition={{ ...fade.transition, delay: idx * 0.05 }}>
+                <Card className="h-full rounded-3xl border-white/10 bg-white/5">
+                  <CardContent className="flex h-full flex-col gap-4 p-6">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="text-sm text-emerald-200">Paket</p>
+                        <h3 className="text-lg font-semibold text-white">{pack.name}</h3>
+                      </div>
+                      <Badge className="rounded-full bg-white/10 text-white">Önerilen</Badge>
                     </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Button
-                  className="rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
-                  onClick={() => quickContact("Konum")}
-                >
-                  <MapPin className="h-4 w-4" />
-                  <span className="ml-2">Yol Tarifi Al</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  className="rounded-2xl border-white/20 text-white hover:bg-white/5"
-                  onClick={() => quickContact("Randevu")}
-                >
-                  <Phone className="h-4 w-4" />
-                  <span className="ml-2">Randevu İçin Ara</span>
-                </Button>
-              </div>
-            </motion.div>
-
-            <motion.div {...fade} className="space-y-4">
-              {["Saç ekimi sonrası bakım", "Dökülme döneminde destek", "Kişisel protokol planlama"].map((item, idx) => (
-                <Card key={item} className="rounded-3xl border-white/10 bg-white/5">
-                  <CardContent className="flex items-center justify-between p-5">
-                    <div>
-                      <p className="text-sm font-semibold text-emerald-100">Öne çıkan</p>
-                      <p className="text-base font-semibold text-white">{item}</p>
-                    </div>
-                    <CheckCircle2 className="h-5 w-5 text-emerald-300" />
-                  </CardContent>
-                </Card>
-              ))}
-
-              <Card className="rounded-3xl border-emerald-200/40 bg-gradient-to-br from-emerald-500/20 via-cyan-400/20 to-blue-500/10">
-                <CardContent className="p-6">
-                  <p className="text-sm font-semibold text-slate-950">Hızlı iletişim</p>
-                  <p className="mt-2 text-lg font-semibold text-slate-950">WhatsApp’tan hemen yaz, aynı gün dönüş yapalım.</p>
-                  <div className="mt-4 flex flex-wrap gap-3">
+                    <p className="text-sm text-slate-200">{pack.desc}</p>
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white">{pack.price}</div>
                     <Button
-                      className="rounded-2xl bg-slate-950 text-white hover:bg-slate-900"
-                      onClick={() => quickContact("WhatsApp")}
+                      className="mt-auto rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
+                      onClick={() => quickContact(`${pack.name} fiyat`)}
                     >
                       <MessageCircle className="h-4 w-4" />
-                      <span className="ml-2">WhatsApp</span>
+                      <span className="ml-2">WhatsApp ile Öğren</span>
                     </Button>
-                    <Button
-                      variant="outline"
-                      className="rounded-2xl border-slate-900 text-slate-950 hover:bg-white/60"
-                      onClick={() => quickContact("Hemen Ara")}
-                    >
-                      <Phone className="h-4 w-4" />
-                      <span className="ml-2">Hemen Ara</span>
-                    </Button>
-                  </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6" id="contact">
+          <div className="grid gap-6 rounded-3xl border border-white/10 bg-white/5 p-6 sm:grid-cols-2 sm:p-8">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-emerald-100">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                Doktor eşliğinde
+              </div>
+              <h3 className="text-2xl font-semibold text-white">Sorunu yaz, planı aynı gün öğren</h3>
+              <p className="text-sm text-slate-200">
+                Hızlı randevu, değerlendirme ve fiyat paylaşımı için WhatsApp’tan yazabilirsin. Ekip, seans sıklığı ve uygulama detaylarını aktarsın.
+              </p>
+              <div className="space-y-2 text-sm text-slate-200">
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-emerald-200" />
+                  <span>0546 737 22 84</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MessageCircle className="h-4 w-4 text-emerald-200" />
+                  <button className="underline" onClick={() => quickContact("WhatsApp")}>WhatsApp ile yaz</button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-emerald-200" />
+                  <span>İstanbul • Doku Clinic</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Card className="rounded-3xl border-white/10 bg-white/5">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-sm font-semibold text-white">Hızlı WhatsApp</p>
+                  <p className="text-sm text-slate-200">Mesaj gönder, aynı gün geri dönüş al.</p>
+                  <Button
+                    className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
+                    onClick={() => quickContact("WhatsApp hızlı")}
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span className="ml-2">Mesaj Gönder</span>
+                  </Button>
                 </CardContent>
               </Card>
-            </motion.div>
+
+              <Card className="rounded-3xl border-white/10 bg-white/5">
+                <CardContent className="space-y-2 p-5">
+                  <p className="text-sm font-semibold text-white">Randevu oluştur</p>
+                  <p className="text-sm text-slate-200">Uygun saatleri öğren, planı netleştir.</p>
+                  <Button
+                    variant="outline"
+                    className="w-full rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/5"
+                    onClick={() => quickContact("Randevu isteği")}
+                  >
+                    <CalendarClock className="h-4 w-4" />
+                    <span className="ml-2">Randevu Talep Et</span>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-white/10 bg-slate-950/80">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-slate-300 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-500" />
-            <div>
-              <p className="font-semibold text-white">Doku Clinic</p>
-              <p className="text-xs text-slate-300">Eksozom • Saç Ekimi • Mezoterapi</p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button
-              size="sm"
-              variant="outline"
-              className="rounded-xl border-white/20 text-white hover:bg-white/5"
-              onClick={() => quickContact("Randevu")}
-            >
-              <CalendarClock className="h-4 w-4" />
-              <span className="ml-2">Randevu</span>
-            </Button>
-            <Button
-              size="sm"
-              className="rounded-xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
-              onClick={() => quickContact("WhatsApp")}
-            >
-              <MessageCircle className="h-4 w-4" />
-              <span className="ml-2">WhatsApp</span>
-            </Button>
-          </div>
+      <footer className="border-t border-white/10 py-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 text-xs text-slate-300 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <span>© {new Date().getFullYear()} Doku Clinic • Eksozom ve saç uygulamaları.</span>
+          <span>Bilgilendirme amaçlıdır; tanı/tedavi yerine geçmez.</span>
         </div>
       </footer>
     </div>
