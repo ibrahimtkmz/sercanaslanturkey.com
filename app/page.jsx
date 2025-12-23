@@ -161,7 +161,7 @@ export default function Page() {
       <header className="sticky top-0 z-40 border-b border-white/5 bg-slate-950/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-500" />
+            <div className="h-10 w-10 rounded-2xl gradient-accent" />
             <div className="leading-tight">
               <p className="text-xs uppercase tracking-[0.15em] text-emerald-200">Doku Clinic</p>
               <p className="text-sm font-semibold text-white">Eksozom Saç Uygulaması</p>
@@ -178,7 +178,7 @@ export default function Page() {
               <span className="ml-2">0546 737 22 84</span>
             </Button>
             <Button
-              className="rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
+              className="rounded-2xl gradient-primary hover:opacity-90"
               onClick={() => quickContact("WhatsApp")}
             >
               <MessageCircle className="h-4 w-4" />
@@ -190,11 +190,11 @@ export default function Page() {
 
       <main>
         <section className="relative overflow-hidden border-b border-white/5">
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0b0d1c] via-[#0d1230] to-slate-950" />
+          <div className="absolute inset-0 -z-10 gradient-hero" />
           <div className="absolute -left-40 top-10 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
           <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl" />
 
-          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2">
             <motion.div {...fade} className="space-y-5">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-emerald-100">
                 <BadgeCheck className="h-3.5 w-3.5" />
@@ -225,7 +225,7 @@ export default function Page() {
 
               <div className="flex flex-wrap gap-3">
                 <Button
-                  className="rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
+                  className="rounded-2xl gradient-primary hover:opacity-90"
                   size="lg"
                   onClick={(e) => {
                     e.preventDefault();
@@ -325,11 +325,7 @@ export default function Page() {
                       />
                     </div>
 
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
-                    >
+                    <Button type="submit" size="lg" className="rounded-2xl gradient-primary hover:opacity-90">
                       <MessageCircle className="h-4 w-4" />
                       <span className="ml-2">WhatsApp’ta Mesaj Oluştur</span>
                     </Button>
@@ -399,7 +395,7 @@ export default function Page() {
               <p className="mt-2 text-slate-200">İlk mesajdan seans sonuna kadar şeffaf süreç yönetimi.</p>
             </div>
             <Button
-              className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90 lg:w-auto"
+              className="w-full rounded-2xl gradient-primary hover:opacity-90 lg:w-auto"
               onClick={() => quickContact("Süreç")}
             >
               <ArrowRight className="h-4 w-4" />
@@ -456,7 +452,7 @@ export default function Page() {
                     <p className="text-sm text-slate-200">{pack.desc}</p>
                     <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white">{pack.price}</div>
                     <Button
-                      className="mt-auto rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
+                      className="mt-auto rounded-2xl gradient-primary hover:opacity-90"
                       onClick={() => quickContact(`${pack.name} fiyat`)}
                     >
                       <MessageCircle className="h-4 w-4" />
@@ -476,7 +472,7 @@ export default function Page() {
               <p className="mt-2 text-slate-200">Kısa bilgiler; merak ettiğin detaylar için WhatsApp’tan yazabilirsin.</p>
             </div>
             <Button
-              className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90 lg:w-auto"
+              className="w-full rounded-2xl gradient-primary hover:opacity-90 lg:w-auto"
               onClick={() => quickContact("Soru")}
             >
               <MessageCircle className="h-4 w-4" />
@@ -537,7 +533,7 @@ export default function Page() {
                   <p className="text-sm font-semibold text-white">Hızlı WhatsApp</p>
                   <p className="text-sm text-slate-200">Mesaj gönder, aynı gün geri dönüş al.</p>
                   <Button
-                    className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 hover:opacity-90"
+                    className="w-full rounded-2xl gradient-primary hover:opacity-90"
                     onClick={() => quickContact("WhatsApp hızlı")}
                   >
                     <MessageCircle className="h-4 w-4" />
