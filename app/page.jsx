@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -23,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import heroImage from "../hero_image-eksozom.webp";
 
 const WHATSAPP_PHONE_E164 = "905467372284"; // 0546 737 22 84
 const PHONE_DISPLAY = "0546 737 22 84";
@@ -271,7 +273,21 @@ export default function Page() {
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="relative"
             >
-              <Card className="rounded-3xl border-white/10 bg-white/5 shadow-2xl backdrop-blur">
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl">
+                <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-slate-950/70 px-3 py-1 text-[11px] font-semibold text-emerald-100 backdrop-blur">
+                  Google yorumları 4.8/5
+                </div>
+                <Image
+                  src={heroImage}
+                  alt="Sercan Aslan Clinic eksozom uygulaması için danışmanlık formu"
+                  priority
+                  className="h-full w-full object-cover"
+                  sizes="(min-width: 1024px) 600px, 100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent" />
+              </div>
+
+              <Card className="relative -mt-16 rounded-3xl border-white/10 bg-white/5 shadow-2xl backdrop-blur lg:-mt-24 lg:max-w-xl lg:translate-x-8">
                 <CardContent className="p-6 sm:p-8">
                   <div className="flex items-start justify-between gap-4">
                     <div>
