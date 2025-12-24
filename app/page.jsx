@@ -35,7 +35,7 @@ const ASSETS = {
   logo: "/assets/eksozom/logo.svg", // (istersen değiştir)
   hero: "/assets/eksozom/hero.jpg",
   doctor: "/assets/eksozom/doctor.jpg",
-  cover: "/public1/hero_image-eksozom.webp",
+  cover: "/hero_image-eksozom.webp",
   ctaBg: "/assets/eksozom/cta-bg.jpg",
   // Galeri/mosaic
   g1: "/assets/eksozom/gallery-1.jpg",
@@ -257,94 +257,107 @@ export default function Page() {
           <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-[#0B1022]" />
         </div>
 
-        <div
-          className={cn(
-            theme.container,
-            "grid gap-10 py-10 sm:py-14 lg:grid-cols-2 lg:items-center"
-          )}
-        >
-          <motion.div {...fadeUp}>
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
-              Eksozom Tedavisi:
-              <span className="mt-2 block text-white/90">
-                Cilt Gençleştirme ve Saç Onarımında
-              </span>
-              <span className="mt-2 block text-white">
-                Hücresel Yenilenmenin Gücünü Keşfedin
-              </span>
-            </h1>
+        {/* Sayfayı 2'ye bölen hero: sol içerik / sağ görsel arka plan + form */}
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+          <div className="grid gap-6 lg:min-h-[680px] lg:grid-cols-2 lg:gap-8">
+            {/* SOL */}
+            <div className="flex items-center">
+              <div className="w-full py-8 sm:py-12">
+                <motion.div {...fadeUp}>
+                  <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
+                    Eksozom Tedavisi:
+                    <span className="mt-2 block text-white/90">
+                      Cilt Gençleştirme ve Saç Onarımında
+                    </span>
+                    <span className="mt-2 block text-white">
+                      Hücresel Yenilenmenin Gücünü Keşfedin
+                    </span>
+                  </h1>
 
-            <div className="mt-6 grid gap-2">
-              {heroBullets.map((b) => (
-                <div key={b} className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/90" />
-                  <div className={cn("text-sm", theme.textSub)}>{b}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Button
-                className={cn(theme.btnPrimary, "px-7")}
-                size="lg"
-                onClick={() => openLead("Eksozom")}
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span className="ml-2">HEMEN BİLGİ AL</span>
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className={cn("rounded-full border border-[#D28FB0]/60 text-[#D28FB0] hover:bg-[#D28FB0]/10", "px-7")}
-                onClick={() => {
-                  const el = document.getElementById("process");
-                  el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
-              >
-                Uygulama Süreci
-              </Button>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-120px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative"
-          >
-            <Card className={cn(theme.card, "overflow-hidden")}>
-              <div className="grid sm:grid-cols-2">
-                <div className="p-6 sm:p-7">
-                  <Badge className="rounded-full bg-white/10 border border-white/15 text-white">
-                    Ücretsiz
-                  </Badge>
-                  <div className="mt-3 text-2xl font-semibold leading-tight text-[#D28FB0]">Danışmanlık İçin<br />Hemen Başvurun!</div>
-                  <p className={cn("mt-2 text-sm", theme.textSub)}>
-                    Formu doldurun; uzmanlarımız WhatsApp üzerinden sizinle iletişime
-                    geçsin.
-                  </p>
-                  <Button
-                    className={cn(theme.btnPrimary, "mt-4 w-full")}
-                    onClick={() => openLead("Ücretsiz Danışmanlık")}
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    <span className="ml-2">Başvur</span>
-                  </Button>
-                  <div className={cn("mt-3 text-xs", theme.textMuted)}>
-                    *Mesaj, WhatsApp’ta hazır olarak açılır.
+                  <div className="mt-6 grid gap-2">
+                    {heroBullets.map((b) => (
+                      <div key={b} className="flex items-start gap-2">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/90" />
+                        <div className={cn("text-sm", theme.textSub)}>{b}</div>
+                      </div>
+                    ))}
                   </div>
-                </div>
 
-                <div className="relative hidden sm:block">
-                  <Img src={ASSETS.cover} alt="Kapak görsel" className="min-h-[240px]" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
-                </div>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <Button
+                      className={cn(theme.btnPrimary, "px-7")}
+                      size="lg"
+                      onClick={() => openLead("Eksozom")}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      <span className="ml-2">HEMEN BİLGİ AL</span>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className={cn(
+                        "rounded-full border border-[#D28FB0]/60 text-[#D28FB0] hover:bg-[#D28FB0]/10",
+                        "px-7"
+                      )}
+                      onClick={() => {
+                        const el = document.getElementById("process");
+                        el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
+                    >
+                      Uygulama Süreci
+                    </Button>
+                  </div>
+                </motion.div>
               </div>
-            </Card>
+            </div>
 
-            <div className="pointer-events-none absolute -bottom-8 -left-8 h-28 w-28 rounded-3xl bg-[#6B4C8C]/25 blur-2xl" />
-          </motion.div>
+            {/* SAĞ: arka plan tam görsel + form kartı üstte */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="relative overflow-hidden rounded-[32px] border border-white/10"
+            >
+              {/* FULL BACKGROUND IMAGE */}
+              <Img
+                src={ASSETS.cover}
+                alt="Kapak görsel"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
+
+              {/* FORM KARTI (mevcut konum/yerleşim) */}
+              <div className="relative flex h-full items-end p-4 sm:p-6 lg:items-center">
+                <Card className={cn(theme.card, "w-full max-w-xl overflow-hidden")}
+                >
+                  <CardContent className="p-6 sm:p-7">
+                    <Badge className="rounded-full bg-white/10 border border-white/15 text-white">
+                      Ücretsiz
+                    </Badge>
+                    <div className="mt-3 text-2xl font-semibold leading-tight text-[#D28FB0]">
+                      Danışmanlık İçin
+                      <br />
+                      Hemen Başvurun!
+                    </div>
+                    <p className={cn("mt-2 text-sm", theme.textSub)}>
+                      Formu doldurun; uzmanlarımız WhatsApp üzerinden sizinle iletişime geçsin.
+                    </p>
+                    <Button
+                      className={cn(theme.btnPrimary, "mt-4 w-full")}
+                      onClick={() => openLead("Ücretsiz Danışmanlık")}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      <span className="ml-2">Başvur</span>
+                    </Button>
+                    <div className={cn("mt-3 text-xs", theme.textMuted)}>
+                      *Mesaj, WhatsApp’ta hazır olarak açılır.
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -383,12 +396,15 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-3">
             <div className={cn(theme.tile, "overflow-hidden")}>
-              <Img src={ASSETS.g1} alt="Görsel 1" className="aspect-[4/5]" />
+              <Img src={ASSETS.g1} alt="Görsel 1" className="aspect-square max-h-[300px]" />
             </div>
             <div className={cn(theme.tile, "overflow-hidden")}>
-              <Img src={ASSETS.g2} alt="Görsel 2" className="aspect-[4/5]" />
+              <Img src={ASSETS.g2} alt="Görsel 2" className="aspect-square max-h-[300px]" />
+            </div>
+            <div className={cn(theme.tile, "overflow-hidden")}>
+              <Img src={ASSETS.g9} alt="Görsel 3" className="aspect-square max-h-[300px]" />
             </div>
           </div>
         </motion.div>
@@ -400,7 +416,7 @@ export default function Page() {
           {[ASSETS.g3, ASSETS.g4, ASSETS.g5, ASSETS.g6, ASSETS.g7, ASSETS.g8].map(
             (src, i) => (
               <div key={i} className={cn(theme.tile, "overflow-hidden")}>
-                <Img src={src} alt={`Galeri ${i + 3}`} className="aspect-[4/3]" />
+                <Img src={src} alt={`Galeri ${i + 3}`} className="aspect-[4/3] max-h-[240px]" />
               </div>
             )
           )}
