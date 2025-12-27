@@ -1,11 +1,19 @@
 import React from "react";
 
-export const Input = React.forwardRef(function Input({ className = "", ...props }, ref) {
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export function Input({ className = "", ...props }) {
   return (
     <input
-      ref={ref}
-      className={`w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2 text-sm text-white shadow-sm placeholder:text-slate-300 focus:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300/60 ${className}`.trim()}
+      className={cn(
+        "flex h-10 w-full rounded-full border border-slate-200 bg-white px-4 py-2 text-sm " +
+          "text-slate-900 placeholder:text-slate-400 " +
+          "focus:outline-none focus:ring-2 focus:ring-[#D28FB0]/40",
+        className
+      )}
       {...props}
     />
   );
-});
+}
