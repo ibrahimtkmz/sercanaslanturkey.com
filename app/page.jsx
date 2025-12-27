@@ -172,6 +172,8 @@ export default function Page() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(true);
+  const [healthStatus, setHealthStatus] = useState("checking");
+  const [healthMeta, setHealthMeta] = useState("");
 
   const openLead = (interest = "Eksozom") => {
     setSelectedInterest(interest);
@@ -201,6 +203,35 @@ export default function Page() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const checkHealth = async () => {
+      try {
+        const res = await fetch("/api/health", { cache: "no-store" });
+        if (!res.ok) throw new Error(`status ${res.status}`);
+        const data = await res.json();
+
+        if (cancelled) return;
+        setHealthStatus(data?.status === "ok" ? "ok" : "degraded");
+
+        const meta = [data?.environment, data?.commit?.slice(0, 7)]
+          .filter(Boolean)
+          .join(" · ");
+        setHealthMeta(meta);
+      } catch (error) {
+        if (cancelled) return;
+        setHealthStatus("error");
+      }
+    };
+
+    checkHealth();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const heroBullets = useMemo(
     () => [
       "Ciltte hücresel yenilenmeyi destekler",
@@ -216,6 +247,23 @@ export default function Page() {
     ],
     []
   );
+
+  const healthLabel =
+    healthStatus === "ok"
+      ? "Aktif"
+      : healthStatus === "degraded"
+        ? "Kısıtlı"
+        : healthStatus === "error"
+          ? "Erişim hatası"
+          : "Kontrol ediliyor…";
+
+  const healthColor =
+    {
+      ok: "bg-emerald-500",
+      degraded: "bg-amber-500",
+      checking: "bg-amber-400",
+      error: "bg-red-500",
+    }[healthStatus] || "bg-slate-400";
 
   return (
     <div className={theme.page}>
@@ -694,11 +742,16 @@ export default function Page() {
           <div
             className={cn(
               theme.container,
-              "flex flex-col gap-2 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between"
+              "flex flex-col gap-3 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between"
             )}
           >
             <span>© {new Date().getFullYear()} • Tüm hakları saklıdır.</span>
             <span>Bilgilendirme amaçlıdır; tanı/tedavi yerine geçmez.</span>
+            <span className="flex items-center gap-2">
+              <span className={cn("h-2 w-2 rounded-full", healthColor)} />
+              <span>Bağlantı durumu: {healthLabel}</span>
+              {healthMeta ? <span className="text-white/40">({healthMeta})</span> : null}
+            </span>
           </div>
         </div>
       </footer>
