@@ -1,20 +1,13 @@
 import React from "react";
 
-export function Card({ className = "", children, ...props }) {
-  return (
-    <div
-      className={`rounded-2xl border border-white/10 bg-white/5 shadow-lg backdrop-blur ${className}`.trim()}
-      {...props}
-    >
-      {children}
-    </div>
-  );
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
 }
 
-export function CardContent({ className = "", children, ...props }) {
-  return (
-    <div className={`p-5 sm:p-6 ${className}`.trim()} {...props}>
-      {children}
-    </div>
-  );
+export function Card({ className = "", ...props }) {
+  return <div className={cn("rounded-2xl", className)} {...props} />;
+}
+
+export function CardContent({ className = "", ...props }) {
+  return <div className={cn("", className)} {...props} />;
 }
