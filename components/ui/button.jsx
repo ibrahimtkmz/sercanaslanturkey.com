@@ -1,23 +1,42 @@
 import React from "react";
 
-const baseClasses =
-  "inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold text-white transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400/70";
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
-const variants = {
-  default: baseClasses,
-  outline:
-    "inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 bg-transparent px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400/70",
-};
+export function Button({
+  className = "",
+  variant = "default",
+  size = "default",
+  type = "button",
+  disabled,
+  ...props
+}) {
+  const base =
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold transition " +
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D28FB0]/50 " +
+    "disabled:opacity-60 disabled:pointer-events-none";
 
-export const Button = React.forwardRef(function Button(
-  { className = "", variant = "default", size = "md", children, ...props },
-  ref
-) {
-  const sizeClasses = size === "lg" ? "px-5 py-3 text-base" : "px-4 py-2 text-sm";
-  const classes = `${variants[variant] || variants.default} ${sizeClasses} ${className}`.trim();
+  const variants = {
+    default: "",
+    outline:
+      "border border-slate-200 bg-transparent text-slate-900 hover:bg-slate-50",
+    ghost: "bg-transparent hover:bg-white/10",
+  };
+
+  const sizes = {
+    default: "h-10 px-4 py-2 rounded-full",
+    sm: "h-9 px-3 rounded-full",
+    lg: "h-11 px-6 rounded-full text-base",
+    icon: "h-10 w-10 rounded-full",
+  };
+
   return (
-    <button ref={ref} className={classes} {...props}>
-      {children}
-    </button>
+    <button
+      type={type}
+      className={cn(base, variants[variant], sizes[size], className)}
+      disabled={disabled}
+      {...props}
+    />
   );
-});
+}
