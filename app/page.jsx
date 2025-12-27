@@ -31,23 +31,25 @@ import { Badge } from "@/components/ui/badge";
 
 const WHATSAPP_PHONE_E164 = "905467372284"; // 0546 737 22 84
 
+const PLACEHOLDER_IMAGE = "/assets/eksozom/hero.webp";
+
 const ASSETS = {
   logo: "/assets/eksozom/logo.svg", // (istersen değiştir)
-  hero: "/assets/eksozom/hero.jpg",
-  doctor: "/assets/eksozom/doctor.jpg",
-  cover: "/hero_image-eksozom.webp",
-  ctaBg: "/assets/eksozom/cta-bg.jpg",
-  // Galeri/mosaic
-  g1: "/assets/eksozom/gallery-1.jpg",
-  g2: "/assets/eksozom/gallery-2.jpg",
-  g3: "/assets/eksozom/gallery-3.jpg",
-  g4: "/assets/eksozom/gallery-4.jpg",
-  g5: "/assets/eksozom/gallery-5.jpg",
-  g6: "/assets/eksozom/gallery-6.jpg",
-  g7: "/assets/eksozom/gallery-7.jpg",
-  g8: "/assets/eksozom/gallery-8.jpg",
-  g9: "/assets/eksozom/gallery-9.jpg",
-  g10: "/assets/eksozom/gallery-10.jpg",
+  hero: PLACEHOLDER_IMAGE,
+  doctor: PLACEHOLDER_IMAGE,
+  cover: PLACEHOLDER_IMAGE,
+  ctaBg: PLACEHOLDER_IMAGE,
+  // Galeri/mosaic (placeholder görseller)
+  g1: PLACEHOLDER_IMAGE,
+  g2: PLACEHOLDER_IMAGE,
+  g3: PLACEHOLDER_IMAGE,
+  g4: PLACEHOLDER_IMAGE,
+  g5: PLACEHOLDER_IMAGE,
+  g6: PLACEHOLDER_IMAGE,
+  g7: PLACEHOLDER_IMAGE,
+  g8: PLACEHOLDER_IMAGE,
+  g9: PLACEHOLDER_IMAGE,
+  g10: PLACEHOLDER_IMAGE,
 };
 
 function cn(...classes) {
