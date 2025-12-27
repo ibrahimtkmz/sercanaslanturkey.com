@@ -1,9 +1,14 @@
 import React from "react";
 
-export function Label({ className = "", children, ...props }) {
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export function Label({ className = "", ...props }) {
   return (
-    <label className={`text-sm font-semibold text-slate-200 ${className}`.trim()} {...props}>
-      {children}
-    </label>
+    <label
+      className={cn("text-sm font-medium text-slate-700", className)}
+      {...props}
+    />
   );
 }
