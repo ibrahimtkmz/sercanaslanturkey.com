@@ -507,7 +507,14 @@ export default function Page() {
     ],
     []
   );
-
+const beforeAfterItems = useMemo(
+    () => [
+      { src: ASSETS.beforeFace, alt: "Cilt yenilenme öncesi sonrası" },
+      { src: ASSETS.beforeHair, alt: "Saç dökülmesi öncesi sonrası" },
+      { src: ASSETS.beforeEye, alt: "Göz çevresi öncesi sonrası" },
+    ],
+    []
+  );
   
 
   const submitInlineForm = (e) => {
