@@ -31,7 +31,7 @@ import { Badge } from "@/components/ui/badge";
 const WHATSAPP_PHONE_E164 = "905467372284"; // 0546 737 22 84
 
 const ASSETS = {
-  logo: "/assets/eksozom/logo.svg",
+  logo: "/assets/eksozom/logo.jpg",
 
   // Hero & CTA
   hero: "/assets/eksozom/hero-eksozom.jpg",
@@ -1163,7 +1163,7 @@ export default function Page() {
           </div>
 
           <div>
-            <div className="text-sm font-semibold">Hızlı CTA</div>
+            <div className="text-sm font-semibold">Hızlı İletişim</div>
             <div className="mt-3 grid gap-2">
               <Button className={cn(theme.btnPrimary, "w-full")} onClick={() => openLead("Eksozom")}>
                 <Sparkles className="h-4 w-4" />
@@ -1191,7 +1191,7 @@ export default function Page() {
             )}
           >
             <span>© {new Date().getFullYear()} • Tüm hakları saklıdır.</span>
-            <span>Bilgilendirme amaçlıdır; tanı/tedavi yerine geçmez.</span>
+            <span> </span>
           </div>
         </div>
       </footer>
