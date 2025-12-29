@@ -529,7 +529,7 @@ export default function Page() {
         </div>
 
         {/* Sayfayı 2'ye bölen hero: sol içerik / sağ görsel arka plan + form */}
-        <div className="mx-auto max-w-[1400px] px-6 sm:px-8">
+        <div className="mx-auto max-w-[1200px] px-6 sm:px-8">
           <div className="grid gap-6 lg:min-h-[680px] lg:grid-cols-[52%_48%] lg:gap-8">
             {/* SOL */}
             <div className="flex items-center">
