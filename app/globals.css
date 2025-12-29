@@ -5,3 +5,39 @@
 html, body {
   height: 100%;
 }
+
+body {
+  background-color: #0b1022;
+  color: #ffffff;
+  overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+.ambient-light {
+  pointer-events: none;
+  position: fixed;
+  inset: -14%;
+  z-index: 0;
+  background:
+    radial-gradient(120% 110% at 15% 18%, rgba(210, 143, 176, 0.18), transparent 60%),
+    radial-gradient(120% 110% at 85% 22%, rgba(107, 76, 140, 0.18), transparent 62%),
+    radial-gradient(140% 130% at 50% 86%, rgba(102, 182, 255, 0.12), transparent 70%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.0));
+  filter: blur(32px) saturate(110%);
+  opacity: 0.94;
+  transform: translateZ(0);
+}
+
+.ambient-body > *:not(.ambient-light) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .ambient-light {
+    inset: -18%;
+    filter: blur(36px);
+    opacity: 0.85;
+  }
+}
