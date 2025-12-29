@@ -52,7 +52,6 @@ const ASSETS = {
   beforeFace: "/assets/eksozom/before-after-cilt.jpg",
   beforeHair: "/assets/eksozom/before-after-sac.jpg",
   beforeEye: "/assets/eksozom/before-after-goz.jpg",
-  googleBadge: "/assets/eksozom/google-48.svg",
 
   // Galeri / atmosfer
   g3: "/assets/eksozom/klinik-ortam-1.jpg",
@@ -852,14 +851,6 @@ export default function Page() {
                     Seans sayısı, uygulanacak bölgeler ve fiyat aralığıyla ilgili size özel bilgiyi
                     ücretsiz paylaşalım.
                   </p>
-                </div>
-                <div className="flex flex-col items-center rounded-2xl bg-white/10 px-4 py-3 text-center">
-                  <img
-                    src={ASSETS.googleBadge}
-                    alt="Google Reviews"
-                    className="h-10 w-10 object-contain"
-                  />
-                  <div className="mt-1 text-lg font-semibold text-white">4,8</div>
                 </div>
               </div>
 
