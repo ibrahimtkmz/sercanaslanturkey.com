@@ -644,12 +644,14 @@ const beforeAfterItems = useMemo(
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="relative overflow-hidden rounded-[32px] border border-white/10"
             >
-              {/* FULL BACKGROUND IMAGE */}
-              <Img
-                src={ASSETS.cover}
-                alt="Kapak görsel"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
+             <div className="relative h-[500px] w-full">
+  <Img
+    src={ASSETS.cover}
+    alt="Kapak görsel"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+</div>
+
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
 
               {/* FORM KARTI */}
@@ -661,11 +663,11 @@ const beforeAfterItems = useMemo(
                   )}
                 >
                   <CardContent className="p-5 sm:p-6">
-                    <Badge className="rounded-full bg-white/10 border border-white/15 text-white">
+                    <Badge className="rounded-full bg-white/10 border border-white/35 text-white">
                       Ücretsiz
                     </Badge>
                     <div className="mt-3 text-xl font-semibold leading-tight text-[#D28FB0] sm:text-2xl">
-                      Canlı Online Danışmanlık
+                      Online Danışmanlık
                       <br />
                       Dr. İbrahim şimdi değerlendirsin
                       <br />
