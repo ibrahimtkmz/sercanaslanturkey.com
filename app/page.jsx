@@ -574,113 +574,94 @@ const beforeAfterItems = useMemo(
         </div>
       </div>
 
-      {/* Hero */}
-     <section className="relative overflow-hidden pt-6 pb-2">
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#6B4C8C]/25 blur-[120px]" />
-          <div className="absolute -right-40 top-10 h-[560px] w-[560px] rounded-full bg-[#D28FB0]/20 blur-[130px]" />
-          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-[#0B1022]" />
-        </div>
+     {/* Hero */}
+<section className="relative overflow-hidden pt-6 pb-2">
+  {/* Arka plan blur & gradient efektleri */}
+  <div className="pointer-events-none absolute inset-0 -z-10">
+    <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#6B4C8C]/25 blur-[120px]" />
+    <div className="absolute -right-40 top-10 h-[560px] w-[560px] rounded-full bg-[#D28FB0]/20 blur-[130px]" />
+    <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-[#0B1022]" />
+  </div>
 
-        {/* Sayfayı 2'ye bölen hero: sol içerik / sağ görsel arka plan + form */}
-        <div className="mx-auto max-w-[1200px] px-6 sm:px-8">
-          <div className="grid gap-6 lg:min-h-[680px] lg:grid-cols-[52%_48%] lg:gap-8">
-            {/* SOL */}
-            <div className="flex items-center">
-              <div className="w-full py-8 sm:py-12">
-                <motion.div {...fadeUp}>
-                  <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
-                    Eksozom Tedavisi
-                    <span className="mt-2 block text-white/90">Cilt Gençleştirme ve Saç Onarımında</span>
-                    <span className="mt-2 block text-white">Hücresel Yenilenmenin Gücünü Keşfedin</span>
-                  </h1>
+  <div className="mx-auto max-w-[1200px] px-6 sm:px-8">
+    <div className="grid gap-6 lg:h-[680px] lg:grid-cols-[52%_48%] lg:gap-8">
+      
+      {/* SOL İÇERİK */}
+      <div className="flex items-center">
+        <div className="w-full py-8 sm:py-12">
+          <motion.div {...fadeUp}>
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
+              Eksozom Tedavisi
+              <span className="mt-2 block text-white/90">
+                Cilt Gençleştirme ve Saç Onarımında
+              </span>
+              <span className="mt-2 block text-white">
+                Hücresel Yenilenmenin Gücünü Keşfedin
+              </span>
+            </h1>
 
-                  <div className="mt-6">
-                    <HairStrandStrengthAnim />
-                  </div>
-
-                  <div className="mt-6 grid gap-2">
-                    {heroBullets.map((b) => (
-                      <div key={b} className="flex items-start gap-2">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/90" />
-                        <div className={cn("text-sm", theme.textSub)}>{b}</div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-7 flex flex-wrap gap-3">
-                    <Button
-                      className={cn(theme.btnPrimary, "px-7")}
-                      size="lg"
-                      onClick={() => openLead("Eksozom")}
-                    >
-                      <MessageCircle className="h-4 w-4" />
-                      <span className="ml-2">HEMEN BİLGİ AL</span>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className={cn(
-                        "rounded-full border border-[#D28FB0]/60 text-[#D28FB0] hover:bg-[#D28FB0]/10",
-                        "px-7"
-                      )}
-                      onClick={() => {
-                        const el = document.getElementById("process");
-                        el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                      }}
-                    >
-                      Uygulama Süreci
-                    </Button>
-                  </div>
-                </motion.div>
-              </div>
+            <div className="mt-6">
+              <HairStrandStrengthAnim />
             </div>
 
-           
-              {/* FULL BACKGROUND IMAGE */}
-              <Img
-                src={ASSETS.cover}
-                alt="Kapak görsel"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
+            <div className="mt-6 grid gap-2">
+              {heroBullets.map((b) => (
+                <div key={b} className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/90" />
+                  <div className={cn("text-sm", theme.textSub)}>{b}</div>
+                </div>
+              ))}
+            </div>
 
-              {/* FORM KARTI */}
-              <div className="relative flex h-full items-end p-4 sm:p-6 lg:items-center">
-                <Card
-                  className={cn(
-                    theme.card,
-                    "w-full max-w-full sm:max-w-lg lg:max-w-md overflow-hidden lg:-translate-x-4"
-                  )}
-                >
-                  <CardContent className="p-5 sm:p-6">
-                    <Badge className="rounded-full bg-white/10 border border-white/15 text-white">
-                      Ücretsiz
-                    </Badge>
-                    <div className="mt-3 text-xl font-semibold leading-tight text-[#D28FB0] sm:text-2xl">
-                      Canlı Online Danışmanlık
-                      <br />
-                      Dr. İbrahim şimdi değerlendirsin
-                      <br />
-                      anında yanıt alın
-                    </div>
-                    <p className={cn("mt-2 text-sm", theme.textSub)}>
-                      Formu doldurun; uzmanlarımız WhatsApp üzerinden sizinle iletişime geçsin.
-                    </p>
-                    <Button
-                      className={cn(theme.btnPrimary, "mt-4 w-full")}
-                      onClick={() => openLead("Ücretsiz Danışmanlık")}
-                    >
-                      <MessageCircle className="h-4 w-4" />
-                      <span className="ml-2">Başvur</span>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            </motion.div>
-          </div>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Button
+                className={cn(theme.btnPrimary, "px-7")}
+                size="lg"
+                onClick={() => openLead("Eksozom")}
+              >
+                <MessageCircle className="h-4 w-4" />
+                <span className="ml-2">HEMEN BİLGİ AL</span>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className={cn(
+                  "rounded-full border border-[#D28FB0]/60 text-[#D28FB0] hover:bg-[#D28FB0]/10",
+                  "px-7"
+                )}
+                onClick={() => {
+                  const el = document.getElementById("process");
+                  el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+              >
+                Uygulama Süreci
+              </Button>
+            </div>
+          </motion.div>
         </div>
-      </section>
+      </div>
+
+      {/* SAĞ: TAM GÖRSEL */}
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-120px" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="relative overflow-hidden rounded-[32px] border border-white/10"
+      >
+        <Img
+          src={ASSETS.cover}
+          alt="Kapak görsel"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/10" />
+      </motion.div>
+
+    </div>
+  </div>
+</section>
+
 
       {/* Diğer Uygulamalar */}
       <section className={cn(theme.container, "py-16")}>
