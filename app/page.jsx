@@ -26,6 +26,7 @@ const WHATSAPP_PHONE_E164 = "905467372284"; // 0546 737 22 84
 const ASSETS = {
   logo: "/assets/eksozom/logo.jpg",
   hero: "/assets/eksozom/hero-eksozom.jpg",
+  heroTexture: "/assets/eksozom/hero-gg.png",
   cover: "/assets/eksozom/cta-bg.jpg?v=1",
   ctaBg: "/assets/eksozom/cta-bg.jpg?v=1",
   doctor: "/assets/eksozom/doctor-ibrahim.jpg",
@@ -980,6 +981,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
   const [inlineConsent, setInlineConsent] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const isEksozom = content.slug === "eksozom";
 
   useEffect(() => {
     setSelectedInterest(content.interestName);
@@ -1160,7 +1162,18 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                   </h1>
 
                   <div className="mt-6">
-                    <HairStrandStrengthAnim />
+                    {isEksozom ? (
+                      <HairStrandStrengthAnim />
+                    ) : (
+                      <div className={cn(theme.tile, "relative overflow-hidden border-white/15 p-0")}>
+                        <Img
+                          src={ASSETS.heroTexture}
+                          alt={`${content.interestName} görseli`}
+                          className="h-[260px] w-full object-cover sm:h-[300px]"
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-6 grid gap-2">
@@ -1228,8 +1241,17 @@ export function LandingPage({ initialSlug = "eksozom" }) {
 
           <div className="mt-6 grid gap-4 md:grid-cols-3 lg:grid-cols-4">
             {OTHER_APPLICATIONS.map((t) => (
-              <Card key={t.key} className={cn(theme.card, "overflow-hidden")}> 
-                <CardContent className="p-6">
+              <Card
+                key={t.key}
+                className={cn(theme.card, "relative overflow-hidden")} 
+                style={{
+                  backgroundImage: `url(${ASSETS.heroTexture})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/45 to-black/20" />
+                <CardContent className="relative p-6">
                   <div className="text-lg font-semibold text-[#D28FB0]">{t.title}</div>
                   <p className={cn("mt-2 text-sm", theme.textSub)}>{t.desc}</p>
 
@@ -1244,18 +1266,12 @@ export function LandingPage({ initialSlug = "eksozom" }) {
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     <Button
-                      className={cn(theme.btnPrimary, "flex-1")}
+                      className={cn(theme.btnPrimary, "w-full justify-center")}
                       onClick={() => openLead(t.title)}
                     >
                       <MessageCircle className="h-4 w-4" />
                       <span className="ml-2">Bilgi Al</span>
                     </Button>
-                    <Link
-                      href={t.slug === "eksozom" ? "/" : `/${t.slug}`}
-                      className="rounded-full border border-white/20 px-4 py-2 text-xs text-white/80 hover:bg-white/10"
-                    >
-                      Sayfayı Gör
-                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -1465,8 +1481,17 @@ export function LandingPage({ initialSlug = "eksozom" }) {
 
           <div className="mt-6 grid gap-4">
             {content.applicationSections.map((sec) => (
-              <Card key={sec.t} className={theme.card}>
-                <CardContent className="p-6 sm:p-8">
+              <Card
+                key={sec.t}
+                className={cn(theme.card, "relative overflow-hidden")}
+                style={{
+                  backgroundImage: `url(${ASSETS.heroTexture})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/50 to-black/25" />
+                <CardContent className="relative p-6 sm:p-8">
                   <div className="text-lg font-semibold text-[#D28FB0]">{sec.t}</div>
                   <div className={cn("mt-2 text-sm", theme.textSub)}>{sec.p}</div>
                   <div className="mt-4 grid gap-2">
