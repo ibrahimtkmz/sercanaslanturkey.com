@@ -1241,11 +1241,11 @@ export default function Page() {
                       hazır mesaj
                     </div>
                     <div className="mt-3 text-white/90 text-sm">
-                      İsim ve telefonunu yaz — mesajına{" "}
-                      <span className="font-semibold">{selectedInterest}</span> bilgisi eklensin.
+                      Bilgileri doldurup anında bilgi alabilirsiniz  — mesajına{" "}
+                      <span className="font-semibold">{selectedInterest}</span> Uzman Doktorumuz sizin için en faydalı süreci planlayacaktır.
                     </div>
                     <div className="mt-6 rounded-2xl bg-white/15 p-4 text-white/90 text-sm">
-                      *Mesajı siz onaylayıp gönderirsiniz.
+                      *DR İbrahim anlık bilgi alın.
                     </div>
                   </div>
 
@@ -1254,10 +1254,10 @@ export default function Page() {
                       <div>
                         <div className="text-sm font-medium text-slate-600">Hızlı bilgi formu</div>
                         <div className="mt-1 text-xl font-semibold tracking-tight">
-                          WhatsApp’ta hazır mesaj oluşturalım
+                          WhatsApp’tan Online CheckUp yaptırın, Anlık bilgi alın 
                         </div>
                         <div className="mt-2 text-sm text-slate-600">
-                          İsim ve telefonunu yaz — mesajına{" "}
+                          İsim ve numaranızı yazın — mesajına{" "}
                           <span className="font-medium">{selectedInterest}</span> bilgisi eklensin.
                         </div>
                       </div>
