@@ -414,7 +414,7 @@ function HairStrandStrengthAnim() {
         <div className="mt-2 flex flex-wrap gap-2">
           <span className={cn(theme.chip, "bg-white/0")}>Kökten güçlenme</span>
           <span className={cn(theme.chip, "bg-white/0")}>Daha kalın saç telleri</span>
-          <span className={cn(theme.chip, "bg-white/0")}>Canlı foliküller</span>
+          <span className={cn(theme.chip, "bg-white/0")}> foliküller</span>
         </div>
       </div>
     </div>
@@ -652,46 +652,44 @@ const beforeAfterItems = useMemo(
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
 
-              {/* FORM KARTI – ALTTA */}
-<div className="relative flex h-full items-end justify-center p-4 sm:p-6">
-  <Card
-    className="
-      w-full max-w-sm
-      rounded-2xl
-      bg-white
-      shadow-xl
-      border border-slate-200
-      mb-4
-    "
-  >
-    <CardContent className="p-5 sm:p-6">
-      
-      <Badge className="rounded-full bg-[#D28FB0]/10 text-[#D28FB0] border border-[#D28FB0]/30">
-        Ücretsiz
-      </Badge>
+               {/* FORM KARTI – ALTTA */}
+  <div className="relative flex h-full items-end justify-center p-4 sm:p-6">
+    <Card
+      className="
+        w-full max-w-sm
+        rounded-2xl
+        bg-white
+        shadow-xl
+        border border-slate-200
+        mb-4
+      "
+    >
+      <CardContent className="p-5 sm:p-6">
+        <Badge className="rounded-full bg-[#D28FB0]/10 text-[#D28FB0] border border-[#D28FB0]/30">
+          Ücretsiz
+        </Badge>
 
-      <div className="mt-3 text-lg font-semibold leading-snug text-slate-900">
-        Canlı Online Danışmanlık
-        <br />
-        Dr. İbrahim şimdi değerlendirsin
-      </div>
+        <div className="mt-3 text-lg font-semibold leading-snug text-slate-900">
+          Canlı Online Danışmanlık
+          <br />
+          Dr. İbrahim şimdi değerlendirsin
+        </div>
 
-      <p className="mt-2 text-sm text-slate-600">
-        WhatsApp üzerinden hızlıca dönüş alabilirsiniz.
-      </p>
+        <p className="mt-2 text-sm text-slate-600">
+          WhatsApp üzerinden hızlıca dönüş alabilirsiniz.
+        </p>
 
-      <Button
-        className="mt-4 w-full bg-[#D28FB0] hover:bg-[#c47fa3] text-white"
-        onClick={() => openLead("Ücretsiz Danışmanlık")}
-      >
-        <MessageCircle className="h-4 w-4" />
-        <span className="ml-2">Başvur</span>
-      </Button>
-
-    </CardContent>
-  </Card>
-</div>
-      </section>
+        <Button
+          className="mt-4 w-full bg-[#D28FB0] hover:bg-[#c47fa3] text-white"
+          onClick={() => openLead("Ücretsiz Danışmanlık")}
+        >
+          <MessageCircle className="h-4 w-4" />
+          <span className="ml-2">Başvur</span>
+        </Button>
+      </CardContent>
+    </Card>
+  </div>
+</motion.div>
 
       {/* Diğer Uygulamalar */}
       <section className={cn(theme.container, "py-16")}>
