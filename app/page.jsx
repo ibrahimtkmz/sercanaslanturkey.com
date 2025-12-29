@@ -808,8 +808,16 @@ export default function Page() {
       </section>
 
       {/* Neden tercih etmeli + Form */}
-      <section className={cn(theme.container, "py-16")}>
-        <motion.div {...fadeUp} className="grid gap-8 lg:grid-cols-2 lg:items-start">
+      <section className="relative py-16">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f1329] via-[#171e3d] to-[#0f1329]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(210,143,176,0.22),transparent_40%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_10%,rgba(107,76,140,0.18),transparent_36%)]" />
+        </div>
+        <motion.div
+          {...fadeUp}
+          className={cn(theme.container, "relative grid gap-8 lg:grid-cols-2 lg:items-start")}
+        >
           <div>
             <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               Neden Doku Clinic’i Tercih Etmelisiniz?
@@ -927,8 +935,13 @@ export default function Page() {
       </section>
 
       {/* Uygulama Alanları */}
-      <section className={cn(theme.container, "py-16")}>
-        <motion.div {...fadeUp}>
+      <section className="relative py-16">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0b1022] via-[#0f1733] to-[#0b1022]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(210,143,176,0.12),transparent_42%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(107,76,140,0.14),transparent_40%)]" />
+        </div>
+        <motion.div {...fadeUp} className={cn(theme.container, "relative")}>
           <SectionTitle
             title="Eksozom Uygulama Alanları: Saç ve Ciltte Hücresel Yenilenme"
             desc="Eksozom tedavisi; hasarlı hücreleri onarmayı, iltihabı azaltmayı ve doku yenilenmesini hızlandırmayı hedefleyen gelişmiş bir biyolojik yaklaşım olarak değerlendirilir."
@@ -1008,8 +1021,13 @@ export default function Page() {
 
 
       {/* Uygulama Süreci */}
-      <section className={cn(theme.container, "py-12")} id="process">
-        <motion.div {...fadeUp}>
+      <section className="relative py-12" id="process">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0b1022] via-[#101831] to-[#0b1022]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(210,143,176,0.12),transparent_38%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_12%,rgba(107,76,140,0.12),transparent_40%)]" />
+        </div>
+        <motion.div {...fadeUp} className={cn(theme.container, "relative")}>
           <SectionTitle
             title="Uygulama Süreci"
             desc="Eksozom tedavisi ortalama 30–40 dakika süren, konforlu ve minimal girişimli bir uygulama olarak planlanır."
