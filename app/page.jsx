@@ -1213,19 +1213,6 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
-
-              <div className="relative flex h-full items-end justify-center p-4 sm:p-6 lg:items-center">
-                <Button
-                  className={cn(
-                    theme.btnPrimary,
-                    "hidden w-full max-w-lg px-6 py-3 text-sm sm:inline-flex sm:w-auto sm:px-8 sm:py-3.5 sm:text-base"
-                  )}
-                  onClick={() => openLead("Ücretsiz Danışmanlık")}
-                >
-                  <MessageCircle className="h-5 w-5" />
-                  <span className="ml-2">Ücretsiz Danışmalık için Şimdi Başvur</span>
-                </Button>
-              </div>
             </motion.div>
           </div>
         </div>
