@@ -108,7 +108,7 @@ const fadeItem = {
 
 
 const theme = {
-  page: "relative min-h-screen bg-[#0B1022] text-white overflow-hidden",
+  page: "relative min-h-screen bg-[#0B1022]/50 text-white overflow-hidden",
   container: "mx-auto max-w-6xl px-4 sm:px-6",
   topbar:
     "sticky top-0 z-50 border-b border-white/10 bg-[#0B1022]/70 backdrop-blur",
