@@ -644,15 +644,50 @@ const beforeAfterItems = useMemo(
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="relative overflow-hidden rounded-[32px] border border-white/10"
             >
-             <div className="relative h-[700px] w-full">
-   <Img
-    src={ASSETS.cover}
-    alt="Kapak görsel"
-    className="absolute inset-0 w-full h-full object-cover"
-  />
-</div>
+              {/* FULL BACKGROUND IMAGE */}
+              <Img
+                src={ASSETS.cover}
+                alt="Kapak görsel"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
 
-             
+              {/* FORM KARTI */}
+              <div className="relative flex h-full items-end p-4 sm:p-6 lg:items-center">
+                <Card
+                  className={cn(
+                    theme.card,
+                    "w-full max-w-full sm:max-w-lg lg:max-w-md overflow-hidden lg:-translate-x-4"
+                  )}
+                >
+                  <CardContent className="p-5 sm:p-6">
+                    <Badge className="rounded-full bg-white/10 border border-white/15 text-white">
+                      Ücretsiz
+                    </Badge>
+                    <div className="mt-3 text-xl font-semibold leading-tight text-[#D28FB0] sm:text-2xl">
+                      Canlı Online Danışmanlık
+                      <br />
+                      Dr. İbrahim şimdi değerlendirsin
+                      <br />
+                      anında yanıt alın
+                    </div>
+                    <p className={cn("mt-2 text-sm", theme.textSub)}>
+                      Formu doldurun; uzmanlarımız WhatsApp üzerinden sizinle iletişime geçsin.
+                    </p>
+                    <Button
+                      className={cn(theme.btnPrimary, "mt-4 w-full")}
+                      onClick={() => openLead("Ücretsiz Danışmanlık")}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      <span className="ml-2">Başvur</span>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Diğer Uygulamalar */}
       <section className={cn(theme.container, "py-16")}>
