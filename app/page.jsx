@@ -778,23 +778,6 @@ const beforeAfterItems = useMemo(
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            {beforeAfterItems.map((item) => (
-              <div
-                key={item.alt}
-                className={cn(
-                  theme.tile,
-                  "relative overflow-hidden rounded-[24px] border-white/12 bg-white/5"
-                )}
-              >
-                <Img src={item.src} alt={item.alt} className="aspect-[4/5]" />
-                <span className="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold uppercase">
-                  before
-                </span>
-              </div>
-            ))}
-          </div>
-
           <div className="flex justify-center">
             <Button className={theme.btnPrimary} size="lg" onClick={() => openLead("Eksozom")}>
               <Sparkles className="h-4 w-4" />
