@@ -100,7 +100,7 @@ const theme = {
   topbar:
     "sticky top-0 z-50 border-b border-white/10 bg-[#0B1022]/70 backdrop-blur",
   card:
-    "rounded-[28px] border border-white/12 bg-black/30 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
+    "rounded-[28px] border border-white/12 bg-black/20 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
   tile: "rounded-2xl border border-white/12 bg-white/5 backdrop-blur",
   chip:
     "inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/90",
@@ -820,10 +820,10 @@ export default function Page() {
         >
           <div>
             <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              Neden Doku Clinic’i Tercih Etmelisiniz?
+              Neden Sercan Aslan Clinic’i Tercih Etmelisiniz?
             </h3>
             <p className={cn("mt-3 text-sm sm:text-base", theme.textSub)}>
-              Doku Clinic, uzman dermatolog kadrosu ve uluslararası sertifikalı teknolojileriyle
+              Sercan Aslan Clinic, uzman dermatolog kadrosu ve uluslararası sertifikalı teknolojileriyle
               Eksozom uygulamasında güvenli, modern ve kişiye özel bir deneyim sunar.
             </p>
 
