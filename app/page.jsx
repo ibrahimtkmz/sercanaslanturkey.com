@@ -537,8 +537,9 @@ const beforeAfterItems = useMemo(
   return (
     <div className={theme.page}>
       <div className="pointer-events-none absolute inset-0 -z-30">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(210,143,176,0.16),rgba(107,76,140,0.08)_28%,rgba(11,16,34,0.92)_70%,rgba(11,16,34,1)_90%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(255,255,255,0.04),transparent_45%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(210,143,176,0.14),rgba(107,76,140,0.08)_26%,rgba(11,16,34,0.15)_46%,rgba(11,16,34,0.8)_74%,rgba(11,16,34,0.95)_92%)] blur-[1px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.06),rgba(255,255,255,0.03)_28%,transparent_56%)] mix-blend-screen" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(9,12,24,0),rgba(9,12,24,0.65)_70%,rgba(9,12,24,0.92)_90%)]" />
       </div>
       <BackgroundHairField />
       {/* Top Bar */}
