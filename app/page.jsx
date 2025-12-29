@@ -680,10 +680,7 @@ const beforeAfterItems = useMemo(
       </section>
 
       {/* Diğer Uygulamalar */}
-      <section className={cn("relative bg-white py-16 text-slate-900")}>
-  <div className="absolute inset-0 bg-white" />
-  <div className={cn(theme.container, "relative")}>
-
+      <section className={cn(theme.container, "py-16")}>
         <motion.div {...fadeUp}>
           <SectionTitle
             kicker="Uygulamalar"
