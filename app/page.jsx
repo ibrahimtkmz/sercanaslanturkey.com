@@ -656,7 +656,7 @@ const beforeAfterItems = useMemo(
               <div className="relative flex h-full items-end p-4 sm:p-6 lg:items-center">
                 <Card className={cn(theme.card, "w-full max-w-xl overflow-hidden")}>
                   <CardContent className="p-6 sm:p-7">
-                    <Badge className="rounded-full bg-white/10 border border-white/15 text-white">
+                    <Badge className="rounded-full bg-white/50 border border-white/15 text-white">
                       Ücretsiz
                     </Badge>
                     <div className="mt-3 text-2xl font-semibold leading-tight text-[#D28FB0]">
