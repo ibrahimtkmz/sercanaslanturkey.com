@@ -574,21 +574,20 @@ const beforeAfterItems = useMemo(
         </div>
       </div>
 
-     {/* Hero */}
-<section className="relative overflow-hidden pt-6 pb-2">
+     {/* Hero – FULL SCREEN */}
+<section className="relative h-screen overflow-hidden">
   {/* Arka plan blur & gradient efektleri */}
   <div className="pointer-events-none absolute inset-0 -z-10">
     <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#6B4C8C]/25 blur-[120px]" />
     <div className="absolute -right-40 top-10 h-[560px] w-[560px] rounded-full bg-[#D28FB0]/20 blur-[130px]" />
-    <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-[#0B1022]" />
   </div>
 
-  <div className="mx-auto max-w-[1200px] px-6 sm:px-8">
-    <div className="grid gap-6 lg:h-[680px] lg:grid-cols-[52%_48%] lg:gap-8">
-      
+  <div className="mx-auto h-full max-w-[1200px] px-6 sm:px-8">
+    <div className="grid h-full gap-6 lg:grid-cols-[52%_48%] lg:gap-8">
+
       {/* SOL İÇERİK */}
       <div className="flex items-center">
-        <div className="w-full py-8 sm:py-12">
+        <div className="w-full">
           <motion.div {...fadeUp}>
             <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
               Eksozom Tedavisi
@@ -642,13 +641,13 @@ const beforeAfterItems = useMemo(
         </div>
       </div>
 
-      {/* SAĞ: TAM GÖRSEL */}
+      {/* SAĞ – FULL SCREEN GÖRSEL */}
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-120px" }}
+        viewport={{ once: true }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="relative overflow-hidden rounded-[32px] border border-white/10"
+        className="relative h-full overflow-hidden rounded-none lg:rounded-[32px]"
       >
         <Img
           src={ASSETS.cover}
