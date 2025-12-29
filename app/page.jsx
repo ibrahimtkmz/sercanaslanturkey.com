@@ -100,8 +100,8 @@ const theme = {
   topbar:
     "sticky top-0 z-50 border-b border-white/10 bg-[#0B1022]/70 backdrop-blur",
   card:
-    "rounded-[28px] border border-white/12 bg-white/10 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
-  tile: "rounded-2xl border border-white/12 bg-white/10 backdrop-blur",
+    "rounded-[28px] border border-white/12 bg-white/30 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
+  tile: "rounded-2xl border border-white/12 bg-white/5 backdrop-blur",
   chip:
     "inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/90",
   btnPrimary:
