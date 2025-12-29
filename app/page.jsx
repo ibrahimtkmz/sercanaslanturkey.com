@@ -11,7 +11,6 @@ import {
   Clock,
   BadgeCheck,
   MapPin,
-  Star,
   ChevronDown,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -55,9 +54,6 @@ const ASSETS = {
   g7: "/assets/eksozom/uygulama-sureci.jpg",
   g8: "/assets/eksozom/danismanlik.jpg",
 };
-
-const GOOGLE_PLACE_URL =
-  "https://www.google.com/maps/place/Sercan+Aslan+-+Hair+Transplant+Turkey/@41.065808,28.9947235,17z/data=!4m6!3m5!1s0x14cab7f4bdbae7ab:0x643f2261dec39eaa!8m2!3d41.065804!4d28.9972984!16s%2Fg%2F11rb3wk1_9?entry=ttu";
 
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -443,11 +439,6 @@ export default function Page() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(true);
-  const [reviews, setReviews] = useState([]);
-  const [reviewsRating, setReviewsRating] = useState(null);
-  const [reviewsTotal, setReviewsTotal] = useState(null);
-  const [reviewsUrl, setReviewsUrl] = useState(GOOGLE_PLACE_URL);
-  const [reviewsStatus, setReviewsStatus] = useState("loading"); // loading | success | error
 
   const openLead = (interest = "Eksozom") => {
     setSelectedInterest(interest);
@@ -475,32 +466,6 @@ export default function Page() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  useEffect(() => {
-    const loadReviews = async () => {
-      try {
-        const res = await fetch("/api/google-reviews");
-        const data = await res.json();
-
-        if (!res.ok) {
-          setReviewsStatus("error");
-          setReviewsUrl(data?.url || GOOGLE_PLACE_URL);
-          return;
-        }
-
-        setReviews(data?.reviews || []);
-        setReviewsRating(data?.rating ?? null);
-        setReviewsTotal(data?.total ?? null);
-        setReviewsUrl(data?.url || GOOGLE_PLACE_URL);
-        setReviewsStatus("success");
-      } catch (error) {
-        setReviewsStatus("error");
-        setReviewsUrl(GOOGLE_PLACE_URL);
-      }
-    };
-
-    loadReviews();
   }, []);
 
   const heroBullets = useMemo(
@@ -880,134 +845,6 @@ export default function Page() {
         </motion.div>
       </section>
 
-      {/* Neden Sercan Aslan Clinic + Google Yorumları */}
-      <section className={cn(theme.container, "py-16")}>
-        <motion.div {...fadeUp}>
-          <SectionTitle
-            title="Google Yorumları"
-            desc="Dermatoloji ve medikal estetik alanında modern, güvenli ve kişiye özel deneyim sunmayı hedefler. Güncel değerlendirmeleri Google Maps üzerinden çekiyoruz."
-          />
-
-          <div className="mt-4 flex flex-wrap items-center gap-4">
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2">
-              <div className="flex gap-1 text-[#FFD166]">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} className="h-4 w-4 fill-[#FFD166]" />
-                ))}
-              </div>
-              <div className="text-sm font-semibold text-white">
-                {reviewsRating ? `${reviewsRating.toFixed(1)} / 5` : "Google yorumları"}
-              </div>
-              {typeof reviewsTotal === "number" && (
-                <div className={cn("text-xs", theme.textMuted)}>({reviewsTotal}+ değerlendirme)</div>
-              )}
-            </div>
-
-            <a
-              href={reviewsUrl}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(
-                "inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm",
-                "hover:bg-white/10"
-              )}
-            >
-              <MapPin className="h-4 w-4" />
-              Google’da görüntüle
-            </a>
-          </div>
-
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            {reviewsStatus === "loading" &&
-              Array.from({ length: 4 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="animate-pulse rounded-2xl border border-white/12 bg-white/5 p-6"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="h-4 w-24 rounded-full bg-white/20" />
-                    <div className="h-4 w-16 rounded-full bg-white/15" />
-                  </div>
-                  <div className="mt-4 space-y-2">
-                    <div className="h-3 w-full rounded-full bg-white/10" />
-                    <div className="h-3 w-5/6 rounded-full bg-white/10" />
-                    <div className="h-3 w-2/3 rounded-full bg-white/10" />
-                  </div>
-                </div>
-              ))}
-
-            {reviewsStatus !== "loading" && reviews.length > 0
-              ? reviews.slice(0, 4).map((r, idx) => (
-                  <Card key={`${r.author}-${idx}`} className={theme.tile}>
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                          {r.avatar ? (
-                            <img
-                              src={r.avatar}
-                              alt={r.author}
-                              className="h-10 w-10 rounded-full object-cover"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          ) : (
-                            <div className="h-10 w-10 rounded-full bg-white/10" />
-                          )}
-                          <div>
-                            <div className="text-sm font-semibold">{r.author}</div>
-                            <div className={cn("text-xs", theme.textMuted)}>{r.time}</div>
-                          </div>
-                        </div>
-                        <div className="flex gap-1 text-[#FFD166]">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star
-                              key={i}
-                              className={cn("h-4 w-4", r.rating >= i + 1 && "fill-[#FFD166]")}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      <div className={cn("mt-3 text-sm leading-relaxed", theme.textSub)}>
-                        {r.text || "Metin bulunamadı."}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
-              : null}
-
-            {reviewsStatus === "error" && reviews.length === 0 && (
-              <div className={cn(theme.tile, "p-6 lg:col-span-2")}>
-                <div className="text-sm font-semibold text-white">Google yorumları yüklenemedi.</div>
-                <p className={cn("mt-2 text-sm", theme.textSub)}>
-                  Şu anda Google’dan değerlendirmeleri çekemedik. Yine de güncel yorumlara ulaşmak
-                  için Google Maps sayfamızı ziyaret edebilirsiniz.
-                </p>
-                <div className="mt-4">
-                  <a
-                    href={reviewsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={cn(
-                      "inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold",
-                      theme.btnPrimary,
-                      "rounded-full"
-                    )}
-                  >
-                    Google’da yorumları görüntüle
-                  </a>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="mt-6">
-            <Button className={theme.btnPrimary} size="lg" onClick={() => openLead("Randevu")}>
-              <MessageCircle className="h-4 w-4" />
-              <span className="ml-2">HEMEN RANDEVUNUZU OLUŞTURUN</span>
-            </Button>
-          </div>
-        </motion.div>
-      </section>
 
       {/* Uygulama Süreci */}
       <section className={cn(theme.container, "py-12")} id="process">
