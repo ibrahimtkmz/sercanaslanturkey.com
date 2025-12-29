@@ -536,6 +536,10 @@ const beforeAfterItems = useMemo(
 
   return (
     <div className={theme.page}>
+      <div className="pointer-events-none absolute inset-0 -z-30">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(210,143,176,0.16),rgba(107,76,140,0.08)_28%,rgba(11,16,34,0.92)_70%,rgba(11,16,34,1)_90%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(255,255,255,0.04),transparent_45%)]" />
+      </div>
       <BackgroundHairField />
       {/* Top Bar */}
       <div className={theme.topbar}>
