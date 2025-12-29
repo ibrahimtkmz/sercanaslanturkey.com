@@ -46,6 +46,14 @@ const ASSETS = {
   g2: "/assets/eksozom/sac-koku-yakin.jpg",
   g9: "/assets/eksozom/eksozom-uygulama.jpg",
 
+  // Hücresel yenilenme (ekran görüntüsü bölümü)
+  hairDiagram: "/assets/eksozom/diagram-sac.png",
+  skinDiagram: "/assets/eksozom/diagram-cilt.png",
+  beforeFace: "/assets/eksozom/before-after-cilt.jpg",
+  beforeHair: "/assets/eksozom/before-after-sac.jpg",
+  beforeEye: "/assets/eksozom/before-after-goz.jpg",
+  googleBadge: "/assets/eksozom/google-48.svg",
+
   // Galeri / atmosfer
   g3: "/assets/eksozom/klinik-ortam-1.jpg",
   g4: "/assets/eksozom/klinik-ortam-2.jpg",
@@ -439,6 +447,10 @@ export default function Page() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(true);
+  const [inlineName, setInlineName] = useState("");
+  const [inlineEmail, setInlineEmail] = useState("");
+  const [inlinePhone, setInlinePhone] = useState("");
+  const [inlineConsent, setInlineConsent] = useState(false);
 
   const openLead = (interest = "Eksozom") => {
     setSelectedInterest(interest);
@@ -483,6 +495,32 @@ export default function Page() {
     ],
     []
   );
+
+  const beforeAfterItems = useMemo(
+    () => [
+      { src: ASSETS.beforeFace, alt: "Cilt yenilenme öncesi sonrası" },
+      { src: ASSETS.beforeHair, alt: "Saç dökülmesi öncesi sonrası" },
+      { src: ASSETS.beforeEye, alt: "Göz çevresi öncesi sonrası" },
+    ],
+    []
+  );
+
+  const submitInlineForm = (e) => {
+    e?.preventDefault?.();
+    if (!inlineName.trim() || formatPhoneTR(inlinePhone).length < 10 || !inlineConsent) return;
+
+    const lines = [
+      "Merhaba, eksozom seans & fiyat bilgisi almak istiyorum.",
+      "",
+      `İsim Soyisim: ${inlineName.trim()}`,
+      `E-Posta: ${inlineEmail.trim() || "-"}`,
+      `Telefon: ${formatPhoneTR(inlinePhone)}`,
+      "İlgilendiğim uygulama: Eksozom",
+    ];
+
+    const url = `https://wa.me/${WHATSAPP_PHONE_E164}?text=${encodeURIComponent(lines.join("\n"))}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div className={theme.page}>
@@ -704,47 +742,52 @@ export default function Page() {
 
       {/* Hücresel Yenilenme */}
       <section className={cn(theme.container, "py-16")}>
-        <motion.div {...fadeUp} className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div>
-            <SectionTitle
-              title="Hücresel Yenilenme: Saçta ve Ciltte Doğal Güç"
-              desc="Eksozomlar, vücudun doğal iyileşme sürecini yöneten güçlü hücresel sinyaller taşır. Cilt ve saçlı deriye uygulandığında, hasarlı hücrelerin onarımını hızlandırmaya; yenilenme kapasitesini artırmaya yardımcı olur."
-            />
+        <motion.div {...fadeUp} className="grid gap-10">
+          <div className="text-center">
+            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              Hücresel Yenilenme: Saçta ve Ciltte Doğal Güç
+            </h2>
+            <p className={cn("mx-auto mt-3 max-w-3xl text-sm sm:text-base", theme.textSub)}>
+              Eksozomlar, vücudun doğal iyileşme sürecini yöneten güçlü hücresel sinyaller taşır. Cilt
+              ve saçlı deriye uygulandığında, hasarlı hücrelerin onarımını hızlandırır; iltihabı azaltır ve
+              yenilenme kapasitesini artırır.
+            </p>
+          </div>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className={cn(theme.tile, "p-5")}>
-                <div className="text-2xl font-semibold">Daha güçlü saç</div>
-                <div className={cn("mt-2 text-sm", theme.textSub)}>
-                  Saç köklerinde hücresel iletişimi destekleyerek saçlı derinin canlılığını artırmaya
-                  yardımcı olur.
-                </div>
-              </div>
-              <div className={cn(theme.tile, "p-5")}>
-                <div className="text-2xl font-semibold">Daha yenilenmiş cilt</div>
-                <div className={cn("mt-2 text-sm", theme.textSub)}>
-                  Kolajen/elastin süreçlerini destekleyerek daha parlak ve dengeli görünüm hedefler.
-                </div>
-              </div>
+          <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-center lg:gap-10">
+            <div className={cn(theme.tile, "relative w-full max-w-[360px] overflow-hidden p-6")}>
+              <Img src={ASSETS.hairDiagram} alt="Daha güçlü saç diyagramı" className="h-52" />
+              <div className="mt-4 text-center text-xl font-semibold">Daha güçlü saç</div>
             </div>
-
-            <div className="mt-6">
-              <Button className={theme.btnPrimary} size="lg" onClick={() => openLead("Eksozom")}>
-                <Sparkles className="h-4 w-4" />
-                <span className="ml-2">EKSOZOM’U KEŞFET!</span>
-              </Button>
+            <div className="hidden h-32 w-px bg-white/15 lg:block" />
+            <div className={cn(theme.tile, "relative w-full max-w-[360px] overflow-hidden p-6")}>
+              <Img src={ASSETS.skinDiagram} alt="Daha yenilenmiş cilt diyagramı" className="h-52" />
+              <div className="mt-4 text-center text-xl font-semibold">Daha yenilenmiş cilt</div>
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div className={cn(theme.tile, "overflow-hidden")}>
-              <Img src={ASSETS.g1} alt="Görsel 1" className="aspect-square max-h-[300px]" />
-            </div>
-            <div className={cn(theme.tile, "overflow-hidden")}>
-              <Img src={ASSETS.g2} alt="Görsel 2" className="aspect-square max-h-[300px]" />
-            </div>
-            <div className={cn(theme.tile, "overflow-hidden")}>
-              <Img src={ASSETS.g9} alt="Görsel 3" className="aspect-square max-h-[300px]" />
-            </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {beforeAfterItems.map((item) => (
+              <div
+                key={item.alt}
+                className={cn(
+                  theme.tile,
+                  "relative overflow-hidden rounded-[24px] border-white/12 bg-white/5"
+                )}
+              >
+                <Img src={item.src} alt={item.alt} className="aspect-[4/5]" />
+                <span className="absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold uppercase">
+                  before
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-center">
+            <Button className={theme.btnPrimary} size="lg" onClick={() => openLead("Eksozom")}>
+              <Sparkles className="h-4 w-4" />
+              <span className="ml-2">EKSOZOM’U KEŞFET!</span>
+            </Button>
           </div>
         </motion.div>
       </section>
@@ -762,6 +805,133 @@ export default function Page() {
         <motion.div {...fadeUp} className={cn("mt-8", theme.textSub)}>
           Sercan Aslan Clinic, eksozom tedavisi odağında; saç ve cilt yenilenmesini destekleyen modern
           uygulamalarla danışanlarına kişiye özel planlar sunmayı hedefler.
+        </motion.div>
+      </section>
+
+      {/* Neden tercih etmeli + Form */}
+      <section className={cn(theme.container, "py-16")}>
+        <motion.div {...fadeUp} className="grid gap-8 lg:grid-cols-2 lg:items-start">
+          <div>
+            <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+              Neden Doku Clinic’i Tercih Etmelisiniz?
+            </h3>
+            <p className={cn("mt-3 text-sm sm:text-base", theme.textSub)}>
+              Doku Clinic, uzman dermatolog kadrosu ve uluslararası sertifikalı teknolojileriyle
+              Eksozom uygulamasında güvenli, modern ve kişiye özel bir deneyim sunar.
+            </p>
+
+            <div className="mt-5 grid gap-2 text-sm sm:text-base">
+              {[
+                "Uzman Dermatologlar: Saç ve cilt yenilenmesinde ileri düzey uzmanlık",
+                "Uluslararası Protokoller: Klinik onaylı ve güvenilir eksozom içerikleri",
+                "Kişiye Özel Plan: Soruna ve bölgeye özel tedavi",
+                "Ücretsiz Danışmanlık: Ön değerlendirme ve yönlendirme",
+                "Konforlu Uygulama: Yüksek konforlu ve hızlı toparlanan bir süreç",
+                "Doğal Sonuçlar: Hücresel yenilenmeye dayalı ve doğal görünümlü etki",
+                "Yüksek Memnuniyet: Türkiye ve yurt dışından güçlü referanslar",
+                "Modern Klinik Ortamı: Hijyenik ve ileri teknoloji altyapısı",
+                "Deneyimli Uygulama Ekibi: Hassas ve kontrollü işlem",
+                "Sürekli Takip: Seans sürecinde düzenli bilgilendirme",
+              ].map((row) => (
+                <div key={row} className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/90" />
+                  <span className={theme.textSub}>{row}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Card className={cn(theme.card, "overflow-hidden border-white/20 bg-white/5")}>
+            <CardContent className="p-6 sm:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-2xl font-semibold text-white">
+                    Eksozom Seans & Fiyat Bilgisi İçin Başvurun
+                  </div>
+                  <p className={cn("mt-2 text-sm", theme.textSub)}>
+                    Seans sayısı, uygulanacak bölgeler ve fiyat aralığıyla ilgili size özel bilgiyi
+                    ücretsiz paylaşalım.
+                  </p>
+                </div>
+                <div className="flex flex-col items-center rounded-2xl bg-white/10 px-4 py-3 text-center">
+                  <img
+                    src={ASSETS.googleBadge}
+                    alt="Google Reviews"
+                    className="h-10 w-10 object-contain"
+                  />
+                  <div className="mt-1 text-lg font-semibold text-white">4,8</div>
+                </div>
+              </div>
+
+              <form className="mt-6 grid gap-4" onSubmit={submitInlineForm}>
+                <div className="grid gap-2">
+                  <Label htmlFor="inline-name" className="text-white">
+                    İsim, Soyisim
+                  </Label>
+                  <Input
+                    id="inline-name"
+                    placeholder="Örn. Ahmet Yılmaz"
+                    value={inlineName}
+                    onChange={(e) => setInlineName(e.target.value)}
+                    className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
+                    required
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="inline-email" className="text-white">
+                    E-Posta
+                  </Label>
+                  <Input
+                    id="inline-email"
+                    type="email"
+                    placeholder="ornek@mail.com"
+                    value={inlineEmail}
+                    onChange={(e) => setInlineEmail(e.target.value)}
+                    className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="inline-phone" className="text-white">
+                    Telefon
+                  </Label>
+                  <Input
+                    id="inline-phone"
+                    placeholder="+90 5XX XXX XX XX"
+                    value={inlinePhone}
+                    onChange={(e) => setInlinePhone(formatPhoneTR(e.target.value))}
+                    inputMode="tel"
+                    className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
+                    required
+                  />
+                </div>
+
+                <label className="flex cursor-pointer items-start gap-2 rounded-2xl border border-white/20 bg-white/5 p-3 text-sm text-white/80">
+                  <input
+                    type="checkbox"
+                    className="mt-1"
+                    checked={inlineConsent}
+                    onChange={(e) => setInlineConsent(e.target.checked)}
+                  />
+                  <span>KVKK ve Gizlilik Sözleşmesi’ni okudum, onaylıyorum.</span>
+                </label>
+
+                <Button
+                  type="submit"
+                  className={cn(
+                    theme.btnPrimary,
+                    "rounded-full",
+                    (!inlineName.trim() || formatPhoneTR(inlinePhone).length < 10 || !inlineConsent) &&
+                      "opacity-60"
+                  )}
+                  disabled={
+                    !inlineName.trim() || formatPhoneTR(inlinePhone).length < 10 || !inlineConsent
+                  }
+                >
+                  Gönder
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </motion.div>
       </section>
 
