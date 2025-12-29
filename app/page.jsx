@@ -636,14 +636,7 @@ const beforeAfterItems = useMemo(
               </div>
             </div>
 
-            {/* SAĞ: arka plan tam görsel + form kartı üstte */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-120px" }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative overflow-hidden rounded-[32px] border border-white/10"
-            >
+           
               {/* FULL BACKGROUND IMAGE */}
               <Img
                 src={ASSETS.cover}
