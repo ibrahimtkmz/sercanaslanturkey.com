@@ -94,13 +94,26 @@ const fadeUp = {
   transition: { duration: 0.6, ease: "easeOut" },
 };
 
+const stagger = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+  },
+};
+
+const fadeItem = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+};
+
+
 const theme = {
   page: "relative min-h-screen bg-[#0B1022] text-white overflow-hidden",
   container: "mx-auto max-w-6xl px-4 sm:px-6",
   topbar:
     "sticky top-0 z-50 border-b border-white/10 bg-[#0B1022]/70 backdrop-blur",
   card:
-    "rounded-[28px] border border-white/12 bg-black/20 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
+    "rounded-[28px] border border-white/12 bg-white/10 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
   tile: "rounded-2xl border border-white/12 bg-white/5 backdrop-blur",
   chip:
     "inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/90",
@@ -807,132 +820,157 @@ export default function Page() {
         </motion.div>
       </section>
 
-      {/* Neden tercih etmeli + Form */}
-      <section className="relative py-16">
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f1329] via-[#171e3d] to-[#0f1329]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(210,143,176,0.22),transparent_40%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_10%,rgba(107,76,140,0.18),transparent_36%)]" />
-        </div>
-        <motion.div
-          {...fadeUp}
-          className={cn(theme.container, "relative grid gap-8 lg:grid-cols-2 lg:items-start")}
-        >
-          <div>
-            <h3 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              Neden Sercan Aslan Clinic’i Tercih Etmelisiniz?
-            </h3>
-            <p className={cn("mt-3 text-sm sm:text-base", theme.textSub)}>
-              Sercan Aslan Clinic, uzman dermatolog kadrosu ve uluslararası sertifikalı teknolojileriyle
-              Eksozom uygulamasında güvenli, modern ve kişiye özel bir deneyim sunar.
-            </p>
+     {/* Neden tercih etmeli + Form */}
+<section className="relative py-16">
+  <div className="absolute inset-0 -z-10 overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-r from-[#0f1329] via-[#171e3d] to-[#0f1329]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(210,143,176,0.22),transparent_40%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_10%,rgba(107,76,140,0.18),transparent_36%)]" />
+  </div>
 
-            <div className="mt-5 grid gap-2 text-sm sm:text-base">
-              {[
-                "Uzman Dermatologlar: Saç ve cilt yenilenmesinde ileri düzey uzmanlık",
-                "Uluslararası Protokoller: Klinik onaylı ve güvenilir eksozom içerikleri",
-                "Kişiye Özel Plan: Soruna ve bölgeye özel tedavi",
-                "Ücretsiz Danışmanlık: Ön değerlendirme ve yönlendirme",
-                "Konforlu Uygulama: Yüksek konforlu ve hızlı toparlanan bir süreç",
-                "Doğal Sonuçlar: Hücresel yenilenmeye dayalı ve doğal görünümlü etki",
-                "Yüksek Memnuniyet: Türkiye ve yurt dışından güçlü referanslar",
-                "Modern Klinik Ortamı: Hijyenik ve ileri teknoloji altyapısı",
-                "Deneyimli Uygulama Ekibi: Hassas ve kontrollü işlem",
-                "Sürekli Takip: Seans sürecinde düzenli bilgilendirme",
-              ].map((row) => (
-                <div key={row} className="flex items-start gap-2">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/90" />
-                  <span className={theme.textSub}>{row}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+  <motion.div
+    {...fadeUp}
+    className={cn(theme.container, "relative grid gap-8 lg:grid-cols-2 lg:items-start")}
+  >
+    {/* SOL: Metin + Liste (stagger) */}
+    <motion.div
+      variants={stagger}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-120px" }}
+    >
+      <motion.h3
+        variants={fadeItem}
+        className="text-3xl font-semibold tracking-tight sm:text-4xl"
+      >
+        Neden Sercan Aslan Clinic’i Tercih Etmelisiniz?
+      </motion.h3>
 
-          <Card className={cn(theme.card, "overflow-hidden border-white/20 bg-white/5")}>
-            <CardContent className="p-6 sm:p-8">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="text-2xl font-semibold text-white">
-                    Eksozom Seans & Fiyat Bilgisi İçin Başvurun
-                  </div>
-                  <p className={cn("mt-2 text-sm", theme.textSub)}>
-                    Seans sayısı, uygulanacak bölgeler ve fiyat aralığıyla ilgili size özel bilgiyi
-                    ücretsiz paylaşalım.
-                  </p>
-                </div>
+      <motion.p variants={fadeItem} className={cn("mt-3 text-sm sm:text-base", theme.textSub)}>
+        Sercan Aslan Clinic, uzman dermatolog kadrosu ve uluslararası sertifikalı teknolojileriyle
+        Eksozom uygulamasında güvenli, modern ve kişiye özel bir deneyim sunar.
+      </motion.p>
+
+      <div className="mt-5 grid gap-2 text-sm sm:text-base">
+        {[
+          "Uzman Dermatologlar: Saç ve cilt yenilenmesinde ileri düzey uzmanlık",
+          "Uluslararası Protokoller: Klinik onaylı ve güvenilir eksozom içerikleri",
+          "Kişiye Özel Plan: Soruna ve bölgeye özel tedavi",
+          "Ücretsiz Danışmanlık: Ön değerlendirme ve yönlendirme",
+          "Konforlu Uygulama: Yüksek konforlu ve hızlı toparlanan bir süreç",
+          "Doğal Sonuçlar: Hücresel yenilenmeye dayalı ve doğal görünümlü etki",
+          "Yüksek Memnuniyet: Türkiye ve yurt dışından güçlü referanslar",
+          "Modern Klinik Ortamı: Hijyenik ve ileri teknoloji altyapısı",
+          "Deneyimli Uygulama Ekibi: Hassas ve kontrollü işlem",
+          "Sürekli Takip: Seans sürecinde düzenli bilgilendirme",
+        ].map((row) => (
+          <motion.div key={row} variants={fadeItem} className="flex items-start gap-2">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/90" />
+            <span className={theme.textSub}>{row}</span>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+
+    {/* SAĞ: Form kartı (kart gecikmeli + içerik stagger) */}
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-120px" }}
+      transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+    >
+      <Card className={cn(theme.card, "overflow-hidden border-white/20 bg-white/5")}>
+        <CardContent className="p-6 sm:p-8">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-120px" }}
+          >
+            <motion.div variants={fadeItem} className="text-2xl font-semibold text-white">
+              Eksozom Seans & Fiyat Bilgisi İçin Başvurun
+            </motion.div>
+
+            <motion.p variants={fadeItem} className={cn("mt-2 text-sm", theme.textSub)}>
+              Seans sayısı, uygulanacak bölgeler ve fiyat aralığıyla ilgili size özel bilgiyi
+              ücretsiz paylaşalım.
+            </motion.p>
+
+            {/* Form (istersen bunu da tek tek animasyonlatırız ama şimdilik temiz kalsın) */}
+            <form className="mt-6 grid gap-4" onSubmit={submitInlineForm}>
+              <div className="grid gap-2">
+                <Label htmlFor="inline-name" className="text-white">
+                  İsim, Soyisim
+                </Label>
+                <Input
+                  id="inline-name"
+                  placeholder="Örn. Ahmet Yılmaz"
+                  value={inlineName}
+                  onChange={(e) => setInlineName(e.target.value)}
+                  className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
+                  required
+                />
               </div>
 
-              <form className="mt-6 grid gap-4" onSubmit={submitInlineForm}>
-                <div className="grid gap-2">
-                  <Label htmlFor="inline-name" className="text-white">
-                    İsim, Soyisim
-                  </Label>
-                  <Input
-                    id="inline-name"
-                    placeholder="Örn. Ahmet Yılmaz"
-                    value={inlineName}
-                    onChange={(e) => setInlineName(e.target.value)}
-                    className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
-                    required
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="inline-email" className="text-white">
-                    E-Posta
-                  </Label>
-                  <Input
-                    id="inline-email"
-                    type="email"
-                    placeholder="ornek@mail.com"
-                    value={inlineEmail}
-                    onChange={(e) => setInlineEmail(e.target.value)}
-                    className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="inline-phone" className="text-white">
-                    Telefon
-                  </Label>
-                  <Input
-                    id="inline-phone"
-                    placeholder="+90 5XX XXX XX XX"
-                    value={inlinePhone}
-                    onChange={(e) => setInlinePhone(formatPhoneTR(e.target.value))}
-                    inputMode="tel"
-                    className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
-                    required
-                  />
-                </div>
+              <div className="grid gap-2">
+                <Label htmlFor="inline-email" className="text-white">
+                  E-Posta
+                </Label>
+                <Input
+                  id="inline-email"
+                  type="email"
+                  placeholder="ornek@mail.com"
+                  value={inlineEmail}
+                  onChange={(e) => setInlineEmail(e.target.value)}
+                  className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
+                />
+              </div>
 
-                <label className="flex cursor-pointer items-start gap-2 rounded-2xl border border-white/20 bg-white/5 p-3 text-sm text-white/80">
-                  <input
-                    type="checkbox"
-                    className="mt-1"
-                    checked={inlineConsent}
-                    onChange={(e) => setInlineConsent(e.target.checked)}
-                  />
-                  <span>KVKK ve Gizlilik Sözleşmesi’ni okudum, onaylıyorum.</span>
-                </label>
+              <div className="grid gap-2">
+                <Label htmlFor="inline-phone" className="text-white">
+                  Telefon
+                </Label>
+                <Input
+                  id="inline-phone"
+                  placeholder="+90 5XX XXX XX XX"
+                  value={inlinePhone}
+                  onChange={(e) => setInlinePhone(formatPhoneTR(e.target.value))}
+                  inputMode="tel"
+                  className="rounded-full border-white/20 bg-white/10 text-white placeholder:text-white/50"
+                  required
+                />
+              </div>
 
-                <Button
-                  type="submit"
-                  className={cn(
-                    theme.btnPrimary,
-                    "rounded-full",
-                    (!inlineName.trim() || formatPhoneTR(inlinePhone).length < 10 || !inlineConsent) &&
-                      "opacity-60"
-                  )}
-                  disabled={
-                    !inlineName.trim() || formatPhoneTR(inlinePhone).length < 10 || !inlineConsent
-                  }
-                >
-                  Gönder
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </section>
+              <label className="flex cursor-pointer items-start gap-2 rounded-2xl border border-white/20 bg-white/5 p-3 text-sm text-white/80">
+                <input
+                  type="checkbox"
+                  className="mt-1"
+                  checked={inlineConsent}
+                  onChange={(e) => setInlineConsent(e.target.checked)}
+                />
+                <span>KVKK ve Gizlilik Sözleşmesi’ni okudum, onaylıyorum.</span>
+              </label>
+
+              <Button
+                type="submit"
+                className={cn(
+                  theme.btnPrimary,
+                  "rounded-full",
+                  (!inlineName.trim() || formatPhoneTR(inlinePhone).length < 10 || !inlineConsent) &&
+                    "opacity-60"
+                )}
+                disabled={!inlineName.trim() || formatPhoneTR(inlinePhone).length < 10 || !inlineConsent}
+              >
+                Gönder
+              </Button>
+            </form>
+          </motion.div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  </motion.div>
+</section>
+
 
       {/* Uygulama Alanları */}
       <section className="relative py-16">
