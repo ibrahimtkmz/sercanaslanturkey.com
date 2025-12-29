@@ -35,7 +35,7 @@ const ASSETS = {
   logo: "/assets/eksozom/logo.svg", // (istersen değiştir)
   hero: "/assets/eksozom/hero.jpg",
   doctor: "/assets/eksozom/doctor.jpg",
-  cover: "/hero_image-eksozom.webp",
+  cover: "/assets/eksozom/cta-bg.jpg",
   ctaBg: "/assets/eksozom/cta-bg.jpg",
   // Galeri/mosaic
   g1: "/assets/eksozom/gallery-1.jpg",
@@ -83,7 +83,7 @@ const fadeUp = {
 };
 
 const theme = {
-  page: "min-h-screen bg-[#0B1022] text-white",
+  page: "relative min-h-screen bg-[#0B1022] text-white overflow-hidden",
   container: "mx-auto max-w-6xl px-4 sm:px-6",
   topbar:
     "sticky top-0 z-50 border-b border-white/10 bg-[#0B1022]/70 backdrop-blur",
@@ -126,6 +126,118 @@ function Img({ src, alt, className }) {
       className={cn("block h-full w-full object-cover", "bg-white/5", className)}
       loading="lazy"
     />
+  );
+}
+
+function BackgroundHairField() {
+  // Arkaplanda sayfayı dolduran, blurlu ve düşük opaklıkta "iyileşen saç teli" hissi
+  // Performans: SVG + hafif framer-motion animasyonları
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+  const strands = useMemo(() => {
+    // Deterministik dağılım — farklı genişlik ve yönlerde saç telleri
+    const xs = [6, 10, 14, 19, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 94];
+    return xs.map((x, i) => {
+      const y0 = 92 + ((i % 3) - 1) * 2;
+      const y1 = 10 + (i % 5) * 6;
+      const bend = 18 + (i % 7) * 4;
+      const side = i % 2 === 0 ? -1 : 1;
+      return {
+        id: i,
+        d: `M ${x} ${y0} C ${x + side * bend} ${y0 - 24}, ${x + side * (bend / 2)} ${y1 + 18}, ${x + side * 2} ${y1}`,
+        delay: (i % 7) * 0.12,
+        dur: 2.2 + (i % 5) * 0.25,
+      };
+    });
+  }, []);
+
+  return (
+    <div className="pointer-events-none fixed inset-0 -z-20">
+      <div className="absolute inset-0 opacity-[0.26] [filter:blur(18px)]">
+        <motion.svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          className="h-full w-full"
+          initial="rest"
+          animate={prefersReducedMotion ? "rest" : "run"}
+        >
+          {/* hafif deri çizgisi */}
+          <motion.path
+            d="M 0 92 C 22 88, 42 96, 62 91 C 78 87, 90 93, 100 90"
+            fill="none"
+            stroke="rgba(255,255,255,0.14)"
+            strokeWidth="0.6"
+            variants={{
+              rest: { opacity: 0.55 },
+              run: {
+                opacity: 0.85,
+                transition: { duration: 3.2, repeat: Infinity, repeatType: "reverse" },
+              },
+            }}
+          />
+
+          {strands.map((s) => (
+            <motion.path
+              key={s.id}
+              d={s.d}
+              fill="none"
+              stroke="url(#bgHair)"
+              strokeLinecap="round"
+              variants={{
+                rest: { strokeWidth: 0.9, opacity: 0.35 },
+                run: {
+                  strokeWidth: 2.2,
+                  opacity: 0.78,
+                  transition: {
+                    duration: s.dur,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    delay: s.delay,
+                  },
+                },
+              }}
+            />
+          ))}
+
+          {/* hafif parıltılar */}
+          {[12, 34, 58, 76, 88].map((x, i) => (
+            <motion.circle
+              key={x}
+              cx={x}
+              cy={22 + i * 10}
+              r={0.7}
+              fill="rgba(255,255,255,0.55)"
+              variants={{
+                rest: { opacity: 0.08 },
+                run: {
+                  opacity: 0.22,
+                  transition: {
+                    duration: 2.6,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    delay: i * 0.35,
+                  },
+                },
+              }}
+            />
+          ))}
+
+          <defs>
+            <linearGradient id="bgHair" x1="0" y1="100" x2="0" y2="0">
+              <stop offset="0" stopColor="rgba(107,76,140,0.95)" />
+              <stop offset="1" stopColor="rgba(210,143,176,0.95)" />
+            </linearGradient>
+          </defs>
+        </motion.svg>
+      </div>
+
+      {/* mevcut rengin arkasında yumuşak dursun diye overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0B1022]/30 via-transparent to-[#0B1022]/55" />
+    </div>
   );
 }
 
@@ -364,6 +476,7 @@ export default function Page() {
 
   return (
     <div className={theme.page}>
+      <BackgroundHairField />
       {/* Top Bar */}
       <div className={theme.topbar}>
         <div className={cn(theme.container, "flex items-center justify-between py-3")}>
