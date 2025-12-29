@@ -47,8 +47,8 @@ const ASSETS = {
   g9: "/assets/eksozom/eksozom-uygulama.jpg",
 
   // Hücresel yenilenme (ekran görüntüsü bölümü)
-  hairDiagram: "/assets/eksozom/diagram-sac.png",
-  skinDiagram: "/assets/eksozom/diagram-cilt.png",
+  hairDiagram: "/assets/eksozom/section-infographic-left.png",
+  skinDiagram: "/assets/eksozom/section-infographic-right.png",
   beforeFace: "/assets/eksozom/before-after-cilt.jpg",
   beforeHair: "/assets/eksozom/before-after-sac.jpg",
   beforeEye: "/assets/eksozom/before-after-goz.jpg",
