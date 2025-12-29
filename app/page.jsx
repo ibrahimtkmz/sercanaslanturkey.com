@@ -32,22 +32,28 @@ import { Badge } from "@/components/ui/badge";
 const WHATSAPP_PHONE_E164 = "905467372284"; // 0546 737 22 84
 
 const ASSETS = {
-  logo: "/assets/eksozom/logo.svg", // (istersen değiştir)
-  hero: "/assets/eksozom/hero.jpg",
-  doctor: "/assets/eksozom/doctor.jpg",
-  cover: "/assets/eksozom/cta-bg.jpg",
-  ctaBg: "/assets/eksozom/cta-bg.jpg",
-  // Galeri/mosaic
-  g1: "/assets/eksozom/gallery-1.jpg",
-  g2: "/assets/eksozom/gallery-2.jpg",
-  g3: "/assets/eksozom/gallery-3.jpg",
-  g4: "/assets/eksozom/gallery-4.jpg",
-  g5: "/assets/eksozom/gallery-5.jpg",
-  g6: "/assets/eksozom/gallery-6.jpg",
-  g7: "/assets/eksozom/gallery-7.jpg",
-  g8: "/assets/eksozom/gallery-8.jpg",
-  g9: "/assets/eksozom/gallery-9.jpg",
-  g10: "/assets/eksozom/gallery-10.jpg",
+  logo: "/assets/eksozom/logo.svg",
+
+  // Hero & CTA
+  hero: "/assets/eksozom/hero-eksozom.jpg",
+  cover: "/assets/eksozom/cta-bg.jpg?v=1",
+  ctaBg: "/assets/eksozom/cta-bg.jpg?v=1",
+
+  // Doktor / Klinik
+  doctor: "/assets/eksozom/doctor-ibrahim.jpg",
+
+  // Hücresel yenilenme – yakın plan
+  g1: "/assets/eksozom/cilt-yenilenme.jpg",
+  g2: "/assets/eksozom/sac-koku-yakin.jpg",
+  g9: "/assets/eksozom/eksozom-uygulama.jpg",
+
+  // Galeri / atmosfer
+  g3: "/assets/eksozom/klinik-ortam-1.jpg",
+  g4: "/assets/eksozom/klinik-ortam-2.jpg",
+  g5: "/assets/eksozom/sac-analiz.jpg",
+  g6: "/assets/eksozom/cilt-analiz.jpg",
+  g7: "/assets/eksozom/uygulama-sureci.jpg",
+  g8: "/assets/eksozom/danismanlik.jpg",
 };
 
 function cn(...classes) {
@@ -125,6 +131,11 @@ function Img({ src, alt, className }) {
       alt={alt}
       className={cn("block h-full w-full object-cover", "bg-white/5", className)}
       loading="lazy"
+      decoding="async"
+      onError={(e) => {
+        // Görsel 404 vs. durumlarında (özellikle deploy/case) UI bozulmasın
+        e.currentTarget.style.opacity = "0";
+      }}
     />
   );
 }
@@ -510,7 +521,7 @@ export default function Page() {
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden py-6">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#6B4C8C]/25 blur-[120px]" />
           <div className="absolute -right-40 top-10 h-[560px] w-[560px] rounded-full bg-[#D28FB0]/20 blur-[130px]" />
@@ -620,7 +631,7 @@ export default function Page() {
       </section>
 
       {/* Diğer Uygulamalar */}
-      <section className={cn(theme.container, "py-12")}>
+      <section className={cn(theme.container, "py-16")}>
         <motion.div {...fadeUp}>
           <SectionTitle
             kicker="Uygulamalar"
@@ -693,7 +704,7 @@ export default function Page() {
       </section>
 
       {/* Hücresel Yenilenme */}
-      <section className={cn(theme.container, "py-12")}>
+      <section className={cn(theme.container, "py-16")}>
         <motion.div {...fadeUp} className="grid gap-8 lg:grid-cols-2 lg:items-center">
           <div>
             <SectionTitle
@@ -756,7 +767,7 @@ export default function Page() {
       </section>
 
       {/* Uygulama Alanları */}
-      <section className={cn(theme.container, "py-12")}>
+      <section className={cn(theme.container, "py-16")}>
         <motion.div {...fadeUp}>
           <SectionTitle
             title="Eksozom Uygulama Alanları: Saç ve Ciltte Hücresel Yenilenme"
@@ -836,7 +847,7 @@ export default function Page() {
       </section>
 
       {/* Neden Sercan Aslan Clinic + Yorumlar */}
-      <section className={cn(theme.container, "py-12")}>
+      <section className={cn(theme.container, "py-16")}>
         <motion.div {...fadeUp}>
           <SectionTitle
             title="Neden Sercan Aslan Clinic?"
@@ -933,7 +944,7 @@ export default function Page() {
       </section>
 
       {/* FAQ */}
-      <section className={cn(theme.container, "py-12")}>
+      <section className={cn(theme.container, "py-16")}>
         <motion.div {...fadeUp}>
           <SectionTitle title="Sıkça Sorulan Sorular" />
           <div className="mt-6 grid gap-3">
