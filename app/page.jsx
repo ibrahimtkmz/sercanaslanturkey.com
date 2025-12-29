@@ -110,8 +110,7 @@ const fadeItem = {
 const theme = {
   page: "relative min-h-screen bg-[#0B1022]/50 text-white overflow-hidden",
   container: "mx-auto max-w-6xl px-4 sm:px-6",
-  topbar:
-    "sticky top-0 z-50 border-b border-white/10 bg-[#0B1022]/70 backdrop-blur",
+  topbar: "sticky top-0 z-50 border-b backdrop-blur transition-colors duration-300",
   card:
     "rounded-[28px] border border-white/12 bg-white/10 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
   tile: "rounded-2xl border border-white/12 bg-white/5 backdrop-blur",
@@ -463,6 +462,7 @@ export default function Page() {
   const [inlineEmail, setInlineEmail] = useState("");
   const [inlinePhone, setInlinePhone] = useState("");
   const [inlineConsent, setInlineConsent] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const openLead = (interest = "Eksozom") => {
     setSelectedInterest(interest);
@@ -490,6 +490,15 @@ export default function Page() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const heroBullets = useMemo(
@@ -543,8 +552,15 @@ const beforeAfterItems = useMemo(
       </div>
       <BackgroundHairField />
       {/* Top Bar */}
-      <div className={theme.topbar}>
-        <div className={cn(theme.container, "flex items-center justify-between py-3")}>
+      <div
+        className={cn(
+          theme.topbar,
+          isScrolled
+            ? "border-white/10 bg-[#0B1022]/40 backdrop-blur"
+            : "border-white/10 bg-[#0B1022]/80"
+        )}
+      >
+        <div className={cn(theme.container, "flex flex-wrap items-center justify-between gap-3 py-3")}>
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-[#6B4C8C] to-[#D28FB0]" />
             <div className="leading-tight">
@@ -566,7 +582,13 @@ const beforeAfterItems = useMemo(
               <Phone className="h-4 w-4" />
               <span>+90 546 737 22 84</span>
             </a>
-            <Button className={theme.btnPrimary} onClick={() => openLead("Eksozom")}>
+            <Button
+              className={cn(
+                theme.btnPrimary,
+                "px-3 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm"
+              )}
+              onClick={() => openLead("Eksozom")}
+            >
               <MessageCircle className="h-4 w-4" />
               <span className="ml-2">HEMEN BİLGİ AL</span>
             </Button>
@@ -652,32 +674,17 @@ const beforeAfterItems = useMemo(
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
 
-              {/* FORM KARTI */}
-              <div className="relative flex h-full items-end p-4 sm:p-6 lg:items-center">
-                <Card className={cn(theme.card, "w-full max-w-xl overflow-hidden")}>
-                  <CardContent className="p-6 sm:p-7">
-                    <Badge className="rounded-full bg-white/50 border border-white/15 text-white">
-                      Ücretsiz
-                    </Badge>
-                    <div className="mt-3 text-2xl font-semibold leading-tight text-[#D28FB0]">
-                      Canlı Online Danışmanlık
-                      <br />
-                      Dr. İbrahim şimdi değerlendirsin
-                      <br />
-                      anında yanıt alın
-                    </div>
-                    <p className={cn("mt-2 text-sm", theme.textSub)}>
-                      Formu doldurun; uzmanlarımız WhatsApp üzerinden sizinle iletişime geçsin.
-                    </p>
-                    <Button
-                      className={cn(theme.btnPrimary, "mt-4 w-full")}
-                      onClick={() => openLead("Ücretsiz Danışmanlık")}
-                    >
-                      <MessageCircle className="h-4 w-4" />
-                      <span className="ml-2">Başvur</span>
-                    </Button>
-                  </CardContent>
-                </Card>
+              <div className="relative flex h-full items-end justify-center p-4 sm:p-6 lg:items-center">
+                <Button
+                  className={cn(
+                    theme.btnPrimary,
+                    "w-full max-w-lg px-6 py-3 text-sm sm:w-auto sm:px-8 sm:py-3.5 sm:text-base"
+                  )}
+                  onClick={() => openLead("Ücretsiz Danışmanlık")}
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  <span className="ml-2">Ücretsiz Danışmalık için Şimdi Başvur</span>
+                </Button>
               </div>
             </motion.div>
           </div>
@@ -771,15 +778,15 @@ const beforeAfterItems = useMemo(
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-6 lg:flex-row lg:justify-center lg:gap-10">
-            <div className={cn(theme.tile, "relative w-full max-w-[360px] overflow-hidden p-6")}>
-              <Img src={ASSETS.hairDiagram} alt="Daha güçlü saç diyagramı" className="h-52" />
-              <div className="mt-4 text-center text-xl font-semibold">Daha güçlü saç</div>
+          <div className="grid w-full grid-cols-2 gap-3 sm:gap-5 lg:flex lg:flex-row lg:justify-center lg:gap-10">
+            <div className={cn(theme.tile, "relative w-full overflow-hidden p-5 sm:p-6")}>
+              <Img src={ASSETS.hairDiagram} alt="Daha güçlü saç diyagramı" className="h-36 sm:h-44 lg:h-52" />
+              <div className="mt-3 text-center text-lg font-semibold sm:mt-4 sm:text-xl">Daha güçlü saç</div>
             </div>
             <div className="hidden h-32 w-px bg-white/15 lg:block" />
-            <div className={cn(theme.tile, "relative w-full max-w-[360px] overflow-hidden p-6")}>
-              <Img src={ASSETS.skinDiagram} alt="Daha yenilenmiş cilt diyagramı" className="h-52" />
-              <div className="mt-4 text-center text-xl font-semibold">Daha yenilenmiş cilt</div>
+            <div className={cn(theme.tile, "relative w-full overflow-hidden p-5 sm:p-6")}>
+              <Img src={ASSETS.skinDiagram} alt="Daha yenilenmiş cilt diyagramı" className="h-36 sm:h-44 lg:h-52" />
+              <div className="mt-3 text-center text-lg font-semibold sm:mt-4 sm:text-xl">Daha yenilenmiş cilt</div>
             </div>
           </div>
 
