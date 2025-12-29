@@ -521,7 +521,7 @@ export default function Page() {
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden py-6">
+     <section className="relative overflow-hidden pt-6 pb-2">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#6B4C8C]/25 blur-[120px]" />
           <div className="absolute -right-40 top-10 h-[560px] w-[560px] rounded-full bg-[#D28FB0]/20 blur-[130px]" />
