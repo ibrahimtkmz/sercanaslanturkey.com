@@ -654,12 +654,17 @@ const beforeAfterItems = useMemo(
 
               {/* FORM KARTI */}
               <div className="relative flex h-full items-end p-4 sm:p-6 lg:items-center">
-                <Card className={cn(theme.card, "w-full max-w-xl overflow-hidden")}>
-                  <CardContent className="p-6 sm:p-7">
+                <Card
+                  className={cn(
+                    theme.card,
+                    "w-full max-w-full sm:max-w-lg lg:max-w-md overflow-hidden lg:-translate-x-4"
+                  )}
+                >
+                  <CardContent className="p-5 sm:p-6">
                     <Badge className="rounded-full bg-white/10 border border-white/15 text-white">
                       Ücretsiz
                     </Badge>
-                    <div className="mt-3 text-2xl font-semibold leading-tight text-[#D28FB0]">
+                    <div className="mt-3 text-xl font-semibold leading-tight text-[#D28FB0] sm:text-2xl">
                       Canlı Online Danışmanlık
                       <br />
                       Dr. İbrahim şimdi değerlendirsin
