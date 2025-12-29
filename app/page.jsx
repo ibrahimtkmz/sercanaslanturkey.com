@@ -414,7 +414,7 @@ function HairStrandStrengthAnim() {
         <div className="mt-2 flex flex-wrap gap-2">
           <span className={cn(theme.chip, "bg-white/0")}>Kökten güçlenme</span>
           <span className={cn(theme.chip, "bg-white/0")}>Daha kalın saç telleri</span>
-          <span className={cn(theme.chip, "bg-white/0")}> foliküller</span>
+          <span className={cn(theme.chip, "bg-white/0")}>Canlı foliküller</span>
         </div>
       </div>
     </div>
@@ -499,7 +499,7 @@ export default function Page() {
       "Yüz, boyun, dekolte ve elde gençleştirme etkisi sağlar",
       "Cilt tonunu eşitleyip parlaklık kazandırır",
       "İnce çizgi ve mat görünümü iyileştirir",
-      "Cilt dokusunu onararak lık kazandırır",
+      "Cilt dokusunu onararak canlılık kazandırır",
       "Saç ekimi sonrası iyileşmeyi destekler",
       "Doğal ve konforlu bir uygulamadır",
       "Kişiye özel protokollerle uygulanır",
@@ -636,61 +636,53 @@ const beforeAfterItems = useMemo(
               </div>
             </div>
 
-           {/* SAĞ: arka plan tam görsel + form kartı üstte */}
-<motion.div
-  initial={{ opacity: 0, y: 18 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin: "-120px" }}
-  transition={{ duration: 0.7, ease: "easeOut" }}
-  className="relative overflow-hidden rounded-[32px] border border-white/10"
->
-  {/* FULL BACKGROUND IMAGE */}
-  <Img
-    src={ASSETS.cover}
-    alt="Kapak görsel"
-    className="absolute inset-0 h-full w-full object-cover"
-  />
-  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
+            {/* SAĞ: arka plan tam görsel + form kartı üstte */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-120px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="relative overflow-hidden rounded-[32px] border border-white/10"
+            >
+              {/* FULL BACKGROUND IMAGE */}
+              <Img
+                src={ASSETS.cover}
+                alt="Kapak görsel"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
 
-  {/* FORM KARTI – ALTTA */}
-  <div className="relative flex h-full items-end justify-center p-4 sm:p-6">
-    <Card
-      className="
-        w-full max-w-sm
-        rounded-2xl
-        bg-white
-        shadow-xl
-        border border-slate-200
-        mb-4
-      "
-    >
-      <CardContent className="p-5 sm:p-6">
-        <Badge className="rounded-full bg-[#D28FB0]/10 text-[#D28FB0] border border-[#D28FB0]/30">
-          Ücretsiz
-        </Badge>
-
-        <div className="mt-3 text-lg font-semibold leading-snug text-slate-900">
-          Canlı Online Danışmanlık
-          <br />
-          Dr. İbrahim şimdi değerlendirsin
+              {/* FORM KARTI */}
+              <div className="relative flex h-full items-end p-4 sm:p-6 lg:items-center">
+                <Card className={cn(theme.card, "w-full max-w-xl overflow-hidden")}>
+                  <CardContent className="p-6 sm:p-7">
+                    <Badge className="rounded-full bg-white/50 border border-white/15 text-white">
+                      Ücretsiz
+                    </Badge>
+                    <div className="mt-3 text-2xl font-semibold leading-tight text-[#D28FB0]">
+                      Canlı Online Danışmanlık
+                      <br />
+                      Dr. İbrahim şimdi değerlendirsin
+                      <br />
+                      anında yanıt alın
+                    </div>
+                    <p className={cn("mt-2 text-sm", theme.textSub)}>
+                      Formu doldurun; uzmanlarımız WhatsApp üzerinden sizinle iletişime geçsin.
+                    </p>
+                    <Button
+                      className={cn(theme.btnPrimary, "mt-4 w-full")}
+                      onClick={() => openLead("Ücretsiz Danışmanlık")}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      <span className="ml-2">Başvur</span>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.div>
+          </div>
         </div>
-
-        <p className="mt-2 text-sm text-slate-600">
-          WhatsApp üzerinden hızlıca dönüş alabilirsiniz.
-        </p>
-
-        <Button
-          className="mt-4 w-full bg-[#D28FB0] hover:bg-[#c47fa3] text-white"
-          onClick={() => openLead("Ücretsiz Danışmanlık")}
-        >
-          <MessageCircle className="h-4 w-4" />
-          <span className="ml-2">Başvur</span>
-        </Button>
-      </CardContent>
-    </Card>
-  </div>
-</motion.div>
-
+      </section>
 
       {/* Diğer Uygulamalar */}
       <section className={cn(theme.container, "py-16")}>
