@@ -70,8 +70,6 @@ function buildWhatsAppUrl({ name, phone, interest }) {
     "Müsait olduğunuzda dönüş yapabilir misiniz?",
   ].filter(Boolean);
 
-  // ✅ FIX: newline must be escaped inside the string
-  // (Previous version had a real line-break inside quotes -> "Unterminated string constant")
   const text = lines.join("\n");
 
   return `https://wa.me/${WHATSAPP_PHONE_E164}?text=${encodeURIComponent(text)}`;
@@ -110,7 +108,7 @@ function SectionTitle({ kicker, title, desc }) {
           <span>{kicker}</span>
         </div>
       )}
-      <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+      <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl text-[#D28FB0]">
         {title}
       </h2>
       {desc && (
@@ -131,8 +129,159 @@ function Img({ src, alt, className }) {
   );
 }
 
+function HairStrandStrengthAnim() {
+  // Referans görsele benzer: kökte damla folikül + yukarı doğru incelen saç teli
+  // Animasyon: belirgin kalınlaşıp incelme + hafif parıltı
+  const strands = useMemo(() => [140, 260, 380], []);
+
+  return (
+    <div className="relative w-full max-w-[520px]">
+      <div className="absolute -inset-3 rounded-[28px] bg-gradient-to-r from-[#6B4C8C]/15 to-[#D28FB0]/15 blur-2xl" />
+      <div className={cn(theme.tile, "relative overflow-hidden p-4")}>
+        <div className="mt-1">
+          <motion.svg
+            viewBox="0 0 520 160"
+            className="h-[110px] w-full"
+            initial="rest"
+            animate="run"
+          >
+            {/* DERİ ÇİZGİSİ */}
+            <line
+              x1="0"
+              y1="95"
+              x2="520"
+              y2="95"
+              stroke="rgba(255,255,255,0.25)"
+              strokeWidth="2"
+            />
+
+            {strands.map((x, i) => {
+              const delay = i * 0.18;
+
+              return (
+                <motion.g
+                  key={x}
+                  style={{ transformOrigin: `${x}px 95px` }}
+                  variants={{
+                    rest: {
+                      opacity: 0.6,
+                      filter: "drop-shadow(0px 0px 0px rgba(210,143,176,0))",
+                    },
+                    run: {
+                      opacity: 1,
+                      filter: "drop-shadow(0px 0px 10px rgba(210,143,176,0.18))",
+                      transition: {
+                        duration: 0.9,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        delay,
+                      },
+                    },
+                  }}
+                >
+                  {/* FOLİKÜL / KÖK (damla form) */}
+                  <motion.path
+                    d={`M ${x} 95
+                        C ${x - 18} 98, ${x - 26} 120, ${x} 126
+                        C ${x + 26} 120, ${x + 18} 98, ${x} 95 Z`}
+                    fill="url(#rootGrad)"
+                    variants={{
+                      rest: { scale: 0.92 },
+                      run: {
+                        scale: 1.08,
+                        transition: {
+                          duration: 0.9,
+                          ease: "easeInOut",
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                          delay,
+                        },
+                      },
+                    }}
+                    style={{ transformOrigin: `${x}px 95px` }}
+                  />
+
+                  {/* SAÇ TELİ – belirgin şekilde kalınlaşıp incelir */}
+                  <motion.path
+                    d={`M ${x} 95
+                        C ${x - 22} 62, ${x - 10} 30, ${x - 2} 10`}
+                    fill="none"
+                    stroke="url(#hairGrad)"
+                    strokeLinecap="round"
+                    variants={{
+                      rest: { strokeWidth: 7 },
+                      run: {
+                        strokeWidth: 13,
+                        transition: {
+                          duration: 0.9,
+                          ease: "easeInOut",
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                          delay,
+                        },
+                      },
+                    }}
+                  />
+
+                  {/* İnce "uç" highlight */}
+                  <motion.path
+                    d={`M ${x - 2} 10 C ${x - 4} 8, ${x - 6} 6, ${x - 8} 4`}
+                    fill="none"
+                    stroke="rgba(255,255,255,0.55)"
+                    strokeLinecap="round"
+                    variants={{
+                      rest: { opacity: 0.15, strokeWidth: 1 },
+                      run: {
+                        opacity: 0.45,
+                        strokeWidth: 1.6,
+                        transition: {
+                          duration: 0.9,
+                          ease: "easeInOut",
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                          delay,
+                        },
+                      },
+                    }}
+                  />
+                </motion.g>
+              );
+            })}
+
+            <defs>
+              <linearGradient
+                id="hairGrad"
+                x1="0"
+                y1="95"
+                x2="0"
+                y2="10"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0" stopColor="#6B4C8C" />
+                <stop offset="1" stopColor="#D28FB0" />
+              </linearGradient>
+              <radialGradient id="rootGrad" cx="0.5" cy="0.25" r="0.95">
+                <stop offset="0" stopColor="#D28FB0" />
+                <stop offset="1" stopColor="#6B4C8C" />
+              </radialGradient>
+            </defs>
+          </motion.svg>
+        </div>
+
+        <div className="mt-2 flex flex-wrap gap-2">
+          <span className={cn(theme.chip, "bg-white/0")}>Kökten güçlenme</span>
+          <span className={cn(theme.chip, "bg-white/0")}>Daha kalın saç telleri</span>
+          <span className={cn(theme.chip, "bg-white/0")}>Canlı foliküller</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
+
   return (
     <button
       type="button"
@@ -154,9 +303,7 @@ function FAQItem({ q, a }) {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="overflow-hidden"
           >
-            <div className={cn("pt-3 text-sm leading-relaxed", theme.textSub)}>
-              {a}
-            </div>
+            <div className={cn("pt-3 text-sm leading-relaxed", theme.textSub)}>{a}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -224,7 +371,7 @@ export default function Page() {
             <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-[#6B4C8C] to-[#D28FB0]" />
             <div className="leading-tight">
               <div className="text-sm font-semibold tracking-tight">Sercan Aslan Clinic</div>
-              <div className={cn("text-xs", theme.textMuted)}>Eksozom Tedavisi</div>
+              <div className={cn("text-xs", theme.textMuted)}>Eksozom Tedavisi • Saç & Cilt</div>
             </div>
           </div>
 
@@ -258,21 +405,21 @@ export default function Page() {
         </div>
 
         {/* Sayfayı 2'ye bölen hero: sol içerik / sağ görsel arka plan + form */}
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
-          <div className="grid gap-6 lg:min-h-[680px] lg:grid-cols-2 lg:gap-8">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8">
+          <div className="grid gap-6 lg:min-h-[680px] lg:grid-cols-[52%_48%] lg:gap-8">
             {/* SOL */}
             <div className="flex items-center">
               <div className="w-full py-8 sm:py-12">
                 <motion.div {...fadeUp}>
                   <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">
-                    Eksozom Tedavisi:
-                    <span className="mt-2 block text-white/90">
-                      Cilt Gençleştirme ve Saç Onarımında
-                    </span>
-                    <span className="mt-2 block text-white">
-                      Hücresel Yenilenmenin Gücünü Keşfedin
-                    </span>
+                    Eksozom Tedavisi
+                    <span className="mt-2 block text-white/90">Cilt Gençleştirme ve Saç Onarımında</span>
+                    <span className="mt-2 block text-white">Hücresel Yenilenmenin Gücünü Keşfedin</span>
                   </h1>
+
+                  <div className="mt-6">
+                    <HairStrandStrengthAnim />
+                  </div>
 
                   <div className="mt-6 grid gap-2">
                     {heroBullets.map((b) => (
@@ -327,18 +474,19 @@ export default function Page() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
 
-              {/* FORM KARTI (mevcut konum/yerleşim) */}
+              {/* FORM KARTI */}
               <div className="relative flex h-full items-end p-4 sm:p-6 lg:items-center">
-                <Card className={cn(theme.card, "w-full max-w-xl overflow-hidden")}
-                >
+                <Card className={cn(theme.card, "w-full max-w-xl overflow-hidden")}>
                   <CardContent className="p-6 sm:p-7">
                     <Badge className="rounded-full bg-white/10 border border-white/15 text-white">
                       Ücretsiz
                     </Badge>
                     <div className="mt-3 text-2xl font-semibold leading-tight text-[#D28FB0]">
-                      Danışmanlık İçin
+                      Canlı Online Danışmanlık
                       <br />
-                      Hemen Başvurun!
+                      Dr. İbrahim şimdi değerlendirsin
+                      <br />
+                      anında yanıt alın
                     </div>
                     <p className={cn("mt-2 text-sm", theme.textSub)}>
                       Formu doldurun; uzmanlarımız WhatsApp üzerinden sizinle iletişime geçsin.
@@ -350,15 +498,85 @@ export default function Page() {
                       <MessageCircle className="h-4 w-4" />
                       <span className="ml-2">Başvur</span>
                     </Button>
-                    <div className={cn("mt-3 text-xs", theme.textMuted)}>
-                      *Mesaj, WhatsApp’ta hazır olarak açılır.
-                    </div>
                   </CardContent>
                 </Card>
               </div>
             </motion.div>
           </div>
         </div>
+      </section>
+
+      {/* Diğer Uygulamalar */}
+      <section className={cn(theme.container, "py-12")}>
+        <motion.div {...fadeUp}>
+          <SectionTitle
+            kicker="Uygulamalar"
+            title="Ozon Terapi, Eksozom ve Mezoterapi"
+            desc="Saç ve cilt sağlığını desteklemeye yönelik uygulamalar hakkında hızlıca bilgi alın. Uygunluk ve planlama, uzman değerlendirmesiyle belirlenir."
+          />
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {[
+              {
+                key: "Ozon Terapi",
+                title: "Ozon Terapi",
+                desc:
+                  "Saçlı deride dolaşım ve oksijenlenme desteği hedefleyen, destekleyici bir uygulama yaklaşımıdır.",
+                bullets: [
+                  "Saçlı deride canlılık desteği",
+                  "Dolaşım/oksijenlenme desteği",
+                  "Bakım protokollerine uyumlu",
+                ],
+              },
+              {
+                key: "Eksozom",
+                title: "Eksozom",
+                desc:
+                  "Hücresel iletişimi desteklemeyi hedefleyen biyolojik yaklaşım; saç ve cilt yenilenmesine destek amaçlı planlanabilir.",
+                bullets: [
+                  "Hücresel yenilenme desteği",
+                  "Saç köklerine destek",
+                  "Cilt parlaklığı/doku desteği",
+                ],
+              },
+              {
+                key: "Mezoterapi",
+                title: "Mezoterapi",
+                desc:
+                  "Vitamin-mineral içeriklerle saçlı deriyi ve cildi desteklemeye yönelik, kişiye özel planlanabilen bir uygulamadır.",
+                bullets: [
+                  "Saçlı deriye içerik desteği",
+                  "Mevsimsel dökülmede destek",
+                  "Kişiye özel kür planı",
+                ],
+              },
+            ].map((t) => (
+              <Card key={t.key} className={cn(theme.card, "overflow-hidden")}>
+                <CardContent className="p-6">
+                  <div className="text-lg font-semibold text-[#D28FB0]">{t.title}</div>
+                  <p className={cn("mt-2 text-sm", theme.textSub)}>{t.desc}</p>
+
+                  <div className="mt-4 grid gap-2">
+                    {t.bullets.map((b) => (
+                      <div key={b} className="flex items-start gap-2">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/90" />
+                        <div className={cn("text-sm", theme.textSub)}>{b}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button
+                    className={cn(theme.btnPrimary, "mt-5 w-full")}
+                    onClick={() => openLead(t.key)}
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span className="ml-2">Bilgi Al</span>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
       {/* Hücresel Yenilenme */}
@@ -374,22 +592,20 @@ export default function Page() {
               <div className={cn(theme.tile, "p-5")}>
                 <div className="text-2xl font-semibold">Daha güçlü saç</div>
                 <div className={cn("mt-2 text-sm", theme.textSub)}>
-                  Saç köklerinde hücresel iletişimi destekleyerek saçlı derinin canlılığını
-                  artırmaya yardımcı olur.
+                  Saç köklerinde hücresel iletişimi destekleyerek saçlı derinin canlılığını artırmaya
+                  yardımcı olur.
                 </div>
               </div>
               <div className={cn(theme.tile, "p-5")}>
                 <div className="text-2xl font-semibold">Daha yenilenmiş cilt</div>
                 <div className={cn("mt-2 text-sm", theme.textSub)}>
-                  Kolajen/elastin süreçlerini destekleyerek daha parlak ve dengeli görünüm
-                  hedefler.
+                  Kolajen/elastin süreçlerini destekleyerek daha parlak ve dengeli görünüm hedefler.
                 </div>
               </div>
             </div>
 
             <div className="mt-6">
-              <Button className={theme.btnPrimary} size="lg" onClick={() => openLead("Eksozom")}
-              >
+              <Button className={theme.btnPrimary} size="lg" onClick={() => openLead("Eksozom")}>
                 <Sparkles className="h-4 w-4" />
                 <span className="ml-2">EKSOZOM’U KEŞFET!</span>
               </Button>
@@ -410,21 +626,19 @@ export default function Page() {
         </motion.div>
       </section>
 
-      {/* Mosaic / Galeri (sayfadaki blok gibi) */}
+      {/* Mosaic / Galeri */}
       <section className={cn(theme.container, "pb-12")}>
         <motion.div {...fadeUp} className="grid gap-4 md:grid-cols-3">
-          {[ASSETS.g3, ASSETS.g4, ASSETS.g5, ASSETS.g6, ASSETS.g7, ASSETS.g8].map(
-            (src, i) => (
-              <div key={i} className={cn(theme.tile, "overflow-hidden")}>
-                <Img src={src} alt={`Galeri ${i + 3}`} className="aspect-[4/3] max-h-[240px]" />
-              </div>
-            )
-          )}
+          {[ASSETS.g3, ASSETS.g4, ASSETS.g5, ASSETS.g6, ASSETS.g7, ASSETS.g8].map((src, i) => (
+            <div key={i} className={cn(theme.tile, "overflow-hidden")}>
+              <Img src={src} alt={`Galeri ${i + 3}`} className="aspect-[4/3] max-h-[240px]" />
+            </div>
+          ))}
         </motion.div>
 
         <motion.div {...fadeUp} className={cn("mt-8", theme.textSub)}>
-          Sercan Aslan Clinic, Türkiye’nin önde gelen dermatoloji ve medikal estetik merkezlerinden biri
-          olarak, eksozom gibi ileri teknolojili uygulamalarda global standartlarda hizmet sunar.
+          Sercan Aslan Clinic, eksozom tedavisi odağında; saç ve cilt yenilenmesini destekleyen modern
+          uygulamalarla danışanlarına kişiye özel planlar sunmayı hedefler.
         </motion.div>
       </section>
 
@@ -489,16 +703,21 @@ export default function Page() {
                       </div>
                     ))}
                   </div>
-                  <Button
-                    className={cn(theme.btnPrimary, "mt-5")}
-                    onClick={() => openLead("Eksozom")}
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    <span className="ml-2">Ücretsiz Bilgi Al</span>
-                  </Button>
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* ✅ Tek CTA (kartların içinde değil, bölüm sonunda) */}
+          <div className="mt-8 flex justify-center">
+            <Button
+              className={cn(theme.btnPrimary, "px-10")}
+              size="lg"
+              onClick={() => openLead("Eksozom")}
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span className="ml-2">Ücretsiz Bilgi Al</span>
+            </Button>
           </div>
         </motion.div>
       </section>
@@ -547,9 +766,7 @@ export default function Page() {
                       ))}
                     </div>
                   </div>
-                  <div className={cn("mt-3 text-sm leading-relaxed", theme.textSub)}>
-                    {r.text}
-                  </div>
+                  <div className={cn("mt-3 text-sm leading-relaxed", theme.textSub)}>{r.text}</div>
                 </CardContent>
               </Card>
             ))}
@@ -594,11 +811,7 @@ export default function Page() {
           </div>
 
           <div className="mt-6">
-            <Button
-              className={theme.btnPrimary}
-              size="lg"
-              onClick={() => openLead("Seans & Fiyat")}
-            >
+            <Button className={theme.btnPrimary} size="lg" onClick={() => openLead("Seans & Fiyat")}>
               <MessageCircle className="h-4 w-4" />
               <span className="ml-2">Eksozom Seans & Fiyat Bilgisi İçin Başvurun</span>
             </Button>
@@ -639,7 +852,7 @@ export default function Page() {
               <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-[#6B4C8C] to-[#D28FB0]" />
               <div>
                 <div className="text-sm font-semibold">Sercan Aslan Clinic</div>
-                <div className={cn("text-xs", theme.textMuted)}>Eksozom Tedavisi</div>
+                <div className={cn("text-xs", theme.textMuted)}>Eksozom Tedavisi • Saç & Cilt</div>
               </div>
             </div>
             <p className={cn("mt-3 text-sm", theme.textSub)}>
@@ -770,6 +983,7 @@ export default function Page() {
                         onClick={() => setIsOpen(false)}
                         className="rounded-full border border-slate-200 px-3 py-2 text-sm"
                         aria-label="Kapat"
+                        type="button"
                       >
                         Kapat
                       </button>
@@ -880,16 +1094,34 @@ function __runTests() {
     interest: "Eksozom",
   });
 
-  __assert(url.startsWith(`https://wa.me/${WHATSAPP_PHONE_E164}?text=`), "URL prefix correct");
+  __assert(
+    url.startsWith(`https://wa.me/${WHATSAPP_PHONE_E164}?text=`),
+    "URL prefix correct"
+  );
 
   const encoded = url.split("?text=")[1] || "";
   const decoded = decodeURIComponent(encoded);
 
-  // newline is preserved as real \n in decoded text
   __assert(decoded.includes("İsim Soyisim: Ahmet Yılmaz"), "Name included");
   __assert(decoded.includes("Telefon: 05551234567"), "Phone included");
   __assert(decoded.includes("İlgilendiğim uygulama: Eksozom"), "Interest included");
   __assert(decoded.includes("\n"), "Contains newline separators");
+  __assert(!decoded.includes("undefined"), "No undefined leakage");
+
+  const urlNoInterest = buildWhatsAppUrl({ name: "A", phone: "0", interest: "" });
+  const decoded2 = decodeURIComponent(urlNoInterest.split("?text=")[1] || "");
+  __assert(!decoded2.includes("İlgilendiğim uygulama:"), "Empty interest omitted");
+
+  const urlNoName = buildWhatsAppUrl({
+    name: "",
+    phone: "05000000000",
+    interest: "Mezoterapi",
+  });
+  const decoded3 = decodeURIComponent(urlNoName.split("?text=")[1] || "");
+  __assert(decoded3.includes("İsim Soyisim: -"), "Empty name becomes -");
+
+  const formatted = formatPhoneTR("+90 (546) 737-22-84");
+  __assert(formatted === "90546737228", "formatPhoneTR strips non-digits and limits length");
 }
 
 // Run tests during Next.js build/server-side only (not in the browser)
