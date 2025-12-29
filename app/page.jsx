@@ -499,7 +499,7 @@ export default function Page() {
       "Yüz, boyun, dekolte ve elde gençleştirme etkisi sağlar",
       "Cilt tonunu eşitleyip parlaklık kazandırır",
       "İnce çizgi ve mat görünümü iyileştirir",
-      "Cilt dokusunu onararak canlılık kazandırır",
+      "Cilt dokusunu onararak lık kazandırır",
       "Saç ekimi sonrası iyileşmeyi destekler",
       "Doğal ve konforlu bir uygulamadır",
       "Kişiye özel protokollerle uygulanır",
@@ -636,23 +636,23 @@ const beforeAfterItems = useMemo(
               </div>
             </div>
 
-            {/* SAĞ: arka plan tam görsel + form kartı üstte */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-120px" }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative overflow-hidden rounded-[32px] border border-white/10"
-            >
-              {/* FULL BACKGROUND IMAGE */}
-              <Img
-                src={ASSETS.cover}
-                alt="Kapak görsel"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
+           {/* SAĞ: arka plan tam görsel + form kartı üstte */}
+<motion.div
+  initial={{ opacity: 0, y: 18 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-120px" }}
+  transition={{ duration: 0.7, ease: "easeOut" }}
+  className="relative overflow-hidden rounded-[32px] border border-white/10"
+>
+  {/* FULL BACKGROUND IMAGE */}
+  <Img
+    src={ASSETS.cover}
+    alt="Kapak görsel"
+    className="absolute inset-0 h-full w-full object-cover"
+  />
+  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
 
-               {/* FORM KARTI – ALTTA */}
+  {/* FORM KARTI – ALTTA */}
   <div className="relative flex h-full items-end justify-center p-4 sm:p-6">
     <Card
       className="
@@ -690,6 +690,7 @@ const beforeAfterItems = useMemo(
     </Card>
   </div>
 </motion.div>
+
 
       {/* Diğer Uygulamalar */}
       <section className={cn(theme.container, "py-16")}>
