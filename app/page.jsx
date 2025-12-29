@@ -106,11 +106,10 @@ const fadeItem = {
   show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
-
 const theme = {
   page: "relative min-h-screen bg-[#0B1022]/50 text-white overflow-hidden",
   container: "mx-auto max-w-6xl px-4 sm:px-6",
-  topbar: "sticky top-0 z-50 border-b backdrop-blur transition-colors duration-300",
+  topbar: "sticky top-0 z-50 border-b backdrop-blur transition-all duration-500",
   card:
     "rounded-[28px] border border-white/12 bg-white/10 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.35)]",
   tile: "rounded-2xl border border-white/12 bg-white/5 backdrop-blur",
@@ -463,6 +462,7 @@ export default function Page() {
   const [inlinePhone, setInlinePhone] = useState("");
   const [inlineConsent, setInlineConsent] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   const openLead = (interest = "Eksozom") => {
     setSelectedInterest(interest);
@@ -494,12 +494,16 @@ export default function Page() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const currentY = window.scrollY;
+      setIsScrolled(currentY > 10);
+      setScrollY(currentY);
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const topbarOpacity = Math.max(0.35, 1 - scrollY / 600);
 
   const heroBullets = useMemo(
     () => [
@@ -516,7 +520,15 @@ export default function Page() {
     ],
     []
   );
-const beforeAfterItems = useMemo(
+  const regenerationTiles = useMemo(
+    () => [
+      { key: "hair", title: "Daha güçlü saç", src: ASSETS.hairDiagram },
+      { key: "skin", title: "Daha yenilenmiş cilt", src: ASSETS.skinDiagram },
+    ],
+    []
+  );
+
+  const beforeAfterItems = useMemo(
     () => [
       { src: ASSETS.beforeFace, alt: "Cilt yenilenme öncesi sonrası" },
       { src: ASSETS.beforeHair, alt: "Saç dökülmesi öncesi sonrası" },
@@ -555,10 +567,13 @@ const beforeAfterItems = useMemo(
       <div
         className={cn(
           theme.topbar,
-          isScrolled
-            ? "border-white/10 bg-[#0B1022]/40 backdrop-blur"
-            : "border-white/10 bg-[#0B1022]/80"
+          "border-white/10",
+          isScrolled ? "shadow-[0_10px_40px_rgba(0,0,0,0.35)]" : "shadow-none"
         )}
+        style={{
+          backgroundColor: `rgba(11, 16, 34, ${0.82 * topbarOpacity})`,
+          opacity: Math.min(1, 0.7 + topbarOpacity * 0.3),
+        }}
       >
         <div className={cn(theme.container, "flex flex-wrap items-center justify-between gap-3 py-3")}>
           <div className="flex items-center gap-3">
@@ -664,7 +679,7 @@ const beforeAfterItems = useMemo(
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-120px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative overflow-hidden rounded-[32px] border border-white/10"
+              className="relative min-h-[260px] overflow-hidden rounded-[32px] border border-white/10 sm:min-h-[360px]"
             >
               {/* FULL BACKGROUND IMAGE */}
               <Img
@@ -678,7 +693,7 @@ const beforeAfterItems = useMemo(
                 <Button
                   className={cn(
                     theme.btnPrimary,
-                    "w-full max-w-lg px-6 py-3 text-sm sm:w-auto sm:px-8 sm:py-3.5 sm:text-base"
+                    "hidden w-full max-w-lg px-6 py-3 text-sm sm:inline-flex sm:w-auto sm:px-8 sm:py-3.5 sm:text-base"
                   )}
                   onClick={() => openLead("Ücretsiz Danışmanlık")}
                 >
@@ -779,15 +794,22 @@ const beforeAfterItems = useMemo(
           </div>
 
           <div className="grid w-full grid-cols-2 gap-3 sm:gap-5 lg:flex lg:flex-row lg:justify-center lg:gap-10">
-            <div className={cn(theme.tile, "relative w-full overflow-hidden p-5 sm:p-6")}>
-              <Img src={ASSETS.hairDiagram} alt="Daha güçlü saç diyagramı" className="h-36 sm:h-44 lg:h-52" />
-              <div className="mt-3 text-center text-lg font-semibold sm:mt-4 sm:text-xl">Daha güçlü saç</div>
-            </div>
-            <div className="hidden h-32 w-px bg-white/15 lg:block" />
-            <div className={cn(theme.tile, "relative w-full overflow-hidden p-5 sm:p-6")}>
-              <Img src={ASSETS.skinDiagram} alt="Daha yenilenmiş cilt diyagramı" className="h-36 sm:h-44 lg:h-52" />
-              <div className="mt-3 text-center text-lg font-semibold sm:mt-4 sm:text-xl">Daha yenilenmiş cilt</div>
-            </div>
+            {regenerationTiles.map((item, index) => (
+              <React.Fragment key={item.key}>
+                <div className="flex flex-col">
+                  <div className={cn(theme.tile, "relative w-full overflow-hidden p-0 sm:p-6")}>
+                    <div className="relative aspect-[3/4] w-full sm:aspect-[4/5] lg:aspect-[5/6]">
+                      <Img src={item.src} alt={`${item.title} diyagramı`} className="h-full w-full object-cover" />
+                    </div>
+                    <div className="hidden sm:block">
+                      <div className="mt-4 text-center text-lg font-semibold sm:text-xl">{item.title}</div>
+                    </div>
+                  </div>
+                  <div className="mt-3 text-center text-sm font-semibold sm:hidden">{item.title}</div>
+                </div>
+                {index === 0 && <div className="hidden h-32 w-px bg-white/15 lg:block" />}
+              </React.Fragment>
+            ))}
           </div>
 
           <div className="flex justify-center">
