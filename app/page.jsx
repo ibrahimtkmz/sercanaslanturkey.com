@@ -644,8 +644,8 @@ const beforeAfterItems = useMemo(
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="relative overflow-hidden rounded-[32px] border border-white/10"
             >
-             <div className="relative h-[500px] w-full">
-  <Img
+             <div className="relative h-[900px] w-full">
+   <Img
     src={ASSETS.cover}
     alt="Kapak görsel"
     className="absolute inset-0 w-full h-full object-cover"
