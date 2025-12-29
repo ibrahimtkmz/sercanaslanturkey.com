@@ -1341,10 +1341,6 @@ export default function Page() {
                         </Button>
                       </div>
 
-                      <div className="text-xs text-slate-500">
-                        Alternatif: WhatsApp’tan{" "}
-                        <span className="font-medium">0546 737 22 84</span> numarasına yazabilirsiniz.
-                      </div>
                     </form>
                   </div>
                 </div>
