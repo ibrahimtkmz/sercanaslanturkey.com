@@ -1306,9 +1306,8 @@ export default function Page() {
                           onChange={(e) => setConsent(e.target.checked)}
                         />
                         <span>
-                          Bilgilerim WhatsApp mesajına eklenerek iletilsin.
+                         Detaylı Seans miktarı ve fiyat bilgisi almak istiyorum
                           <span className="block text-xs text-slate-500">
-                            (Mesajı siz onaylayıp gönderirsiniz.)
                           </span>
                         </span>
                       </label>
