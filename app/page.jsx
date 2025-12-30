@@ -26,6 +26,7 @@ const WHATSAPP_PHONE_E164 = "905467372284"; // 0546 737 22 84
 const ASSETS = {
   logo: "/assets/eksozom/logo.jpg",
   hero: "/assets/eksozom/hero-eksozom.jpg",
+  heroAlt: "/assets/eksozom/hero_image-eksozom.webp",
   heroTexture: "/assets/eksozom/hero-gg.png",
   cover: "/assets/eksozom/cta-bg.jpg?v=1",
   ctaBg: "/assets/eksozom/cta-bg.jpg?v=1",
@@ -1089,6 +1090,10 @@ export function LandingPage({ initialSlug = "eksozom" }) {
 
   const applicationNames = NAV_ITEMS.map((i) => i.label).join(", ");
   const activeSlug = useMemo(() => pathname?.replace(/^\//, "") || "eksozom", [pathname]);
+  const heroImage = useMemo(
+    () => (isEksozom ? visuals.hero : ASSETS.heroAlt),
+    [isEksozom, visuals.hero]
+  );
 
   return (
     <div className={theme.page}>
@@ -1190,7 +1195,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                     ) : (
                       <div className={cn(theme.tile, "relative overflow-hidden border-white/15 p-0")}>
                         <Img
-                          src={visuals.hero}
+                          src={heroImage}
                           alt={`${content.interestName} görseli`}
                           className="h-[260px] w-full object-cover sm:h-[300px]"
                         />
@@ -1511,7 +1516,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                   isEksozom
                     ? undefined
                     : {
-                        backgroundImage: `url(${visuals.hero})`,
+                        backgroundImage: `url(${heroImage})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                       }
