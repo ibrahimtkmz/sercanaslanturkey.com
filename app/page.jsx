@@ -52,15 +52,15 @@ const TREATMENT_VISUALS = {
     cover: ASSETS.cover,
   },
   "ozon-terapi": {
-    hero: "/assets/eksozom/ozon-terapi.png",
+    hero: ASSETS.heroTexture,
     cover: ASSETS.cover,
   },
   mezoterapi: {
-    hero: "/assets/eksozom/mezoterapi.png",
+    hero: ASSETS.heroTexture,
     cover: ASSETS.cover,
   },
   botox: {
-    hero: "/assets/eksozom/botox.png",
+    hero: ASSETS.heroTexture,
     cover: ASSETS.cover,
   },
 };
@@ -1000,7 +1000,6 @@ export function LandingPage({ initialSlug = "eksozom" }) {
   const [inlineConsent, setInlineConsent] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-  const isEksozom = content.slug === "eksozom";
   const visuals = useMemo(
     () => TREATMENT_VISUALS[content.slug] || TREATMENT_VISUALS.eksozom,
     [content.slug]
@@ -1185,18 +1184,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                   </h1>
 
                   <div className="mt-6">
-                    {isEksozom ? (
-                      <HairStrandStrengthAnim />
-                    ) : (
-                      <div className={cn(theme.tile, "relative overflow-hidden border-white/15 p-0")}>
-                        <Img
-                          src={visuals.hero}
-                          alt={`${content.interestName} görseli`}
-                          className="h-[260px] w-full object-cover sm:h-[300px]"
-                        />
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
-                      </div>
-                    )}
+                    <HairStrandStrengthAnim />
                   </div>
 
                   <div className="mt-6 grid gap-2">
@@ -1507,19 +1495,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <Card
                 key={sec.t}
                 className={cn(theme.card, "relative overflow-hidden")}
-                style={
-                  isEksozom
-                    ? undefined
-                    : {
-                        backgroundImage: `url(${visuals.hero})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }
-                }
               >
-                {!isEksozom && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/50 to-black/25" />
-                )}
                 <CardContent className="relative p-6 sm:p-8">
                   <div className="text-lg font-semibold text-[#D28FB0]">{sec.t}</div>
                   <div className={cn("mt-2 text-sm", theme.textSub)}>{sec.p}</div>
