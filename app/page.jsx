@@ -30,8 +30,8 @@ const ASSETS = {
   cover: "/assets/eksozom/cta-bg.jpg?v=1",
   ctaBg: "/assets/eksozom/cta-bg.jpg?v=1",
   doctor: "/assets/eksozom/doctor-ibrahim.jpg",
-  g1: "/assets/eksozom/cilt-yenilenme.jpg",
-  g2: "/assets/eksozom/sac-koku-yakin.jpg",
+  g1: "/assets/eksozom/hero-eksozom.jpg",
+  g2: "/assets/eksozom/hero_image-eksozom.webp",
   g9: "/assets/eksozom/eksozom-uygulama.jpg",
   hairDiagram: "/assets/eksozom/section-infographic-left.png",
   skinDiagram: "/assets/eksozom/section-infographic-right.png",
@@ -1512,13 +1512,19 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <Card
                 key={sec.t}
                 className={cn(theme.card, "relative overflow-hidden")}
-                style={{
-                  backgroundImage: `url(${visuals.hero})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
+                style={
+                  isEksozom
+                    ? undefined
+                    : {
+                        backgroundImage: `url(${visuals.hero})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }
+                }
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/50 to-black/25" />
+                {!isEksozom && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/50 to-black/25" />
+                )}
                 <CardContent className="relative p-6 sm:p-8">
                   <div className="text-lg font-semibold text-[#D28FB0]">{sec.t}</div>
                   <div className={cn("mt-2 text-sm", theme.textSub)}>{sec.p}</div>
