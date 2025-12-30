@@ -1241,9 +1241,9 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-120px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative flex min-h-[260px] items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-black/20 sm:min-h-[720px]"
+              className="relative flex min-h-[260px] items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-black/20 sm:min-h-[360px]"
             >
-              <div className="relative aspect-[4/5] w-[75%] max-w-[520px] sm:w-[65%] lg:w-1/2">
+              <div className="relative aspect-[4/5] w-[55%] max-w-[720px] sm:w-[65%] lg:w-1/2">
                 <Img
                   src={visuals.cover}
                   alt="Kapak görsel"
