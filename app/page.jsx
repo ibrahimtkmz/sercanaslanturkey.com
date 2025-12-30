@@ -1241,14 +1241,16 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-120px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative min-h-[260px] overflow-hidden rounded-[32px] border border-white/10 sm:min-h-[360px]"
+              className="relative flex min-h-[260px] items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-black/20 sm:min-h-[360px]"
             >
-              <Img
-                src={visuals.cover}
-                alt="Kapak görsel"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
+              <div className="relative aspect-[4/5] w-[75%] max-w-[520px] sm:w-[65%] lg:w-1/2">
+                <Img
+                  src={visuals.cover}
+                  alt="Kapak görsel"
+                  className="h-full w-full rounded-[28px] object-cover shadow-[0_16px_80px_rgba(0,0,0,0.35)]"
+                />
+                <div className="absolute inset-0 rounded-[28px] bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
+              </div>
             </motion.div>
           </div>
         </div>
