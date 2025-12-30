@@ -1337,7 +1337,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
         <motion.div {...fadeUp} className="grid gap-4 md:grid-cols-3">
           {[ASSETS.g3, ASSETS.g4, ASSETS.g5, ASSETS.g6, ASSETS.g7, ASSETS.g8].map((src, i) => (
             <div key={i} className={cn(theme.tile, "overflow-hidden")}> 
-              <Img src={src} alt={`Galeri ${i + 1}`} className="aspect-[4/3] max-h-[240px]" />
+              <Img src={src} alt={`Galeri ${i + 1}`} className="aspect-[4/3] max-h-[168px]" />
             </div>
           ))}
         </motion.div>
