@@ -1164,18 +1164,6 @@ export function LandingPage({ initialSlug = "eksozom" }) {
           </div>
 
           <div className="flex items-center gap-2">
-            <a
-              href={`https://wa.me/${WHATSAPP_PHONE_E164}`}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(
-                "hidden sm:inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm",
-                "hover:bg-white/10"
-              )}
-            >
-              <Phone className="h-4 w-4" />
-              <span>+90 546 737 22 84</span>
-            </a>
             <Button
               className={cn(
                 theme.btnPrimary,
