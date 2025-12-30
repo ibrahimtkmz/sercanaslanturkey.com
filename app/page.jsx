@@ -53,15 +53,15 @@ const TREATMENT_VISUALS = {
   },
   "ozon-terapi": {
     hero: "/assets/eksozom/ozon-terapi.png",
-    cover: "/assets/eksozom/ozon-terapi.png",
+    cover: ASSETS.cover,
   },
   mezoterapi: {
     hero: "/assets/eksozom/mezoterapi.png",
-    cover: "/assets/eksozom/mezoterapi.png",
+    cover: ASSETS.cover,
   },
   botox: {
     hero: "/assets/eksozom/botox.png",
-    cover: "/assets/eksozom/botox.png",
+    cover: ASSETS.cover,
   },
 };
 
@@ -1056,12 +1056,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
       content.regeneration.tiles.map((title, index) => ({
         key: `${content.slug}-${index}`,
         title,
-        src:
-          content.slug === "eksozom"
-            ? [ASSETS.g2, ASSETS.g1][index % 2]
-            : index % 2 === 0
-              ? ASSETS.hairDiagram
-              : ASSETS.skinDiagram,
+        src: [ASSETS.g2, ASSETS.g1][index % 2],
       })),
     [content.regeneration.tiles, content.slug]
   );
