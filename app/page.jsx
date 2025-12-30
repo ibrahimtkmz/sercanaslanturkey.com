@@ -1168,7 +1168,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
         </div>
       </div>
 
-      <section className="relative overflow-hidden pt-6 pb-2">
+      <section className="relative overflow-hidden py-4 lg:py-6 min-h-[calc(100vh-96px)]">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#6B4C8C]/25 blur-[120px]" />
           <div className="absolute -right-40 top-10 h-[560px] w-[560px] rounded-full bg-[#D28FB0]/20 blur-[130px]" />
@@ -1176,7 +1176,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
         </div>
 
         <div className="mx-auto max-w-[1200px] px-6 sm:px-8">
-          <div className="grid gap-6 lg:min-h-[680px] lg:grid-cols-[52%_48%] lg:gap-8">
+          <div className="grid gap-6 lg:min-h-[calc(100vh-140px)] lg:grid-cols-[52%_48%] lg:gap-8 lg:items-stretch">
             <div className="flex items-center">
               <div className="w-full py-8 sm:py-12">
                 <motion.div {...fadeUp}>
@@ -1232,7 +1232,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-120px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative min-h-[260px] overflow-hidden rounded-[32px] border border-white/10 sm:min-h-[360px]"
+              className="relative min-h-[260px] overflow-hidden rounded-[32px] border border-white/10 sm:min-h-[360px] lg:min-h-full lg:h-full"
             >
               <Img
                 src={visuals.cover}
