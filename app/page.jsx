@@ -27,6 +27,9 @@ const ASSETS = {
   logo: "/assets/eksozom/logo.jpg",
   hero: "/assets/eksozom/hero-eksozom.jpg",
   heroTexture: "/assets/eksozom/hero-gg.png",
+  ozonTerapiVisual: "/assets/eksozom/ozon-terapi.png",
+  mezoterapiVisual: "/assets/eksozom/mezoterapi.png",
+  botoxVisual: "/assets/eksozom/botox.png",
   cover: "/assets/eksozom/cta-bg.jpg?v=1",
   ctaBg: "/assets/eksozom/cta-bg.jpg?v=1",
   doctor: "/assets/eksozom/doctor-ibrahim.jpg",
@@ -52,15 +55,15 @@ const TREATMENT_VISUALS = {
     cover: ASSETS.cover,
   },
   "ozon-terapi": {
-    hero: ASSETS.heroTexture,
+    hero: ASSETS.ozonTerapiVisual,
     cover: ASSETS.cover,
   },
   mezoterapi: {
-    hero: ASSETS.heroTexture,
+    hero: ASSETS.mezoterapiVisual,
     cover: ASSETS.cover,
   },
   botox: {
-    hero: ASSETS.heroTexture,
+    hero: ASSETS.botoxVisual,
     cover: ASSETS.cover,
   },
 };
