@@ -14,6 +14,7 @@ import {
   BadgeCheck,
   MapPin,
   ChevronDown,
+  X,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -1012,6 +1013,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
   const [inlineConsent, setInlineConsent] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [activeImage, setActiveImage] = useState(null);
   const visuals = useMemo(
     () => TREATMENT_VISUALS[content.slug] || TREATMENT_VISUALS.eksozom,
     [content.slug]
@@ -1043,7 +1045,10 @@ export function LandingPage({ initialSlug = "eksozom" }) {
 
   useEffect(() => {
     const onKey = (ev) => {
-      if (ev.key === "Escape") setIsOpen(false);
+      if (ev.key === "Escape") {
+        setIsOpen(false);
+        setActiveImage(null);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -1344,10 +1349,22 @@ export function LandingPage({ initialSlug = "eksozom" }) {
 
       <section className={cn(theme.container, "pb-12")}> 
         <motion.div {...fadeUp} className="grid gap-4 md:grid-cols-3">
-          {beforeAfterItems.map((item, index) => (
-            <div key={item.src} className={cn(theme.tile, "overflow-hidden")}> 
-              <Img src={item.src} alt={item.alt} className="aspect-[4/3] max-h-[168px]" />
-            </div>
+          {beforeAfterItems.map((item) => (
+            <button
+              key={item.src}
+              type="button"
+              onClick={() => setActiveImage(item)}
+              className={cn(
+                theme.tile,
+                "group overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+              )}
+            > 
+              <Img
+                src={item.src}
+                alt={item.alt}
+                className="aspect-[4/3] max-h-[218px] transition duration-300 group-hover:scale-[1.03]"
+              />
+            </button>
           ))}
         </motion.div>
 
@@ -1809,6 +1826,40 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                   </div>
                 </div>
               </Card>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {activeImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 p-6"
+            onClick={() => setActiveImage(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 180, damping: 18 }}
+              className="relative w-full max-w-5xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setActiveImage(null)}
+                className="absolute -right-3 -top-3 z-10 rounded-full bg-white/10 p-2 text-white shadow-lg backdrop-blur transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                aria-label="Kapat"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/5 shadow-2xl">
+                <Img src={activeImage.src} alt={activeImage.alt} className="max-h-[80vh]" />
+              </div>
+              <div className="mt-3 text-center text-sm text-white/80">{activeImage.alt}</div>
             </motion.div>
           </motion.div>
         )}
