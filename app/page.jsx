@@ -1168,7 +1168,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
         </div>
       </div>
 
-      <section className="relative overflow-hidden py-4 lg:py-6 min-h-[calc(50vh-96px)]">
+      <section className="relative overflow-hidden py-2 lg:py-3 min-h-[calc(50vh-96px)]">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#6B4C8C]/25 blur-[120px]" />
           <div className="absolute -right-40 top-10 h-[560px] w-[560px] rounded-full bg-[#D28FB0]/20 blur-[130px]" />
