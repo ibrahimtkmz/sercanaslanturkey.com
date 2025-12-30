@@ -805,150 +805,6 @@ function BackgroundHairField() {
   );
 }
 
-function HairStrandStrengthAnim() {
-  const strands = useMemo(() => [140, 260, 380], []);
-
-  return (
-    <div className="relative w-full max-w-[520px]">
-      <div className="absolute -inset-3 rounded-[28px] bg-gradient-to-r from-[#6B4C8C]/15 to-[#D28FB0]/15 blur-2xl" />
-      <div className={cn(theme.tile, "relative overflow-hidden p-4")}>
-        <div className="mt-1">
-          <motion.svg
-            viewBox="0 0 520 160"
-            className="h-[110px] w-full"
-            initial="rest"
-            animate="run"
-          >
-            <line
-              x1="0"
-              y1="95"
-              x2="520"
-              y2="95"
-              stroke="rgba(255,255,255,0.25)"
-              strokeWidth="2"
-            />
-
-            {strands.map((x, i) => {
-              const delay = i * 0.18;
-
-              return (
-                <motion.g
-                  key={x}
-                  style={{ transformOrigin: `${x}px 95px` }}
-                  variants={{
-                    rest: {
-                      opacity: 0.6,
-                      filter: "drop-shadow(0px 0px 0px rgba(210,143,176,0))",
-                    },
-                    run: {
-                      opacity: 1,
-                      filter: "drop-shadow(0px 0px 10px rgba(210,143,176,0.18))",
-                      transition: {
-                        duration: 0.9,
-                        ease: "easeInOut",
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        delay,
-                      },
-                    },
-                  }}
-                >
-                  <motion.path
-                    d={`M ${x} 95
-                        C ${x - 18} 98, ${x - 26} 120, ${x} 126
-                        C ${x + 26} 120, ${x + 18} 98, ${x} 95 Z`}
-                    fill="url(#rootGrad)"
-                    variants={{
-                      rest: { scale: 0.92 },
-                      run: {
-                        scale: 1.08,
-                        transition: {
-                          duration: 0.9,
-                          ease: "easeInOut",
-                          repeat: Infinity,
-                          repeatType: "reverse",
-                          delay,
-                        },
-                      },
-                    }}
-                    style={{ transformOrigin: `${x}px 95px` }}
-                  />
-
-                  <motion.path
-                    d={`M ${x} 95
-                        C ${x - 22} 62, ${x - 10} 30, ${x - 2} 10`}
-                    fill="none"
-                    stroke="url(#hairGrad)"
-                    strokeLinecap="round"
-                    variants={{
-                      rest: { strokeWidth: 7 },
-                      run: {
-                        strokeWidth: 13,
-                        transition: {
-                          duration: 0.9,
-                          ease: "easeInOut",
-                          repeat: Infinity,
-                          repeatType: "reverse",
-                          delay,
-                        },
-                      },
-                    }}
-                  />
-
-                  <motion.path
-                    d={`M ${x - 2} 10 C ${x - 4} 8, ${x - 6} 6, ${x - 8} 4`}
-                    fill="none"
-                    stroke="rgba(255,255,255,0.55)"
-                    strokeLinecap="round"
-                    variants={{
-                      rest: { opacity: 0.15, strokeWidth: 1 },
-                      run: {
-                        opacity: 0.45,
-                        strokeWidth: 1.6,
-                        transition: {
-                          duration: 0.9,
-                          ease: "easeInOut",
-                          repeat: Infinity,
-                          repeatType: "reverse",
-                          delay,
-                        },
-                      },
-                    }}
-                  />
-                </motion.g>
-              );
-            })}
-
-            <defs>
-              <linearGradient
-                id="hairGrad"
-                x1="0"
-                y1="95"
-                x2="0"
-                y2="10"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop offset="0" stopColor="#6B4C8C" />
-                <stop offset="1" stopColor="#D28FB0" />
-              </linearGradient>
-              <radialGradient id="rootGrad" cx="0.5" cy="0.25" r="0.95">
-                <stop offset="0" stopColor="#D28FB0" />
-                <stop offset="1" stopColor="#6B4C8C" />
-              </radialGradient>
-            </defs>
-          </motion.svg>
-        </div>
-
-        <div className="mt-2 flex flex-wrap gap-2">
-          <span className={cn(theme.chip, "bg-white/0")}>Kökten güçlenme</span>
-          <span className={cn(theme.chip, "bg-white/0")}>Daha kalın saç telleri</span>
-          <span className={cn(theme.chip, "bg-white/0")}>Canlı foliküller</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
 
@@ -1000,7 +856,6 @@ export function LandingPage({ initialSlug = "eksozom" }) {
   const [inlineConsent, setInlineConsent] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-  const isEksozom = content.slug === "eksozom";
   const visuals = useMemo(
     () => TREATMENT_VISUALS[content.slug] || TREATMENT_VISUALS.eksozom,
     [content.slug]
@@ -1185,18 +1040,16 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                   </h1>
 
                   <div className="mt-6">
-                    {isEksozom ? (
-                      <HairStrandStrengthAnim />
-                    ) : (
-                      <div className={cn(theme.tile, "relative overflow-hidden border-white/15 p-0")}>
+                    <div className={cn(theme.tile, "relative overflow-hidden border-white/15 p-0")}> 
+                      <div className="flex h-[160px] items-center justify-center bg-white/5 sm:h-[180px]">
                         <Img
                           src={visuals.hero}
                           alt={`${content.interestName} görseli`}
-                          className="h-[260px] w-full object-cover sm:h-[300px]"
+                          className="h-[120px] w-auto object-contain sm:h-[140px]"
                         />
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
                       </div>
-                    )}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent" />
+                    </div>
                   </div>
 
                   <div className="mt-6 grid gap-2">
@@ -1241,12 +1094,13 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-120px" }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative min-h-[260px] overflow-hidden rounded-[32px] border border-white/10 sm:min-h-[360px]"
+              className="relative min-h-[260px] overflow-hidden rounded-[32px] border border-white/10 bg-black/30 sm:min-h-[360px]"
             >
               <Img
                 src={visuals.cover}
                 alt="Kapak görsel"
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-contain"
+                style={{ transform: "scale(0.5)", transformOrigin: "center" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
             </motion.div>
@@ -1269,7 +1123,8 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                 className={cn(theme.card, "relative overflow-hidden")} 
                 style={{
                   backgroundImage: `url(${TREATMENT_VISUALS[t.slug]?.hero || ASSETS.heroTexture})`,
-                  backgroundSize: "cover",
+                  backgroundSize: "50%",
+                  backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                 }}
               >
@@ -1507,19 +1362,14 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <Card
                 key={sec.t}
                 className={cn(theme.card, "relative overflow-hidden")}
-                style={
-                  isEksozom
-                    ? undefined
-                    : {
-                        backgroundImage: `url(${visuals.hero})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }
-                }
+                style={{
+                  backgroundImage: `url(${visuals.hero})`,
+                  backgroundSize: "50%",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                }}
               >
-                {!isEksozom && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/50 to-black/25" />
-                )}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/50 to-black/25" />
                 <CardContent className="relative p-6 sm:p-8">
                   <div className="text-lg font-semibold text-[#D28FB0]">{sec.t}</div>
                   <div className={cn("mt-2 text-sm", theme.textSub)}>{sec.p}</div>
