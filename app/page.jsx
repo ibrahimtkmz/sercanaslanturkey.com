@@ -1128,7 +1128,15 @@ export function LandingPage({ initialSlug = "eksozom" }) {
       >
         <div className={cn(theme.container, "flex flex-wrap items-center justify-between gap-3 py-3")}> 
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-2xl bg-gradient-to-br from-[#6B4C8C] to-[#D28FB0]" />
+            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl border border-white/15 bg-white/5">
+              <img
+                src={ASSETS.logo}
+                alt="Sercan Aslan Clinic logo"
+                className="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
             <div className="leading-tight">
               <div className="text-sm font-semibold tracking-tight">Sercan Aslan Clinic</div>
               <div className={cn("text-xs", theme.textMuted)}>{content.topbarTagline}</div>
