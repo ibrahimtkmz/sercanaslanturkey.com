@@ -240,7 +240,7 @@ const TREATMENTS = {
       tiles: ["Dolaşım ve Oksijen", "Detoks ve Canlanma"],
     },
     mosaicNote:
-      "Sercan Aslan Clinic, ozon terapiyle dolaşım, detoks ve enerji desteğini hedefleyen kişiye özel protokoller planlar.",
+      
     whyIntro:
       "Sercan Aslan Clinic, ozon uygulamalarında steril altyapı, doktor kontrolü ve ihtiyaca göre ayarlanmış dozlarla güvenli bir süreç sunar.",
     whyBullets: [
