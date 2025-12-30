@@ -1056,7 +1056,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
       content.regeneration.tiles.map((title, index) => ({
         key: `${content.slug}-${index}`,
         title,
-        src: [ASSETS.g2, ASSETS.g1][index % 2],
+        src: [ASSETS.hairDiagram, ASSETS.skinDiagram][index % 2],
       })),
     [content.regeneration.tiles, content.slug]
   );
