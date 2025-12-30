@@ -46,6 +46,25 @@ const ASSETS = {
   g8: "/assets/eksozom/danismanlik.jpg",
 };
 
+const TREATMENT_VISUALS = {
+  eksozom: {
+    hero: ASSETS.heroTexture,
+    cover: ASSETS.cover,
+  },
+  "ozon-terapi": {
+    hero: "/assets/eksozom/ozon-terapi.png",
+    cover: "/assets/eksozom/ozon-terapi.png",
+  },
+  mezoterapi: {
+    hero: "/assets/eksozom/mezoterapi.png",
+    cover: "/assets/eksozom/mezoterapi.png",
+  },
+  botox: {
+    hero: "/assets/eksozom/botox.png",
+    cover: "/assets/eksozom/botox.png",
+  },
+};
+
 const TREATMENTS = {
   eksozom: {
     slug: "eksozom",
@@ -982,6 +1001,10 @@ export function LandingPage({ initialSlug = "eksozom" }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const isEksozom = content.slug === "eksozom";
+  const visuals = useMemo(
+    () => TREATMENT_VISUALS[content.slug] || TREATMENT_VISUALS.eksozom,
+    [content.slug]
+  );
 
   useEffect(() => {
     setSelectedInterest(content.interestName);
@@ -1033,7 +1056,12 @@ export function LandingPage({ initialSlug = "eksozom" }) {
       content.regeneration.tiles.map((title, index) => ({
         key: `${content.slug}-${index}`,
         title,
-        src: index % 2 === 0 ? ASSETS.hairDiagram : ASSETS.skinDiagram,
+        src:
+          content.slug === "eksozom"
+            ? [ASSETS.g2, ASSETS.g1][index % 2]
+            : index % 2 === 0
+              ? ASSETS.hairDiagram
+              : ASSETS.skinDiagram,
       })),
     [content.regeneration.tiles, content.slug]
   );
@@ -1167,7 +1195,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                     ) : (
                       <div className={cn(theme.tile, "relative overflow-hidden border-white/15 p-0")}>
                         <Img
-                          src={ASSETS.heroTexture}
+                          src={visuals.hero}
                           alt={`${content.interestName} görseli`}
                           className="h-[260px] w-full object-cover sm:h-[300px]"
                         />
@@ -1221,7 +1249,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               className="relative min-h-[260px] overflow-hidden rounded-[32px] border border-white/10 sm:min-h-[360px]"
             >
               <Img
-                src={ASSETS.cover}
+                src={visuals.cover}
                 alt="Kapak görsel"
                 className="absolute inset-0 h-full w-full object-cover"
               />
@@ -1245,7 +1273,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                 key={t.key}
                 className={cn(theme.card, "relative overflow-hidden")} 
                 style={{
-                  backgroundImage: `url(${ASSETS.heroTexture})`,
+                  backgroundImage: `url(${TREATMENT_VISUALS[t.slug]?.hero || ASSETS.heroTexture})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -1485,7 +1513,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                 key={sec.t}
                 className={cn(theme.card, "relative overflow-hidden")}
                 style={{
-                  backgroundImage: `url(${ASSETS.heroTexture})`,
+                  backgroundImage: `url(${visuals.hero})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
