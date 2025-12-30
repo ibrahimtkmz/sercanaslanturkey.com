@@ -49,6 +49,15 @@ const ASSETS = {
   g8: "/assets/eksozom/danismanlik.jpg",
 };
 
+const BEFORE_AFTER_GALLERY = [
+  "/assets/eksozom/eksozom-1.png",
+  "/assets/eksozom/eksozom-2.png",
+  "/assets/eksozom/eksozom-3.png",
+  "/assets/eksozom/eksozom-4.png",
+  "/assets/eksozom/eksozom-5.png",
+  "/assets/eksozom/eksozom-6.png",
+];
+
 const TREATMENT_VISUALS = {
   eksozom: {
     hero: ASSETS.heroTexture,
@@ -1064,11 +1073,11 @@ export function LandingPage({ initialSlug = "eksozom" }) {
   );
 
   const beforeAfterItems = useMemo(
-    () => [
-      { src: ASSETS.beforeFace, alt: `${content.interestName} cilt öncesi sonrası` },
-      { src: ASSETS.beforeHair, alt: `${content.interestName} saç öncesi sonrası` },
-      { src: ASSETS.beforeEye, alt: `${content.interestName} göz çevresi öncesi sonrası` },
-    ],
+    () =>
+      BEFORE_AFTER_GALLERY.map((src, index) => ({
+        src,
+        alt: `${content.interestName} öncesi/sonrası ${index + 1}`,
+      })),
     [content.interestName]
   );
 
@@ -1335,9 +1344,9 @@ export function LandingPage({ initialSlug = "eksozom" }) {
 
       <section className={cn(theme.container, "pb-12")}> 
         <motion.div {...fadeUp} className="grid gap-4 md:grid-cols-3">
-          {[ASSETS.g3, ASSETS.g4, ASSETS.g5, ASSETS.g6, ASSETS.g7, ASSETS.g8].map((src, i) => (
-            <div key={i} className={cn(theme.tile, "overflow-hidden")}> 
-              <Img src={src} alt={`Galeri ${i + 1}`} className="aspect-[4/3] max-h-[168px]" />
+          {beforeAfterItems.map((item, index) => (
+            <div key={item.src} className={cn(theme.tile, "overflow-hidden")}> 
+              <Img src={item.src} alt={item.alt} className="aspect-[4/3] max-h-[168px]" />
             </div>
           ))}
         </motion.div>
