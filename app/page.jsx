@@ -3,7 +3,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MessageCircle,
@@ -14,7 +13,6 @@ import {
   Clock,
   BadgeCheck,
   MapPin,
-  Star,
   ChevronDown,
   X,
 } from "lucide-react";
@@ -33,8 +31,8 @@ const ASSETS = {
   ozonTerapiVisual: "/assets/eksozom/ozon-terapi.png",
   mezoterapiVisual: "/assets/eksozom/mezoterapi.png",
   botoxVisual: "/assets/eksozom/botox.png",
-  cover: "/assets/eksozom/cta-bg.jpg",
-  ctaBg: "/assets/eksozom/cta-bg.jpg",
+  cover: "/assets/eksozom/cta-bg.jpg?v=1",
+  ctaBg: "/assets/eksozom/cta-bg.jpg?v=1",
   doctor: "/assets/eksozom/doctor-ibrahim.jpg",
   g1: "/assets/eksozom/hero-eksozom.jpg",
   g2: "/assets/eksozom/hero_image-eksozom.webp",
@@ -699,21 +697,18 @@ function SectionTitle({ kicker, title, desc }) {
   );
 }
 
-function Img({ src, alt, className, wrapperClassName, sizes = "100vw", priority = false }) {
+function Img({ src, alt, className }) {
   return (
-    <div className={cn("relative bg-white/5", wrapperClassName)}>
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes={sizes}
-        priority={priority}
-        className={cn("object-cover", className)}
-        onError={(e) => {
-          e.currentTarget.style.opacity = "0";
-        }}
-      />
-    </div>
+    <img
+      src={src}
+      alt={alt}
+      className={cn("block h-full w-full object-cover", "bg-white/5", className)}
+      loading="lazy"
+      decoding="async"
+      onError={(e) => {
+        e.currentTarget.style.opacity = "0";
+      }}
+    />
   );
 }
 
@@ -1252,9 +1247,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <Img
                 src={visuals.cover}
                 alt="Kapak görsel"
-                wrapperClassName="absolute inset-0"
-                sizes="(min-width: 1024px) 48vw, 100vw"
-                priority
+                className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
             </motion.div>
@@ -1327,12 +1320,9 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <React.Fragment key={item.key}>
                 <div className="flex flex-col">
                   <div className={cn(theme.tile, "relative w-full overflow-hidden p-0 sm:p-6")}> 
-                    <Img
-                      src={item.src}
-                      alt={`${item.title} diyagramı`}
-                      wrapperClassName="relative aspect-[3/4] w-full sm:aspect-[4/5] lg:aspect-[5/6]"
-                      sizes="(min-width: 1024px) 20vw, 50vw"
-                    />
+                    <div className="relative aspect-[3/4] w-full sm:aspect-[4/5] lg:aspect-[5/6]">
+                      <Img src={item.src} alt={`${item.title} diyagramı`} className="h-full w-full object-cover" />
+                    </div>
                     <div className="hidden sm:block">
                       <div className="mt-4 text-center text-lg font-semibold sm:text-xl">{item.title}</div>
                     </div>
@@ -1368,9 +1358,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <Img
                 src={item.src}
                 alt={item.alt}
-                wrapperClassName="aspect-[4/3] max-h-[218px]"
-                className="transition duration-300 group-hover:scale-[1.03]"
-                sizes="(min-width: 768px) 30vw, 90vw"
+                className="aspect-[4/3] max-h-[218px] transition duration-300 group-hover:scale-[1.03]"
               />
             </button>
           ))}
@@ -1614,94 +1602,6 @@ export function LandingPage({ initialSlug = "eksozom" }) {
             {content.faq.map((item) => (
               <FAQItem key={item.q} q={item.q} a={item.a} />
             ))}
-          </div>
-        </motion.div>
-      </section>
-
-      <section className="relative py-16">
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0b1022] via-[#101831] to-[#0b1022]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_20%,rgba(210,143,176,0.12),transparent_42%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_30%,rgba(107,76,140,0.12),transparent_40%)]" />
-        </div>
-        <motion.div {...fadeUp} className={cn(theme.container, "relative")}> 
-          <SectionTitle
-            title="Google Yorumları ve Konum"
-            desc="Danışanlarımızın paylaştığı deneyimleri inceleyin, kliniğimizin konumunu haritada görün."
-          />
-
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <div className="space-y-4">
-              <Card className={cn(theme.card, "border-white/15 bg-white/5")}> 
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1 text-amber-300">
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <Star key={i} className="h-5 w-5 fill-amber-300 text-amber-300" />
-                      ))}
-                    </div>
-                    <div>
-                      <div className="text-lg font-semibold">4.9 / 5</div>
-                      <div className={cn("text-sm", theme.textSub)}>Google yorum puanı</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {[ 
-                {
-                  name: "Ece D.",
-                  text: "Saç dökülmem için geldiğimde süreç çok detaylı anlatıldı, 2. aydan itibaren belirgin şekilde güçlenme hissettim. Klinik ekibi çok ilgili.",
-                  time: "3 hafta önce"
-                },
-                {
-                  name: "Mert A.",
-                  text: "Eksozom ve ozon kombinasyonundan çok memnun kaldım. Her seansta doktor kontrolleri ve açıklamalar sayesinde kendimi güvende hissettim.",
-                  time: "1 ay önce"
-                },
-                {
-                  name: "Elif K.",
-                  text: "Cilt parlaklığım geri geldi, leke görünümüm azaldı. Klinik temiz, randevu saatlerine dikkat ediliyor. Kesinlikle tavsiye ederim.",
-                  time: "2 ay önce"
-                },
-              ].map((review) => (
-                <Card key={review.name} className={theme.card}>
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <div className="text-sm font-semibold">{review.name}</div>
-                          <div className="flex items-center gap-1 text-amber-300">
-                            {[1, 2, 3, 4, 5].map((i) => (
-                              <Star key={i} className="h-4 w-4 fill-amber-300 text-amber-300" />
-                            ))}
-                          </div>
-                        </div>
-                        <p className={cn("mt-2 text-sm", theme.textSub)}>{review.text}</p>
-                      </div>
-                      <span className={cn("text-xs", theme.textMuted)}>{review.time}</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <Card className={cn(theme.card, "h-full border-white/15 bg-white/5")}> 
-              <CardContent className="p-2 sm:p-4">
-                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-black/30">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.1456865571736!2d28.994723475767536!3d41.06580801588089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7f4bdbae7ab%3A0x643f2261dec39eaa!2sSercan%20Aslan%20-%20Hair%20Transplant%20Turkey!5e0!3m2!1str!2str!4v1767115486967!5m2!1str!2str"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Sercan Aslan Clinic Konum"
-                  />
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </motion.div>
       </section>
@@ -1953,12 +1853,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                 <X className="h-5 w-5" />
               </button>
               <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/5 shadow-2xl">
-                <Img
-                  src={activeImage.src}
-                  alt={activeImage.alt}
-                  wrapperClassName="relative max-h-[80vh] min-h-[320px] w-full aspect-[4/3]"
-                  sizes="90vw"
-                />
+                <Img src={activeImage.src} alt={activeImage.alt} className="max-h-[80vh]" />
               </div>
               <div className="mt-3 text-center text-sm text-white/80">{activeImage.alt}</div>
             </motion.div>
