@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MessageCircle,
@@ -698,18 +699,21 @@ function SectionTitle({ kicker, title, desc }) {
   );
 }
 
-function Img({ src, alt, className }) {
+function Img({ src, alt, className, wrapperClassName, sizes = "100vw", priority = false }) {
   return (
-    <img
-      src={src}
-      alt={alt}
-      className={cn("block h-full w-full object-cover", "bg-white/5", className)}
-      loading="lazy"
-      decoding="async"
-      onError={(e) => {
-        e.currentTarget.style.opacity = "0";
-      }}
-    />
+    <div className={cn("relative bg-white/5", wrapperClassName)}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className={cn("object-cover", className)}
+        onError={(e) => {
+          e.currentTarget.style.opacity = "0";
+        }}
+      />
+    </div>
   );
 }
 
@@ -1248,7 +1252,9 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <Img
                 src={visuals.cover}
                 alt="Kapak görsel"
-                className="absolute inset-0 h-full w-full object-cover"
+                wrapperClassName="absolute inset-0"
+                sizes="(min-width: 1024px) 48vw, 100vw"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
             </motion.div>
@@ -1321,9 +1327,12 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <React.Fragment key={item.key}>
                 <div className="flex flex-col">
                   <div className={cn(theme.tile, "relative w-full overflow-hidden p-0 sm:p-6")}> 
-                    <div className="relative aspect-[3/4] w-full sm:aspect-[4/5] lg:aspect-[5/6]">
-                      <Img src={item.src} alt={`${item.title} diyagramı`} className="h-full w-full object-cover" />
-                    </div>
+                    <Img
+                      src={item.src}
+                      alt={`${item.title} diyagramı`}
+                      wrapperClassName="relative aspect-[3/4] w-full sm:aspect-[4/5] lg:aspect-[5/6]"
+                      sizes="(min-width: 1024px) 20vw, 50vw"
+                    />
                     <div className="hidden sm:block">
                       <div className="mt-4 text-center text-lg font-semibold sm:text-xl">{item.title}</div>
                     </div>
@@ -1359,7 +1368,9 @@ export function LandingPage({ initialSlug = "eksozom" }) {
               <Img
                 src={item.src}
                 alt={item.alt}
-                className="aspect-[4/3] max-h-[218px] transition duration-300 group-hover:scale-[1.03]"
+                wrapperClassName="aspect-[4/3] max-h-[218px]"
+                className="transition duration-300 group-hover:scale-[1.03]"
+                sizes="(min-width: 768px) 30vw, 90vw"
               />
             </button>
           ))}
@@ -1942,7 +1953,12 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                 <X className="h-5 w-5" />
               </button>
               <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/5 shadow-2xl">
-                <Img src={activeImage.src} alt={activeImage.alt} className="max-h-[80vh]" />
+                <Img
+                  src={activeImage.src}
+                  alt={activeImage.alt}
+                  wrapperClassName="relative max-h-[80vh] min-h-[320px] w-full aspect-[4/3]"
+                  sizes="90vw"
+                />
               </div>
               <div className="mt-3 text-center text-sm text-white/80">{activeImage.alt}</div>
             </motion.div>
