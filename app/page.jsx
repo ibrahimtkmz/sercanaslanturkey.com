@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -712,10 +712,17 @@ function Img({ src, alt, className }) {
   );
 }
 
-function BackgroundHairField() {
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+const BackgroundHairField = memo(function BackgroundHairField() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mql?.matches ?? false);
+
+    const onChange = (event) => setPrefersReducedMotion(event.matches);
+    mql?.addEventListener?.("change", onChange);
+    return () => mql?.removeEventListener?.("change", onChange);
+  }, []);
 
   const strands = useMemo(() => {
     const xs = [6, 10, 14, 19, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 94];
@@ -816,9 +823,9 @@ function BackgroundHairField() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0B1022]/30 via-transparent to-[#0B1022]/55" />
     </div>
   );
-}
+});
 
-function HairStrandStrengthAnim() {
+const HairStrandStrengthAnim = memo(function HairStrandStrengthAnim() {
   const strands = useMemo(() => [140, 260, 380], []);
 
   return (
@@ -960,7 +967,7 @@ function HairStrandStrengthAnim() {
       </div>
     </div>
   );
-}
+});
 
 function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
@@ -1011,8 +1018,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
   const [inlineEmail, setInlineEmail] = useState("");
   const [inlinePhone, setInlinePhone] = useState("");
   const [inlineConsent, setInlineConsent] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [scrollState, setScrollState] = useState({ y: 0, isScrolled: false });
   const [activeImage, setActiveImage] = useState(null);
   const visuals = useMemo(
     () => TREATMENT_VISUALS[content.slug] || TREATMENT_VISUALS.eksozom,
@@ -1055,17 +1061,37 @@ export function LandingPage({ initialSlug = "eksozom" }) {
   }, []);
 
   useEffect(() => {
+    let rafId = null;
+
     const handleScroll = () => {
-      const currentY = window.scrollY;
-      setIsScrolled(currentY > 10);
-      setScrollY(currentY);
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        const currentY = window.scrollY || 0;
+        const nextIsScrolled = currentY > 10;
+
+        setScrollState((prev) => {
+          if (
+            prev.isScrolled === nextIsScrolled &&
+            Math.abs(prev.y - currentY) < 2
+          ) {
+            return prev;
+          }
+
+          return { y: currentY, isScrolled: nextIsScrolled };
+        });
+        rafId = null;
+      });
     };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const topbarOpacity = Math.max(0.35, 1 - scrollY / 600);
+  const topbarOpacity = Math.max(0.35, 1 - scrollState.y / 600);
 
   const regenerationTiles = useMemo(
     () =>
@@ -1119,7 +1145,7 @@ export function LandingPage({ initialSlug = "eksozom" }) {
         className={cn(
           theme.topbar,
           "border-white/10",
-          isScrolled ? "shadow-[0_10px_40px_rgba(0,0,0,0.35)]" : "shadow-none"
+          scrollState.isScrolled ? "shadow-[0_10px_40px_rgba(0,0,0,0.35)]" : "shadow-none"
         )}
         style={{
           backgroundColor: `rgba(11, 16, 34, ${0.82 * topbarOpacity})`,
