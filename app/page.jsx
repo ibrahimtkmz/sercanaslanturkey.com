@@ -1498,6 +1498,14 @@ export function LandingPage({ initialSlug = "eksozom" }) {
                         required
                       />
                     </div>
+                    <p className="mt-3 text-lg font-semibold text-white">{item.title}</p>
+                    <p className="mt-2 text-sm text-slate-200">{item.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
                     <label className="flex cursor-pointer items-start gap-2 rounded-2xl border border-white/20 bg-white/5 p-3 text-sm text-white/80">
                       <input
