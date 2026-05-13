@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     <html lang="tr">
       <body className="ambient-body">
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-16989737357"
+          src="https://www.googletagmanager.com/gtag/js?id=G-0F6LB5D7E2"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -20,7 +20,6 @@ export default function RootLayout({ children }) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'AW-16989737357');
             gtag('config', 'G-0F6LB5D7E2');
           `}
         </Script>
