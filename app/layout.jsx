@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
             gtag('js', new Date());
 
             gtag('config', 'AW-16989737357');
+            gtag('config', 'G-0F6LB5D7E2');
           `}
         </Script>
         <div className="ambient-light" aria-hidden />
